@@ -15,6 +15,15 @@ MAX_WIDTH  = 1280
 # ocr模型所用数据集中，图片所用的Density渲染值（实际上图片用的渲染Density不是80，而是100）
 TEXIFY_INPUT_DENSITY  = 80    
 
+# ocr模型的tokenizer中的词典数量
+VOCAB_SIZE = 10000
+
+# ocr模型训练时，输入图片所固定的大小
+OCR_IMG_SIZE = 448
+
+# ocr模型输入图片的通道数
+OCR_IMG_CHANNELS = 1  # 灰度图
+
 # ============================================================================= #
 
 
