@@ -1,19 +1,18 @@
+from PIL import Image
+
 from ....globals import (
     VOCAB_SIZE,
     OCR_IMG_SIZE,
-    OCR_IMG_CHANNELS
+    OCR_IMG_CHANNELS,
 )
 
 from transformers import (
     ViTConfig,
     ViTModel,
-
     TrOCRConfig,
     TrOCRForCausalLM,
-
     RobertaTokenizerFast,
-
-    VisionEncoderDecoderModel
+    VisionEncoderDecoderModel,
 )
 
 
@@ -38,9 +37,18 @@ class TexTeller(VisionEncoderDecoderModel):
 
 
 if __name__ == "__main__":
-    texteller = TexTeller()
-    tokenizer = texteller.get_tokenizer('/home/lhy/code/TeXify/src/models/tokenizer/roberta-tokenizer-550Kformulas')
-    foo = ["Hello, my name is LHY.", "I am a researcher at the University of Science and Technology of China."]
-    bar = tokenizer(foo, return_special_tokens_mask=True)
+    # texteller = TexTeller()
+    from ..inference import inference
+    model = TexTeller.from_pretrained('/home/lhy/code/TeXify/src/models/ocr_model/train/train_result/checkpoint-22500')
+    tokenizer = TexTeller.get_tokenizer('/home/lhy/code/TeXify/src/models/tokenizer/roberta-tokenizer-550Kformulas')
+
+    img1 = Image.open('/home/lhy/code/TeXify/src/models/ocr_model/model/1.png')
+    img2 = Image.open('/home/lhy/code/TeXify/src/models/ocr_model/model/2.png')
+    img3 = Image.open('/home/lhy/code/TeXify/src/models/ocr_model/model/3.png')
+    img4 = Image.open('/home/lhy/code/TeXify/src/models/ocr_model/model/4.png')
+    img5 = Image.open('/home/lhy/code/TeXify/src/models/ocr_model/model/5.png')
+    img6 = Image.open('/home/lhy/code/TeXify/src/models/ocr_model/model/6.png')
+
+    res = inference(model, [img1, img2, img3, img4, img5, img6], tokenizer)
     pause = 1
 
