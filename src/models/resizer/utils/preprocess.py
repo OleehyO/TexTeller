@@ -6,6 +6,7 @@ from ....globals import (
     IMAGE_MEAN, IMAGE_STD, 
     LABEL_RATIO,
     RESIZER_IMG_SIZE,
+    NUM_CHANNELS
 )
 
 from typing import (
@@ -37,6 +38,7 @@ def preprocess_fn(samples: Dict[str, List[Any]]) -> Dict[str, List[Any]]:
     imgs = [trim_white_border(img) for img in imgs]
     labels = [float(img.height * LABEL_RATIO) for img in imgs]
 
+    assert NUM_CHANNELS == 1, "Only support grayscale images"
     transform = v2.Compose([
         v2.ToImage(),
         v2.ToDtype(torch.uint8, scale=True),
