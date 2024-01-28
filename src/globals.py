@@ -12,17 +12,25 @@ MIN_WIDTH  = 32
 MAX_WIDTH  = 1280
 # LaTex-OCR中分别是 32、192、32、672
 
-# ocr模型所用数据集中，图片所用的Density渲染值（实际上图片用的渲染Density不是80，而是100）
-TEXIFY_INPUT_DENSITY  = 80    
+# ocr模型所用数据集，pdf转图片所用的Density值(dpi)
+TEXIFY_INPUT_DENSITY = 100
 
 # ocr模型的tokenizer中的词典数量
 VOCAB_SIZE = 10000
 
-# ocr模型训练时，输入图片所固定的大小
+# ocr模型是否固定输入图片的大小
+OCR_FIX_SIZE = True
+# ocr模型训练时，输入图片所固定的大小 (when OCR_FIX_SIZE is True)
 OCR_IMG_SIZE = 448
+# ocr模型训练时，输入图片最大的宽和高（when OCR_FIX_SIZE is False）
+OCR_IMG_MAX_HEIGHT = 512
+OCR_IMG_MAX_WIDTH  = 768
 
 # ocr模型输入图片的通道数
 OCR_IMG_CHANNELS = 1  # 灰度图
+
+# ocr模型训练数据集的最长token数
+MAX_TOKEN_SIZE = 600
 
 # ============================================================================= #
 
