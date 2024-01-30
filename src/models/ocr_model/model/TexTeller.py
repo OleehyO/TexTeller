@@ -39,16 +39,21 @@ class TexTeller(VisionEncoderDecoderModel):
 if __name__ == "__main__":
     # texteller = TexTeller()
     from ..inference import inference
-    model = TexTeller.from_pretrained('/home/lhy/code/TeXify/src/models/ocr_model/train/train_result/checkpoint-22500')
+    model = TexTeller.from_pretrained('/home/lhy/code/TeXify/src/models/ocr_model/train/train_result/checkpoint-57500')
     tokenizer = TexTeller.get_tokenizer('/home/lhy/code/TeXify/src/models/tokenizer/roberta-tokenizer-550Kformulas')
 
-    img1 = Image.open('/home/lhy/code/TeXify/src/models/ocr_model/model/1.png')
-    img2 = Image.open('/home/lhy/code/TeXify/src/models/ocr_model/model/2.png')
-    img3 = Image.open('/home/lhy/code/TeXify/src/models/ocr_model/model/3.png')
-    img4 = Image.open('/home/lhy/code/TeXify/src/models/ocr_model/model/4.png')
-    img5 = Image.open('/home/lhy/code/TeXify/src/models/ocr_model/model/5.png')
-    img6 = Image.open('/home/lhy/code/TeXify/src/models/ocr_model/model/6.png')
+    base = '/home/lhy/code/TeXify/src/models/ocr_model/model'
+    imgs_path = [
+        # base + '/1.jpg',
+        # base + '/2.jpg',
+        # base + '/3.jpg',
+        # base + '/4.jpg',
+        # base + '/5.jpg',
+        # base + '/6.jpg',
+        base + '/foo.jpg'
+    ]
 
-    res = inference(model, [img1, img2, img3, img4, img5, img6], tokenizer)
+    # res = inference(model, [img1, img2, img3, img4, img5, img6, img7], tokenizer)
+    res = inference(model, imgs_path, tokenizer)
     pause = 1
 
