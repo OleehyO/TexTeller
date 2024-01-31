@@ -4,7 +4,6 @@ import numpy as np
 import cv2
 
 from torchvision.transforms import v2
-from PIL import ImageChops, Image
 from typing import List, Union
 
 from ....globals import (
@@ -107,7 +106,7 @@ def random_resize(
     ]
 
 
-def general_transform(images: List[Image.Image]) -> List[torch.Tensor]:
+def general_transform(images: List[np.ndarray]) -> List[torch.Tensor]:
     # 裁剪掉白边
     images = [trim_white_border(image) for image in images]
     # general transform pipeline
@@ -117,16 +116,16 @@ def general_transform(images: List[Image.Image]) -> List[torch.Tensor]:
     return images
 
 
-def train_transform(images: List[np.ndarray]) -> List[torch.Tensor]:
+def train_transform(images: List[List[List[List]]]) -> List[torch.Tensor]:
     assert OCR_IMG_CHANNELS == 1 , "Only support grayscale images for now"
     assert OCR_FIX_SIZE == True, "Only support fixed size images for now"
 
     # random resize first
-    # images = random_resize(images, MIN_RESIZE_RATIO, MAX_RESIZE_RATIO)
+    images = random_resize(images, MIN_RESIZE_RATIO, MAX_RESIZE_RATIO)
     return general_transform(images)
 
 
-def inference_transform(images: List[Image.Image]) -> List[torch.Tensor]:
+def inference_transform(images: List[np.ndarray]) -> List[torch.Tensor]:
     assert OCR_IMG_CHANNELS == 1 , "Only support grayscale images for now"
     assert OCR_FIX_SIZE == True, "Only support fixed size images for now"
 
