@@ -1,10 +1,12 @@
 import torch
-from datasets import load_dataset
+import numpy as np 
 
 from functools import partial
+from datasets import load_dataset
+
 from transformers import DataCollatorForLanguageModeling
 from typing import List, Dict, Any
-from ...ocr_model.model.TexTeller import TexTeller
+from ..model.TexTeller import TexTeller
 from .transforms import train_transform
 
 
@@ -19,7 +21,7 @@ def left_move(x: torch.Tensor, pad_val):
 def tokenize_fn(samples: Dict[str, List[Any]], tokenizer=None) -> Dict[str, List[Any]]:
     assert tokenizer is not None, 'tokenizer should not be None'
     tokenized_formula = tokenizer(samples['latex_formula'], return_special_tokens_mask=True)
-    tokenized_formula['pixel_values'] = samples['image']
+    tokenized_formula['pixel_values'] = [np.array(sample) for sample in samples['image']]
     return tokenized_formula
 
 
@@ -36,14 +38,13 @@ def collate_fn(samples: List[Dict[str, Any]], tokenizer=None) -> Dict[str, List[
 
     # 左移labels和decoder_attention_mask
     batch['labels'] = left_move(batch['labels'], -100)
-    batch['decoder_attention_mask'] = left_move(batch['decoder_attention_mask'], 0)
 
     # 把list of Image转成一个tensor with (B, C, H, W)
     batch['pixel_values'] = torch.stack(batch['pixel_values'], dim=0)
     return batch
 
 
-def img_preprocess(samples: Dict[str, List[Any]]) -> Dict[str, List[Any]]:
+def img_transform_fn(samples: Dict[str, List[Any]]) -> Dict[str, List[Any]]:
     processed_img = train_transform(samples['pixel_values'])
     samples['pixel_values'] = processed_img
     return samples
@@ -63,7 +64,7 @@ if __name__ == '__main__':
     tokenized_formula = tokenized_formula.to_dict()
     # tokenized_formula['pixel_values'] = dataset['image']
     # tokenized_formula = dataset.from_dict(tokenized_formula)
-    tokenized_dataset = tokenized_formula.with_transform(img_preprocess)
+    tokenized_dataset = tokenized_formula.with_transform(img_transform_fn)
 
     dataset_dict = tokenized_dataset[:]
     dataset_list = [dict(zip(dataset_dict.keys(), x)) for x in zip(*dataset_dict.values())]

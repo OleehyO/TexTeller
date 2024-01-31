@@ -1,13 +1,15 @@
 import os
+import numpy as np
 
 from functools import partial
 from pathlib import Path
 
 from datasets import load_dataset
 from transformers import Trainer, TrainingArguments, Seq2SeqTrainer, Seq2SeqTrainingArguments, GenerationConfig
+
 from .training_args import CONFIG
 from ..model.TexTeller import TexTeller
-from ..utils.preprocess import tokenize_fn, collate_fn, img_preprocess
+from ..utils.functional import tokenize_fn, collate_fn, img_transform_fn
 from ..utils.metrics import bleu_metric
 from ....globals import MAX_TOKEN_SIZE
 
@@ -38,6 +40,7 @@ def evaluate(model, tokenizer, eval_dataset, collate_fn):
         eos_token_id=tokenizer.eos_token_id,
         bos_token_id=tokenizer.bos_token_id,
     )
+    # eval_config['use_cpu'] = True
     eval_config['output_dir'] = 'debug_dir'
     eval_config['predict_with_generate'] = True
     eval_config['predict_with_generate'] = True
@@ -52,7 +55,7 @@ def evaluate(model, tokenizer, eval_dataset, collate_fn):
         model,
         seq2seq_config,
 
-        eval_dataset=eval_dataset.select(range(16)),
+        eval_dataset=eval_dataset,
         tokenizer=tokenizer, 
         data_collator=collate_fn,
         compute_metrics=partial(bleu_metric, tokenizer=tokenizer)
@@ -70,23 +73,27 @@ if __name__ == '__main__':
     os.chdir(script_dirpath)
 
 
+    # dataset = load_dataset(
+    #     '/home/lhy/code/TeXify/src/models/ocr_model/train/dataset/latex-formulas/latex-formulas.py',
+    #     'cleaned_formulas'
+    # )['train']
     dataset = load_dataset(
         '/home/lhy/code/TeXify/src/models/ocr_model/train/dataset/latex-formulas/latex-formulas.py',
         'cleaned_formulas'
-    )['train']
+    )['train'].select(range(1000))
 
-    pause = dataset[0]['image']
     tokenizer = TexTeller.get_tokenizer('/home/lhy/code/TeXify/src/models/tokenizer/roberta-tokenizer-550Kformulas')
 
     map_fn = partial(tokenize_fn, tokenizer=tokenizer)
-    tokenized_dataset = dataset.map(map_fn, batched=True, remove_columns=dataset.column_names, num_proc=8)
-    tokenized_dataset = tokenized_dataset.with_transform(img_preprocess)
+    # tokenized_dataset = dataset.map(map_fn, batched=True, remove_columns=dataset.column_names, num_proc=8, load_from_cache_file=False)
+    tokenized_dataset = dataset.map(map_fn, batched=True, remove_columns=dataset.column_names, num_proc=1, load_from_cache_file=False)
+    tokenized_dataset = tokenized_dataset.with_transform(img_transform_fn)
 
     split_dataset = tokenized_dataset.train_test_split(test_size=0.05, seed=42)    
     train_dataset, eval_dataset = split_dataset['train'], split_dataset['test']
     collate_fn_with_tokenizer = partial(collate_fn, tokenizer=tokenizer)
     # model = TexTeller()
-    model = TexTeller.from_pretrained('/home/lhy/code/TeXify/src/models/ocr_model/train/train_result/checkpoint-57500')
+    model = TexTeller.from_pretrained('/home/lhy/code/TeXify/src/models/ocr_model/train/train_result/checkpoint-80500')
 
     enable_train = False
     enable_evaluate = True
