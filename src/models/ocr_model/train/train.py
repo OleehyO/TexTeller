@@ -11,7 +11,7 @@ from .training_args import CONFIG
 from ..model.TexTeller import TexTeller
 from ..utils.functional import tokenize_fn, collate_fn, img_transform_fn
 from ..utils.metrics import bleu_metric
-from ....globals import MAX_TOKEN_SIZE
+from ....globals import MAX_TOKEN_SIZE, MIN_WIDTH, MIN_HEIGHT   
 
 
 def train(model, tokenizer, train_dataset, eval_dataset, collate_fn_with_tokenizer):
@@ -68,6 +68,7 @@ if __name__ == '__main__':
         '/home/lhy/code/TeXify/src/models/ocr_model/train/dataset/latex-formulas/latex-formulas.py',
         'cleaned_formulas'
     )['train']
+    dataset = dataset.filter(lambda x: x['image'].height > MIN_HEIGHT and x['image'].width > MIN_WIDTH)
     dataset = dataset.shuffle(seed=42)
     dataset = dataset.flatten_indices()
 
