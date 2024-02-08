@@ -2,7 +2,7 @@ import torch
 from torchvision.transforms import v2
 
 from PIL import Image, ImageChops
-from ....globals import (
+from ...globals import (
     IMAGE_MEAN, IMAGE_STD, 
     LABEL_RATIO,
     RESIZER_IMG_SIZE,

@@ -1,14 +1,25 @@
-import streamlit as st
+import os
 import io
 import base64
-import requests
+import tempfile
+import streamlit as st
 
 from PIL import Image
+from models.ocr_model.utils.inference import inference
+from models.ocr_model.model.TexTeller import TexTeller
 
-def post_image(server_url, img_rb):
-    response = requests.post(server_url, files={'image': img_rb})
-    return response.text
 
+@st.cache_resource
+def get_model():
+    return TexTeller.from_pretrained(os.environ['CHECKPOINT_DIR'])
+
+@st.cache_resource
+def get_tokenizer():
+    return TexTeller.get_tokenizer(os.environ['TOKENIZER_DIR'])
+
+
+model = get_model()
+tokenizer = get_tokenizer()
 
 #  ============================     pages      =============================== #
 # 使用 Markdown 和 HTML 将标题居中
@@ -41,6 +52,12 @@ uploaded_file = st.file_uploader("",type=['jpg', 'png'])
 if uploaded_file:
     # 打开上传图片
     img = Image.open(uploaded_file)
+
+    # 使用tempfile创建临时目录
+    temp_dir = tempfile.mkdtemp()
+    png_file_path = os.path.join(temp_dir, 'image.png')
+    img.save(png_file_path, 'PNG')
+
     # st.image(uploaded_file, caption=f"Input image ({img.height}✖️{img.width})")
 
     # 将 BytesIO 对象转换为 Base64 编码
@@ -78,10 +95,15 @@ if uploaded_file:
     # 预测
     with st.spinner("Predicting..."):
         # 预测结果
-        server_url = 'http://localhost:8000/'
+        server_url = 'http://localhost:9900/'
         uploaded_file.seek(0)
-        TeXTeller_result = post_image(server_url, uploaded_file)
-        TeXTeller_result = r"\begin{align*}" + '\n' + TeXTeller_result + '\n' + r'\end{align*}'
+        TeXTeller_result = inference(
+            model,
+            tokenizer,
+            [png_file_path],
+            bool(os.environ['USE_CUDA']),
+            int(os.environ['NUM_BEAM'])
+        )[0]
         # tab1, tab2 = st.tabs(["✨TeXTeller✨", "pix2tex:gray[(9.6K⭐)️]"])
         tab1, tab2 = st.tabs(["🔥👁️", "pix2tex:gray[(9.6K⭐)️]"])
         # with st.container(border=True):

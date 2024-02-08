@@ -7,7 +7,7 @@ from torchvision.transforms import v2
 from typing import List, Union
 from PIL import Image
 
-from ....globals import (
+from ...globals import (
     OCR_IMG_CHANNELS,
     OCR_IMG_SIZE,
     OCR_FIX_SIZE,

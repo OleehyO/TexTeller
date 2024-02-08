@@ -11,7 +11,7 @@ from .training_args import CONFIG
 from ..model.TexTeller import TexTeller
 from ..utils.functional import tokenize_fn, collate_fn, img_transform_fn
 from ..utils.metrics import bleu_metric
-from ....globals import MAX_TOKEN_SIZE, MIN_WIDTH, MIN_HEIGHT   
+from ...globals import MAX_TOKEN_SIZE, MIN_WIDTH, MIN_HEIGHT   
 
 
 def train(model, tokenizer, train_dataset, eval_dataset, collate_fn_with_tokenizer):
@@ -82,10 +82,10 @@ if __name__ == '__main__':
     train_dataset, eval_dataset = split_dataset['train'], split_dataset['test']
     collate_fn_with_tokenizer = partial(collate_fn, tokenizer=tokenizer)
     # model = TexTeller()
-    model = TexTeller.from_pretrained('/home/lhy/code/TeXify/src/models/ocr_model/train/train_result/bugy_train_without_random_resize/checkpoint-82000')
+    model = TexTeller.from_pretrained('/home/lhy/code/TeXify/src/models/ocr_model/train/train_result/train_with_random_resize/checkpoint-80000')
 
-    enable_train = True
-    enable_evaluate = False
+    enable_train = False
+    enable_evaluate = True
     if enable_train:
         train(model, tokenizer, train_dataset, eval_dataset, collate_fn_with_tokenizer)  
     if enable_evaluate:

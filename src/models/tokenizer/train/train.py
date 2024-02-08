@@ -1,6 +1,6 @@
 from datasets import load_dataset
 from ...ocr_model.model.TexTeller import TexTeller
-from ....globals import VOCAB_SIZE
+from ...globals import VOCAB_SIZE
 
 
 if __name__ == '__main__':

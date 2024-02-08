@@ -4,12 +4,14 @@ from typing import List
 from PIL import Image
 
 
-def convert2rgb(image_paths: List[str]) -> List[Image.Image]:
+def convert2rgb(image_paths: List[str]) -> List[np.ndarray]:
+    # 输出的np.ndarray的格式为：[H, W, C]（通道在第三维），通道的排列顺序为RGB
     processed_images = []
 
     for path in image_paths:
         # 读取图片
         image = cv2.imread(path, cv2.IMREAD_UNCHANGED)
+
         if image is None:
             print(f"Image at {path} could not be read.")
             continue
@@ -32,6 +34,6 @@ def convert2rgb(image_paths: List[str]) -> List[Image.Image]:
         # 如果是 BGR (3通道), 转换为 RGB
         elif channels == 3:
             image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-        processed_images.append(Image.fromarray(image))
+        processed_images.append(image)
 
     return processed_images

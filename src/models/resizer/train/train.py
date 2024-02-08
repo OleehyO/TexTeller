@@ -10,7 +10,7 @@ from transformers import (
 
 from ..utils import preprocess_fn
 from ..model.Resizer import Resizer
-from ....globals import NUM_CHANNELS, NUM_CLASSES, RESIZER_IMG_SIZE
+from ...globals import NUM_CHANNELS, NUM_CLASSES, RESIZER_IMG_SIZE
 
 
 def train():
