@@ -1,0 +1,7 @@
+**/__pycache__
+**/.vscode
+**/train_result
+
+**/logs
+**/.cache
+**/tmp*
