@@ -96,7 +96,7 @@ if __name__ == '__main__':
     #+)
 
     enable_train = True
-    enable_evaluate = True
+    enable_evaluate = False
     if enable_train:
         train(model, tokenizer, train_dataset, eval_dataset, collate_fn_with_tokenizer)  
     if enable_evaluate and len(eval_dataset) > 0:
