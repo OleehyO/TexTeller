@@ -1,6 +1,6 @@
 <div align="center">
 <h1><img src="./assets/fire.svg" width=30, height=30> 
-𝐓𝐞𝐱𝐓𝐞𝐥𝐥𝐞𝐫 <img src="./assets/fire.svg" width=30, height=30> </h1>
+𝚃𝚎𝚡𝚃𝚎𝚕𝚕𝚎𝚛 <img src="./assets/fire.svg" width=30, height=30> </h1>
 
 <p align="center">
 English | <a href="./assests/README_zh.md">中文版本</a>
@@ -23,7 +23,7 @@ python=3.10
 
 pytorch
 
-> Note: CUDA version >= 12.0 have been fully tested.
+> Note: Only CUDA version >= 12.0 have been fully tested, so we recommend using CUDA version>=12.0
 
 ## Getting Started
 
@@ -33,7 +33,7 @@ pytorch
     git clone https://github.com/OleehyO/TexTeller
     ```
 
-2. After [pytorch installation](https://pytorch.org/get-started), install the required packages:
+2. After [pytorch installation](https://pytorch.org/get-started/locally/#start-locally), install the required packages:
 
     ```bash
     pip install -r requirements.txt
@@ -47,7 +47,7 @@ pytorch
     #+e.g. python inference.py -img "./img.jpg" -cuda
     ```
 
-    > chekpoints will be downloaded in your first run.
+    > Checkpoints will be downloaded in your first run.
 
 ## Web Demo
 
@@ -57,9 +57,9 @@ You can also run the web demo by navigating to the `TexTeller/src` directory and
 ./start_web.sh
 ```
 
-Then go to `http://localhost:8000` in your browser to run TexTeller in the web.
+Then go to `http://localhost:8501` in your browser to run TexTeller in the web.
 
-> You can change the default settings in start_web.sh, such as inference with GPU(e.g. `USE_CUDA=True`) or increase the number of beams(e.g. `NUM_BEAM=3`) for higher accuracy.
+> You can change the default settings in `start_web.sh`, such as inference with GPU(e.g. `USE_CUDA=True`) or increase the number of beams(e.g. `NUM_BEAM=3`) for higher accuracy.
 
 ## API
 
@@ -82,13 +82,13 @@ You can pass the following arguments to the `serve.py` script to get custom infe
 | `--ncpu_per_replica` | Number of CPU cores to use per replica, *default is 1*. |
 | `--ngpu_per_replica` | Number of GPUs to use per replica, *default is 1*. You can set this to 0~1 to run multiple replicas on a single GPU(if --num_replicas 2, --ngpu_per_replica 0.7, then 2 gpus are required) |
 
-> Client demo can be found in `TexTeller/client/demo.py`.
+> Client demo can be found in `TexTeller/client/demo.py`, you can refer to `demo.py` to send requests to the server.
 
 ## Training
 
 ### Dataset
 
-We provide a dataset example in `TexTeller/src/models/ocr_model/train/dataset`, and you can place your own images in the `images` directory and annotate the corresponding formula for each image in `formulas.jsonl`
+We provide a dataset example in `TexTeller/src/models/ocr_model/train/dataset`, and you can place your own images in the `images` directory and annotate the corresponding formula for each image in `formulas.jsonl`.
 
 After the dataset is ready, you should **change the `DIR_URL` variable** in `.../dataset/loader.py` to the path of your dataset.
 
@@ -96,7 +96,7 @@ After the dataset is ready, you should **change the `DIR_URL` variable** in `...
 
 If you are using a different dataset, you may need to retrain the tokenizer to match your specific vocabulary. After setting up the dataset, you can do this by:
 
-1. Change the line `new_tokenizer.save_pretrained('./your_dir_name')` in `TexTeller/src/models/ocr_model/tokenizer/train.py` to your desired output directory name.`
+1. Change the line `new_tokenizer.save_pretrained('./your_dir_name')` in `TexTeller/src/models/ocr_model/tokenizer/train.py` to your desired output directory name.
     > To use a different vocabulary size, you should modify the `VOCAB_SIZE` parameter in the `TexTeller/src/models/globals.py`.
 
 2. Running the following command **under `TexTeller/src` directory**:
@@ -114,6 +114,7 @@ python -m models.ocr_model.train.train
 ```
 
 You can set your own tokenizer and checkpoint path(or fine-tune the default model checkpoint if you don't use your own tokenizer while keeping the same model architecture) in `TexTeller/src/models/ocr_model/train/train.py`.
+> Please refer to `train.py` for more details.
 
 Model architecture and training hyperparameters can be adjusted in `TexTeller/src/globals.py` and `TexTeller/src/models/ocr_model/train/train_args.py`.
 
