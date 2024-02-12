@@ -2,9 +2,6 @@
 IMAGE_MEAN = 0.9545467
 IMAGE_STD  = 0.15394445
 
-# Density value for pdf to image conversion
-TEXTELL_DENSITY = 200
-
 # Vocabulary size for TexTeller
 VOCAB_SIZE = 10000
 
