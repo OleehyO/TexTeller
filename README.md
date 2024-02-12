@@ -3,7 +3,7 @@
 𝚃𝚎𝚡𝚃𝚎𝚕𝚕𝚎𝚛 <img src="./assets/fire.svg" width=30, height=30> </h1>
 
 <p align="center">
-English | <a href="./assests/README_zh.md">中文版本</a>
+English | <a href="./assets/README_zh.md">中文版本</a>
 </p>
 
 <p align="center">
