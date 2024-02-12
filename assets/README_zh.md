@@ -77,7 +77,7 @@ pytorch
     huggingface-cli download evaluate-metric/google_bleu --repo-type space --local-dir "your/dir/path"
     ```
 
-2. 把这个目录上传远端服务器，并在`TexTeller/src/models/ocr_model/utils/metrics.py`中把`evaluate.load('google_bleu')`改为`evaluate.load('your/dir/path')`
+2. 把这个目录上传远端服务器，并在`TexTeller/src/models/ocr_model/utils/metrics.py`中把`evaluate.load('google_bleu')`改为`evaluate.load('your/dir/path/google_bleu.py')`
 
 ## Web Demo
 
