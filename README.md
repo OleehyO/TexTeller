@@ -96,13 +96,13 @@ After the dataset is ready, you should **change the `DIR_URL` variable** in `...
 
 If you are using a different dataset, you may need to retrain the tokenizer to match your specific vocabulary. After setting up the dataset, you can do this by:
 
-1. Change the line `new_tokenizer.save_pretrained('./your_dir_name')` in `TexTeller/src/models/ocr_model/tokenizer/train.py` to your desired output directory name.
+1. Change the line `new_tokenizer.save_pretrained('./your_dir_name')` in `TexTeller/src/models/tokenizer/train.py` to your desired output directory name.
     > To use a different vocabulary size, you should modify the `VOCAB_SIZE` parameter in the `TexTeller/src/models/globals.py`.
 
 2. Running the following command **under `TexTeller/src` directory**:
 
     ```bash
-    python -m models.ocr_model.tokenizer.train
+    python -m models.tokenizer.train
     ```
 
 ### Train the model

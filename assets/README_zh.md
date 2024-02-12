@@ -126,13 +126,13 @@ python serve.py  # default settings
 
 如果你使用了不一样的数据集，你可能需要重新训练tokenizer来得到一个不一样的字典。配置好数据集后，可以通过以下命令来训练自己的tokenizer：
 
-1. 在`TexTeller/src/models/ocr_model/tokenizer/train.py`中，修改`new_tokenizer.save_pretrained('./your_dir_name')`为你自定义的输出目录
+1. 在`TexTeller/src/models/tokenizer/train.py`中，修改`new_tokenizer.save_pretrained('./your_dir_name')`为你自定义的输出目录
     > 如果要用一个不一样大小的字典(默认1W个token)，你需要在 `TexTeller/src/models/globals.py`中修改`VOCAB_SIZE`变量
 
 2. **在 `TexTeller/src` 目录下**运行以下命令:
 
     ```bash
-    python -m models.ocr_model.tokenizer.train
+    python -m models.tokenizer.train
     ```
 
 ### Train the model
