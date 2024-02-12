@@ -7,7 +7,7 @@ English | <a href="./assests/README_zh.md">中文版本</a>
 </p>
 
 <p align="center">
-  <img src="./assets/web_demo.gif" alt="TexTeller_demo">
+  <img src="./assets/web_demo.gif" alt="TexTeller_demo" width=800>
 </p>
 
 </div>
