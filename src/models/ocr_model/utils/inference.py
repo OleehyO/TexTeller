@@ -21,6 +21,7 @@ def inference(
     if isinstance(imgs_path[0], str):
         imgs = convert2rgb(imgs_path) 
     else:  # already numpy array(rgb format)
+        assert isinstance(imgs_path[0], np.ndarray)
         imgs = imgs_path 
     imgs = inference_transform(imgs)
     pixel_values = torch.stack(imgs)

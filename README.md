@@ -66,10 +66,10 @@ Then go to `http://localhost:8501` in your browser to run TexTeller in the web.
 We use [ray serve](https://github.com/ray-project/ray) to provide a simple API for using TexTeller in your own projects. To start the server, navigate to the `TexTeller/src` directory and run the following command:
 
 ```bash
-python serve.py  # default settings
+python server.py  # default settings
 ```
 
-You can pass the following arguments to the `serve.py` script to get custom inference settings(e.g. `python serve.py --use_gpu` to enable GPU inference):
+You can pass the following arguments to the `server.py` script to get custom inference settings(e.g. `python server.py --use_gpu` to enable GPU inference):
 
 | Argument | Description |
 | --- | --- |

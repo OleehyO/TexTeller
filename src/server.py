@@ -67,6 +67,7 @@ class Ingress:
         img_rb = await form['img'].read()
 
         img_nparray = np.frombuffer(img_rb, np.uint8)
+        img_nparray = cv2.imdecode(img_nparray, cv2.IMREAD_COLOR)
         img_nparray = cv2.cvtColor(img_nparray, cv2.COLOR_BGR2RGB)
         pred = await self.texteller_server.predict.remote(img_nparray)
         return pred
