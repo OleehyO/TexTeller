@@ -1,5 +1,7 @@
 import argparse
 import time
+import numpy as np
+import cv2
 
 from starlette.requests import Request
 from ray import serve
@@ -51,8 +53,8 @@ class TexTellerServer:
 
         self.model = self.model.to('cuda') if use_cuda else self.model
     
-    def predict(self, image_path: str) -> str:
-        return inference(self.model, self.tokenizer, [image_path], self.use_cuda, self.num_beam)[0]
+    def predict(self, image_nparray) -> str:
+        return inference(self.model, self.tokenizer, [image_nparray], self.use_cuda, self.num_beam)[0]
 
 
 @serve.deployment()
@@ -61,9 +63,12 @@ class Ingress:
         self.texteller_server = texteller_server
     
     async def __call__(self, request: Request) -> str:
-        msg = await request.json()
-        img_path: str = msg['img_path']
-        pred = await self.texteller_server.predict.remote(img_path)
+        form   = await request.form()
+        img_rb = await form['img'].read()
+
+        img_nparray = np.frombuffer(img_rb, np.uint8)
+        img_nparray = cv2.cvtColor(img_nparray, cv2.COLOR_BGR2RGB)
+        pred = await self.texteller_server.predict.remote(img_nparray)
         return pred
 
 
