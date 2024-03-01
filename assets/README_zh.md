@@ -96,10 +96,10 @@ pytorch
 我们使用[ray serve](https://github.com/ray-project/ray)来对外提供一个TexTeller的API接口，通过使用这个接口，你可以把TexTeller整合到自己的项目里。要想启动server，你需要先进入`TexTeller/src`目录然后运行以下命令:
 
 ```bash
-python serve.py  # default settings
+python server.py  # default settings
 ```
 
-你可以给`serve.py`传递以下参数来改变server的推理设置(e.g. `python serve.py --use_gpu` 来启动GPU推理):
+你可以给`server.py`传递以下参数来改变server的推理设置(e.g. `python server.py --use_gpu` 来启动GPU推理):
 
 | Argument | Description |
 | --- | --- |
