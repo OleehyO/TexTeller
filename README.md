@@ -14,7 +14,7 @@ English | <a href="./assets/README_zh.md">中文版本</a>
 
 TexTeller is a ViT-based model designed for end-to-end formula recognition. It can recognize formulas in natural images and convert them into LaTeX-style formulas.
 
-TexTeller is trained on a larger dataset of image-formula pairs (a 550K dataset available [here](https://huggingface.co/datasets/OleehyO/latex-formulas)), **exhibits superior generalization ability and higher accuracy compared to [LaTeX-OCR](https://github.com/lukas-blecher/LaTeX-OCR)**, which uses approximately 100K data points. This larger dataset enables TexTeller to cover most usage scenarios more effectively.
+TexTeller is trained on a larger dataset of image-formula pairs (a 550K dataset available [here](https://huggingface.co/datasets/OleehyO/latex-formulas)), **exhibits superior generalization ability and higher accuracy compared to [LaTeX-OCR](https://github.com/lukas-blecher/LaTeX-OCR)**, which uses approximately 100K data points. This larger dataset enables TexTeller to cover most usage scenarios more effectively( **excluding scanned images and handwritten formulas** ).
 > A TexTeller checkpoint trained on a 5.5M dataset will be released soon.
 
 ## Prerequisites
