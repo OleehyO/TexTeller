@@ -5,6 +5,7 @@ from models.globals import (
     VOCAB_SIZE,
     OCR_IMG_SIZE,
     OCR_IMG_CHANNELS,
+    MAX_TOKEN_SIZE
 )
 
 from transformers import (
@@ -25,6 +26,7 @@ class TexTeller(VisionEncoderDecoderModel):
         ))
         decoder = TrOCRForCausalLM(TrOCRConfig(
             vocab_size=VOCAB_SIZE,
+            max_position_embeddings=MAX_TOKEN_SIZE
         ))
         super().__init__(encoder=encoder, decoder=decoder)
     
