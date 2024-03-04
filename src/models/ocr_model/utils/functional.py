@@ -21,7 +21,7 @@ def left_move(x: torch.Tensor, pad_val):
 def tokenize_fn(samples: Dict[str, List[Any]], tokenizer=None) -> Dict[str, List[Any]]:
     assert tokenizer is not None, 'tokenizer should not be None'
     tokenized_formula = tokenizer(samples['latex_formula'], return_special_tokens_mask=True)
-    tokenized_formula['pixel_values'] = [np.array(sample) for sample in samples['image']]
+    tokenized_formula['pixel_values'] = samples['image']
     return tokenized_formula
 
 
