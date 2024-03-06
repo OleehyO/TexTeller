@@ -4,7 +4,7 @@ CONFIG = {
     # "data_seed": 42,                     # data sampler的采样也固定
     # "full_determinism": True,            # 使整个训练完全固定（这个设置会有害于模型训练，只用于debug）
 
-    "output_dir": "train_result/train_with_random_resize",          # 输出目录
+    "output_dir": "train_result/TexTellerv2",          # 输出目录
     "overwrite_output_dir": False,         # 如果输出目录存在，不删除原先的内容
     "report_to": ["tensorboard"],          # 输出日志到TensorBoard，
                                            #+通过在命令行：tensorboard --logdir ./logs 来查看日志
@@ -12,7 +12,7 @@ CONFIG = {
     "logging_dir": None,                   # TensorBoard日志文件的存储目录(使用默认值)
     "log_level": "warning",                   # 其他可选:‘debug’, ‘info’, ‘warning’, ‘error’ and ‘critical’（由低级别到高级别）
     "logging_strategy": "steps",           # 每隔一定步数记录一次日志
-    "logging_steps": 500,                  # 记录日志的步数间隔，可以是int也可以是(0~1)的float，当是float时表示总的训练步数的ratio(比方说可以设置成1.0 / 2000)
+    "logging_steps": 4000,                  # 记录日志的步数间隔，可以是int也可以是(0~1)的float，当是float时表示总的训练步数的ratio(比方说可以设置成1.0 / 2000)
                                            #+通常与eval_steps一致
     "logging_nan_inf_filter": False,       # 对loss=nan或inf进行记录
 
@@ -25,6 +25,7 @@ CONFIG = {
     "per_device_train_batch_size": 64,    # 每个GPU的batch size
     "per_device_eval_batch_size": 16,      # 每个GPU的evaluation batch size
     "auto_find_batch_size": True,          # 自动搜索合适的batch size（指数decay）
+    # "auto_find_batch_size": False,          # 自动搜索合适的batch size（指数decay）
 
     "optim": "adamw_torch",                # 还提供了很多AdamW的变体（相较于经典的AdamW更加高效）
                                            #+当设置了optim后，就不需要在Trainer中传入optimizer
@@ -52,12 +53,12 @@ CONFIG = {
     "dataloader_drop_last": True,          # 丢掉最后一个minibatch，保证训练的梯度稳定
 
     "evaluation_strategy": "steps",        # 评估策略，可以是"steps"或"epoch"
-    "eval_steps": 500,                     # if evaluation_strategy="step"
+    "eval_steps": 4000,                     # if evaluation_strategy="step"
                                            #+默认情况下与logging_steps一样，可以是int也可以是(0~1)的float，当是float时表示总的训练步数的ratio(比方说可以设置成1.0 / 2000)
 
     "save_strategy": "steps",              # 保存checkpoint的策略
-    "save_steps": 500,                     # checkpoint保存的步数间隔，可以是int也可以是(0~1)的float，当是float时表示总的训练步数的ratio(比方说可以设置成1.0 / 2000)
-    "save_total_limit": 5,                 # 保存的模型的最大数量。如果超过这个数量，最旧的模型将被删除
+    "save_steps": 4000,                     # checkpoint保存的步数间隔，可以是int也可以是(0~1)的float，当是float时表示总的训练步数的ratio(比方说可以设置成1.0 / 2000)
+    "save_total_limit": 10,                 # 保存的模型的最大数量。如果超过这个数量，最旧的模型将被删除
 
     "load_best_model_at_end": True,        # 训练结束时是否加载最佳模型
                                            #+当设置True时，会保存训练时评估结果最好的checkpoint
