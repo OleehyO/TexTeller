@@ -16,16 +16,16 @@ CONFIG = {
                                            #+通常与eval_steps一致
     "logging_nan_inf_filter": False,       # 对loss=nan或inf进行记录
 
-    "num_train_epochs": 10,                # 总的训练轮数
+    "num_train_epochs": 2,                # 总的训练轮数
     # "max_steps": 3,                      # 训练的最大步骤数。如果设置了这个参数，
                                            #+那么num_train_epochs将被忽略（通常用于调试）
 
     # "label_names": ['your_label_name'],  # 指定data_loader中的标签名，如果不指定则默认为'labels'
 
-    "per_device_train_batch_size": 64,    # 每个GPU的batch size
-    "per_device_eval_batch_size": 16,      # 每个GPU的evaluation batch size
+    "per_device_train_batch_size": 3,    # 每个GPU的batch size
+    "per_device_eval_batch_size": 6,      # 每个GPU的evaluation batch size
+    # "auto_find_batch_size": True,          # 自动搜索合适的batch size（指数decay）
     "auto_find_batch_size": True,          # 自动搜索合适的batch size（指数decay）
-    # "auto_find_batch_size": False,          # 自动搜索合适的batch size（指数decay）
 
     "optim": "adamw_torch",                # 还提供了很多AdamW的变体（相较于经典的AdamW更加高效）
                                            #+当设置了optim后，就不需要在Trainer中传入optimizer
