@@ -6,3 +6,4 @@
 **/.cache
 **/tmp*
 **/data
+**/ckpt

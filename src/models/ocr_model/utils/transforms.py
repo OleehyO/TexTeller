@@ -16,7 +16,7 @@ from ...globals import (
     MAX_RESIZE_RATIO, MIN_RESIZE_RATIO
 )
 
-train_pipeline = default_augraphy_pipeline()
+train_pipeline = default_augraphy_pipeline(scan_only=True)
 
 general_transform_pipeline = v2.Compose([
     v2.ToImage(),    # Convert to tensor, only needed if you had a PIL image
