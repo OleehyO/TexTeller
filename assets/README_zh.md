@@ -1,24 +1,28 @@
 <div align="center">
-<h1><img src="./fire.svg" width=30, height=30> 
-𝚃𝚎𝚡𝚃𝚎𝚕𝚕𝚎𝚛 <img src="./fire.svg" width=30, height=30> </h1>
-
-<p align="center">
-<a href="../README.md">English</a> | 中文版本
-</p>
-
-<p align="center">
-  <img src="./web_demo.gif" alt="TexTeller_demo" width=800>
-</p>
-
+    <h1>
+        <img src="./fire.svg" width=30, height=30> 
+        𝚃𝚎𝚡𝚃𝚎𝚕𝚕𝚎𝚛
+        <img src="./fire.svg" width=30, height=30> 
+    </h1>
+    <p align="center">
+        <a href="../README.md">English</a> | 中文
+    </p>
+    <p align="center">
+        <img src="./web_demo.gif" alt="TexTeller_demo" width=800>
+    </p>
 </div>
 
 TexTeller是一个基于ViT的端到端公式识别模型，可以把图片转换为对应的latex公式
 
-TexTeller用了550K的图片-公式对进行训练(数据集可以在[这里](https://huggingface.co/datasets/OleehyO/latex-formulas)获取)，相比于[LaTeX-OCR](https://github.com/lukas-blecher/LaTeX-OCR)(使用了一个100K的数据集)，TexTeller具有**更强的泛化能力**以及**更高的准确率**，可以覆盖大部分的使用场景(**扫描图片，手写公式除外**)。
+TexTeller用了~~550K~~7.5M的图片-公式对进行训练(数据集可以在[这里](https://huggingface.co/datasets/OleehyO/latex-formulas)获取)，相比于[LaTeX-OCR](https://github.com/lukas-blecher/LaTeX-OCR)(使用了一个100K的数据集)，TexTeller具有**更强的泛化能力**以及**更高的准确率**，可以覆盖大部分的使用场景(**扫描图片，手写公式除外**)。
 
-> 我们马上就会发布一个使用5.5M数据集进行训练的TexTeller checkpoint
+> ~~我们马上就会发布一个使用7.5M数据集进行训练的TexTeller checkpoint~~
 
-## 前置条件
+## 🔄 变更信息
+
+* 📮[2024-03-24] TexTeller2.0发布！TexTeller2.0的训练数据增大到了7.5M(相较于TexTeller1.0**增加了~15倍**并且数据质量也有所改善)。训练后的TexTeller2.0在测试集中展现出了**更加优越的性能**，尤其在生僻符号、复杂多行、矩阵的识别场景中。
+
+## 🔑 前置条件
 
 python=3.10
 
@@ -26,7 +30,17 @@ pytorch
 
 > 注意: 只有CUDA版本>= 12.0被完全测试过，所以最好使用>= 12.0的CUDA版本
 
-## Getting Started
+## 🖼 关于把latex渲染成图片
+
+* **安装XeLaTex** 并确保`xelatex`可以直接被命令行调用。
+
+* 为了确保正确渲染预测出的公式, 需要在`.tex`文件中**引入以下宏包**:
+
+    ```tex
+    \usepackage{multirow,multicol,amsmath,amsfonts,amssymb,mathtools,bm,mathrsfs,wasysym,amsbsy,upgreek,mathalfa,stmaryrd,mathrsfs,dsfont,amsthm,amsmath,multirow}
+    ```
+
+## 🚀 开搞
 
 1. 克隆本仓库:
 
@@ -50,7 +64,7 @@ pytorch
 
     > 第一次运行时会在hugging face上下载所需要的checkpoints
 
-## FAQ：无法连接到Hugging Face
+## ❓ 常见问题：无法连接到Hugging Face
 
 默认情况下，会在Hugging Face中下载模型权重，**如果你的远端服务器无法连接到Hugging Face**，你可以通过以下命令进行加载：
 
@@ -78,7 +92,7 @@ pytorch
 
 2. 把这个目录上传远端服务器，并在`TexTeller/src/models/ocr_model/utils/metrics.py`中把`evaluate.load('google_bleu')`改为`evaluate.load('your/dir/path/google_bleu.py')`
 
-## Web Demo
+## 🌐 网页演示
 
 要想启动web demo，你需要先进入 `TexTeller/src` 目录，然后运行以下命令
 
@@ -90,7 +104,9 @@ pytorch
 
 > 你可以改变`start_web.sh`的默认配置， 例如使用GPU进行推理(e.g. `USE_CUDA=True`) 或者增加beams的数量(e.g. `NUM_BEAM=3`)来获得更高的精确度
 
-## API
+**NOTE:** 如果你想直接把预测结果在网页上渲染成图片（比如为了检查预测结果是否正确）你需要确保[xelatex被正确安装](https://github.com/OleehyO/TexTeller?tab=readme-ov-file#Rendering-Predicted-Results)
+
+## 📡 API调用
 
 我们使用[ray serve](https://github.com/ray-project/ray)来对外提供一个TexTeller的API接口，通过使用这个接口，你可以把TexTeller整合到自己的项目里。要想启动server，你需要先进入`TexTeller/src`目录然后运行以下命令:
 
@@ -100,28 +116,28 @@ python server.py  # default settings
 
 你可以给`server.py`传递以下参数来改变server的推理设置(e.g. `python server.py --use_gpu` 来启动GPU推理):
 
-| Argument | Description |
+| 参数 | 描述 |
 | --- | --- |
-| `-ckpt` | Path to the checkpoint file to load, default is TexTeller pretrained model. |
-| `-tknz` | Path to the tokenizer, default is TexTeller tokenizer. |
-| `-port` | Port number to run the server on, *default is 8000*. |
-| `--use_gpu` | Whether to use GPU for inference. |
-| `--num_beams` | Number of beams to use for beam search decoding, *default is 1*. |
-| `--num_replicas` | Number of replicas to run the server on, *default is 1*. You can use this to get higher throughput. |
-| `--ncpu_per_replica` | Number of CPU cores to use per replica, *default is 1*. |
-| `--ngpu_per_replica` | Number of GPUs to use per replica, *default is 1*. You can set this to 0~1 to run multiple replicas on a single GPU(if --num_replicas 2, --ngpu_per_replica 0.7, then 2 gpus are required) |
+| `-ckpt` | 权重文件的路径，*默认为TexTeller的预训练权重*。|
+| `-tknz` | 分词器的路径， *默认为TexTeller的分词器*。|
+| `-port` | 服务器的服务端口， *默认是8000*。 |
+| `--use_gpu` | 是否使用GPU推理，*默认为CPU*。 |
+| `--num_beams` | beam search的beam数量， *默认是1*。 |
+| `--num_replicas` | 在服务器上运行的服务副本数量， *默认1个副本*。你可以使用更多的副本来获取更大的吞吐量。|
+| `--ncpu_per_replica` | 每个服务副本所用的CPU核心数，*默认为1*。 |
+| `--ngpu_per_replica` | 每个服务副本所用的GPU数量，*默认为1*。你可以把这个值设置成 0~1之间的数，这样会在一个GPU上运行多个服务副本来共享GPU，从而提高GPU的利用率。(注意，如果 --num_replicas 2, --ngpu_per_replica 0.7, 那么就必须要有2个GPU可用) |
 
 > 一个客户端demo可以在`TexTeller/client/demo.py`找到，你可以参考`demo.py`来给server发送请求
 
-## Training
+## 🏋️‍♂️ 训练
 
-### Dataset
+### 数据集
 
 我们在`TexTeller/src/models/ocr_model/train/dataset`目录中提供了一个数据集的例子，你可以把自己的图片放在`images`目录然后在`formulas.jsonl`中为每张图片标注对应的公式。
 
 准备好数据集后，你需要在`.../dataset/loader.py`中把 **`DIR_URL`变量改成你自己数据集的路径**
 
-### Retrain the tokenizer
+### 重新训练分词器
 
 如果你使用了不一样的数据集，你可能需要重新训练tokenizer来得到一个不一样的字典。配置好数据集后，可以通过以下命令来训练自己的tokenizer：
 
@@ -134,7 +150,7 @@ python server.py  # default settings
     python -m models.tokenizer.train
     ```
 
-### Train the model
+### 训练模型
 
 要想训练模型, 你需要在`TexTeller/src`目录下运行以下命令：
 
@@ -148,14 +164,38 @@ python -m models.ocr_model.train.train
 
 > 我们的训练脚本使用了[Hugging Face Transformers](https://github.com/huggingface/transformers)库, 所以你可以参考他们提供的[文档](https://huggingface.co/docs/transformers/v4.32.1/main_classes/trainer#transformers.TrainingArguments)来获取更多训练参数的细节以及配置。
 
-## To-Do
+## 🚧 不足
 
-- [ ] 使用更大的数据集来训练模型(5.5M样本，即将发布)
+* 部分细节很多的公式无法做到100%的准确率
+
+    <img src="" width=30, height=30> 
+
+* 部分复杂的大型多行公式识别效果不佳(例如长公式与矩阵混合)
+
+    <img src="" width=30, height=30> 
+
+    > 如果遇到这种情况，你可以尝试把大型的多行公式分成多个小的子公式来识别。
+
+* 不支持扫描图片以及PDF文档识别
+
+* 不支持手写体公式
+
+## 📅 计划
+
+- [x] ~~使用更大的数据集来训练模型(7.5M样本，即将发布)~~
+
+- [ ] 扫描图片识别
+
+- [ ] PDF文档识别 + 中英文场景支持
 
 - [ ] 推理加速
 
 - [ ] ...
 
-## Acknowledgements
+## 💖 感谢
 
 Thanks to [LaTeX-OCR](https://github.com/lukas-blecher/LaTeX-OCR) which has brought me a lot of inspiration, and [im2latex-100K](https://zenodo.org/records/56198#.V2px0jXT6eA) which enriches our dataset.
+
+## ⭐️ 观星曲线
+
+[![Stargazers over time](https://starchart.cc/OleehyO/TexTeller.svg?variant=adaptive)](https://starchart.cc/OleehyO/TexTeller)

@@ -1,31 +1,46 @@
 <div align="center">
-<h1><img src="./assets/fire.svg" width=30, height=30> 
-𝚃𝚎𝚡𝚃𝚎𝚕𝚕𝚎𝚛 <img src="./assets/fire.svg" width=30, height=30> </h1>
-
-<p align="center">
-English | <a href="./assets/README_zh.md">中文版本</a>
-</p>
-
-<p align="center">
-  <img src="./assets/web_demo.gif" alt="TexTeller_demo" width=800>
-</p>
-
+    <h1>
+        <img src="./assets/fire.svg" width=30, height=30> 
+        𝚃𝚎𝚡𝚃𝚎𝚕𝚕𝚎𝚛
+        <img src="./assets/fire.svg" width=30, height=30>
+    </h1>
+    <p align="center">
+        English | <a href="./assets/README_zh.md">中文</a>
+    </p>
+    <p align="center">
+        <img src="./assets/web_demo.gif" alt="TexTeller_demo" width=800>
+    </p>
 </div>
 
-TexTeller is a ViT-based model designed for end-to-end formula recognition. It can recognize formulas in natural images and convert them into LaTeX-style formulas.
+TexTeller is an end-to-end formula recognition model based on ViT, capable of converting images into corresponding LaTeX formulas.
 
-TexTeller is trained on a larger dataset of image-formula pairs (a 550K dataset available [here](https://huggingface.co/datasets/OleehyO/latex-formulas)), **exhibits superior generalization ability and higher accuracy compared to [LaTeX-OCR](https://github.com/lukas-blecher/LaTeX-OCR)**, which uses approximately 100K data points. This larger dataset enables TexTeller to cover most usage scenarios more effectively( **excluding scanned images and handwritten formulas** ).
-> A TexTeller checkpoint trained on a 5.5M dataset will be released soon.
+TexTeller was trained with ~~550K~~7.5M image-formula pairs (dataset available [here](https://huggingface.co/datasets/OleehyO/latex-formulas)), compared to [LaTeX-OCR](https://github.com/lukas-blecher/LaTeX-OCR) which used a 100K dataset, TexTeller has **stronger generalization abilities** and **higher accuracy**, covering most use cases (**except for scanned images and handwritten formulas**).
 
-## Prerequisites
+> ~~We will soon release a TexTeller checkpoint trained on a 7.5M dataset~~
+
+## 🔄 Change Log
+
+* 📮[2024-03-24] TexTeller 2.0 released! The training data for TexTeller 2.0 has been increased to 7.5M (about **15 times more** than TexTeller 1.0 and also improved in data quality). The trained TexTeller 2.0 demonstrated **superior performance** in the test set, especially in recognizing rare symbols, complex multi-line formulas, and matrices.
+
+## 🔑 Prerequisites
 
 python=3.10
 
 pytorch
 
-> Note: Only CUDA version >= 12.0 have been fully tested, so we recommend using CUDA version>=12.0
+> Note: Only CUDA versions >= 12.0 have been fully tested, so it is recommended to use CUDA version >= 12.0
 
-## Getting Started
+## 🖼 About Rendering LaTeX as Images
+
+* **Install XeLaTex** and ensure `xelatex` can be called directly from the command line.
+
+* To ensure correct rendering of the predicted formulas, **include the following packages** in your `.tex` file:
+
+    ```tex
+    \usepackage{multirow,multicol,amsmath,amsfonts,amssymb,mathtools,bm,mathrsfs,wasysym,amsbsy,upgreek,mathalfa,stmaryrd,mathrsfs,dsfont,amsthm,amsmath,multirow}
+    ```
+
+## 🚀 Getting Started
 
 1. Clone the repository:
 
@@ -33,13 +48,13 @@ pytorch
     git clone https://github.com/OleehyO/TexTeller
     ```
 
-2. After [pytorch installation](https://pytorch.org/get-started/locally/#start-locally), install the required packages:
+2. After [installing pytorch](https://pytorch.org/get-started/locally/#start-locally), install the project's dependencies:
 
     ```bash
     pip install -r requirements.txt
     ```
 
-3. Navigate to the `TexTeller/src` directory and run the following command to perform inference:
+3. Enter the `TexTeller/src` directory and run the following command in the terminal to start inference:
 
     ```bash
     python inference.py -img "/path/to/image.{jpg,png}" 
@@ -47,87 +62,104 @@ pytorch
     #+e.g. python inference.py -img "./img.jpg" -cuda
     ```
 
-    > Checkpoints will be downloaded in your first run.
+    > The first time you run it, the required checkpoints will be downloaded from Hugging Face
 
-## Web Demo
+## 🌐 Web Demo
 
-You can also run the web demo by navigating to the `TexTeller/src` directory and running the following command:
+To start the web demo, you need to first enter the `TexTeller/src` directory, then run the following command
 
 ```bash
 ./start_web.sh
 ```
 
-Then go to `http://localhost:8501` in your browser to run TexTeller in the web.
+Then, enter `http://localhost:8501` in your browser to see the web demo
 
-> You can change the default settings in `start_web.sh`, such as inference with GPU(e.g. `USE_CUDA=True`) or increase the number of beams(e.g. `NUM_BEAM=3`) for higher accuracy.
+> You can change the default configuration of `start_web.sh`, for example, to use GPU for inference (e.g. `USE_CUDA=True`) or to increase the number of beams (e.g. `NUM_BEAM=3`) to achieve higher accuracy
 
-## API
+**NOTE:** If you want to directly render the prediction results as images on the web (for example, to check if the prediction is correct), you need to ensure [xelatex is correctly installed](https://github.com/OleehyO/TexTeller?tab=readme-ov-file#Rendering-Predicted-Results)
 
-We use [ray serve](https://github.com/ray-project/ray) to provide a simple API for using TexTeller in your own projects. To start the server, navigate to the `TexTeller/src` directory and run the following command:
+## 📡 API Usage
+
+We use [ray serve](https://github.com/ray-project/ray) to provide an API interface for TexTeller, allowing you to integrate TexTeller into your own projects. To start the server, you first need to enter the `TexTeller/src` directory and then run the following command:
 
 ```bash
 python server.py  # default settings
 ```
 
-You can pass the following arguments to the `server.py` script to get custom inference settings(e.g. `python server.py --use_gpu` to enable GPU inference):
+You can pass the following arguments to `server.py` to change the server's inference settings (e.g. `python server.py --use_gpu` to enable GPU inference):
 
-| Argument | Description |
+| Parameter | Description |
 | --- | --- |
-| `-ckpt` | Path to the checkpoint file to load, default is TexTeller pretrained model. |
-| `-tknz` | Path to the tokenizer, default is TexTeller tokenizer. |
-| `-port` | Port number to run the server on, *default is 8000*. |
-| `--use_gpu` | Whether to use GPU for inference. |
-| `--num_beams` | Number of beams to use for beam search decoding, *default is 1*. |
-| `--num_replicas` | Number of replicas to run the server on, *default is 1*. You can use this to get higher throughput. |
-| `--ncpu_per_replica` | Number of CPU cores to use per replica, *default is 1*. |
-| `--ngpu_per_replica` | Number of GPUs to use per replica, *default is 1*. You can set this to 0~1 to run multiple replicas on a single GPU(if --num_replicas 2, --ngpu_per_replica 0.7, then 2 gpus are required) |
+| `-ckpt` | The path to the weights file, *default is TexTeller's pretrained weights*.|
+| `-tknz` | The path to the tokenizer, *default is TexTeller's tokenizer*.|
+| `-port` | The server's service port, *default is 8000*. |
+| `--use_gpu` | Whether to use GPU for inference, *default is CPU*. |
+| `--num_beams` | The number of beams for beam search, *default is 1*. |
+| `--num_replicas` | The number of service replicas to run on the server, *default is 1 replica*. You can use more replicas to achieve greater throughput.|
+| `--ncpu_per_replica` | The number of CPU cores used per service replica, *default is 1*. |
+| `--ngpu_per_replica` | The number of GPUs used per service replica, *default is 1*. You can set this value between 0 and 1 to run multiple service replicas on one GPU to share the GPU, thereby improving GPU utilization. (Note, if --num_replicas is 2, --ngpu_per_replica is 0.7, then 2 GPUs must be available) |
 
-> Client demo can be found in `TexTeller/client/demo.py`, you can refer to `demo.py` to send requests to the server.
+> A client demo can be found at `TexTeller/client/demo.py`, you can refer to `demo.py` to send requests to the server
 
-## Training
+## 🏋️‍♂️ Training
 
 ### Dataset
 
-We provide a dataset example in `TexTeller/src/models/ocr_model/train/dataset`, and you can place your own images in the `images` directory and annotate the corresponding formula for each image in `formulas.jsonl`.
+We provide an example dataset in the `TexTeller/src/models/ocr_model/train/dataset` directory, you can place your own images in the `images` directory and annotate each image with its corresponding formula in `formulas.jsonl`.
 
-After the dataset is ready, you should **change the `DIR_URL` variable** in `.../dataset/loader.py` to the path of your dataset.
+After preparing your dataset, you need to **change the `DIR_URL` variable to your own dataset's path** in `.../dataset/loader.py`
 
-### Retrain the tokenizer
+### Retraining the Tokenizer
 
-If you are using a different dataset, you may need to retrain the tokenizer to match your specific vocabulary. After setting up the dataset, you can do this by:
+If you are using a different dataset, you might need to retrain the tokenizer to obtain a different dictionary. After configuring your dataset, you can train your own tokenizer with the following command:
 
-1. Change the line `new_tokenizer.save_pretrained('./your_dir_name')` in `TexTeller/src/models/tokenizer/train.py` to your desired output directory name.
-    > To use a different vocabulary size, you should modify the `VOCAB_SIZE` parameter in the `TexTeller/src/models/globals.py`.
+1. In `TexTeller/src/models/tokenizer/train.py`, change `new_tokenizer.save_pretrained('./your_dir_name')` to your custom output directory
+    > If you want to use a different dictionary size (default is 10k tokens), you need to change the `VOCAB_SIZE` variable in `TexTeller/src/models/globals.py`
 
-2. Running the following command **under `TexTeller/src` directory**:
+2. **In the `TexTeller/src` directory**, run the following command:
 
     ```bash
     python -m models.tokenizer.train
     ```
 
-### Train the model
+### Training the Model
 
-To train the model, you can run the following command **under `TexTeller/src` directory**:
+To train the model, you need to run the following command in the `TexTeller/src` directory:
 
 ```bash
 python -m models.ocr_model.train.train
 ```
 
-You can set your own tokenizer and checkpoint path(or fine-tune the default model checkpoint if you don't use your own tokenizer while keeping the same model architecture) in `TexTeller/src/models/ocr_model/train/train.py`.
-> Please refer to `train.py` for more details.
+You can set your own tokenizer and checkpoint paths in `TexTeller/src/models/ocr_model/train/train.py` (refer to `train.py` for more information). If you are using the same architecture and dictionary as TexTeller, you can also fine-tune TexTeller's default weights with your own dataset.
 
-Model architecture and training hyperparameters can be adjusted in `TexTeller/src/globals.py` and `TexTeller/src/models/ocr_model/train/train_args.py`.
+In `TexTeller/src/globals.py` and `TexTeller/src/models/ocr_model/train/train_args.py`, you can change the model's architecture and training hyperparameters.
 
-> We use the [Hugging Face Transformers](https://github.com/huggingface/transformers) library for model training, so you can find more details about the training hyperparameters in their [documentation](https://huggingface.co/docs/transformers/v4.32.1/main_classes/trainer#transformers.TrainingArguments).
+> Our training scripts use the [Hugging Face Transformers](https://github.com/huggingface/transformers) library, so you can refer to their [documentation](https://huggingface.co/docs/transformers/v4.32.1/main_classes/trainer#transformers.TrainingArguments) for more details and configurations on training parameters.
 
-## To-Do
+## 🚧 Limitations
 
-- [ ] Train our model with a larger amount of data(5.5M samples, and soon to be released).
+* Some complex multi-line scenarios are not well handled (e.g., long formulas mixed with matrices)
 
-- [ ] Inference acceleration.
+* Does not support scanned images and PDF document recognition
+
+* Does not support handwritten formulas
+
+## 📅 Plans
+
+- [x] ~~Train the model with a larger dataset (7.5M samples, coming soon)~~
+
+- [ ] Recognition of scanned images
+
+- [ ] PDF document recognition + Support for English and Chinese scenarios
+
+- [ ] Inference acceleration
 
 - [ ] ...
 
-## Acknowledgements
+## 💖 Acknowledgments
 
 Thanks to [LaTeX-OCR](https://github.com/lukas-blecher/LaTeX-OCR) which has brought me a lot of inspiration, and [im2latex-100K](https://zenodo.org/records/56198#.V2px0jXT6eA) which enriches our dataset.
+
+## ⭐️ Stargazers over time
+
+[![Stargazers over time](https://starchart.cc/OleehyO/TexTeller.svg?variant=adaptive)](https://starchart.cc/OleehyO/TexTeller)

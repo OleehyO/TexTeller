@@ -3,7 +3,7 @@ IMAGE_MEAN = 0.9545467
 IMAGE_STD  = 0.15394445
 
 # Vocabulary size for TexTeller
-VOCAB_SIZE = 10000
+VOCAB_SIZE = 15000
 
 # Fixed size for input image for TexTeller
 FIXED_IMG_SIZE = 448
@@ -12,7 +12,7 @@ FIXED_IMG_SIZE = 448
 IMG_CHANNELS = 1  # grayscale image
 
 # Max size of token for embedding
-MAX_TOKEN_SIZE = 512
+MAX_TOKEN_SIZE = 1024
 
 # Scaling ratio for random resizing when training
 MAX_RESIZE_RATIO = 1.15
