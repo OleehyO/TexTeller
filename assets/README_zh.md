@@ -12,6 +12,8 @@
     </p> -->
 </div>
 
+https://github.com/OleehyO/TexTeller/assets/56267907/fb17af43-f2a5-47ce-ad1d-101db5fd7fbb
+
 TexTeller是一个基于ViT的端到端公式识别模型，可以把图片转换为对应的latex公式
 
 TexTeller用了~~550K~~7.5M的图片-公式对进行训练(数据集可以在[这里](https://huggingface.co/datasets/OleehyO/latex-formulas)获取)，相比于[LaTeX-OCR](https://github.com/lukas-blecher/LaTeX-OCR)(使用了一个100K的数据集)，TexTeller具有**更强的泛化能力**以及**更高的准确率**，可以覆盖大部分的使用场景(**扫描图片，手写公式除外**)。
