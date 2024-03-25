@@ -12,6 +12,8 @@
     </p> -->
 </div>
 
+https://github.com/OleehyO/TexTeller/assets/56267907/b23b2b2e-a663-4abb-b013-bd47238d513b
+
 TexTeller is an end-to-end formula recognition model based on ViT, capable of converting images into corresponding LaTeX formulas.
 
 TexTeller was trained with ~~550K~~7.5M image-formula pairs (dataset available [here](https://huggingface.co/datasets/OleehyO/latex-formulas)), compared to [LaTeX-OCR](https://github.com/lukas-blecher/LaTeX-OCR) which used a 100K dataset, TexTeller has **stronger generalization abilities** and **higher accuracy**, covering most use cases (**except for scanned images and handwritten formulas**).
