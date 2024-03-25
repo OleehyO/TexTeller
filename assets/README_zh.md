@@ -11,7 +11,7 @@
         <img src="./web_demo.gif" alt="TexTeller_demo" width=800>
     </p> -->
     <video width="800" controls>
-        <source src="./test_720p.mp4" type="video/mp4">
+        <source src="https://github.com/OleehyO/TexTeller/blob/dev/assets/test.mp4" type="video/mp4">
     </video>
 </div>
 
