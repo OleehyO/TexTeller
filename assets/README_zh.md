@@ -1,3 +1,5 @@
+📄 <a href="../README.md">English</a> | 中文
+
 <div align="center">
     <h1>
         <img src="./fire.svg" width=30, height=30> 
@@ -5,7 +7,7 @@
         <img src="./fire.svg" width=30, height=30> 
     </h1>
     <p align="center">
-        <a href="../README.md">English</a> | 中文
+        🤗 <a href="https://huggingface.co/OleehyO/TexTeller">Hugging Face</a>
     </p>
     <!-- <p align="center">
         <img src="./web_demo.gif" alt="TexTeller_demo" width=800>
@@ -22,14 +24,14 @@ TexTeller用了~~550K~~7.5M的图片-公式对进行训练(数据集可以在[�
 
 ## 🔄 变更信息
 
-* 📮[2024-03-24] TexTeller2.0发布！TexTeller2.0的训练数据增大到了7.5M(相较于TexTeller1.0**增加了~15倍**并且数据质量也有所改善)。训练后的TexTeller2.0在测试集中展现出了**更加优越的性能**，尤其在生僻符号、复杂多行、矩阵的识别场景中。
+* 📮[2024-03-25] TexTeller2.0发布！TexTeller2.0的训练数据增大到了7.5M(相较于TexTeller1.0**增加了~15倍**并且数据质量也有所改善)。训练后的TexTeller2.0在测试集中展现出了**更加优越的性能**，尤其在生僻符号、复杂多行、矩阵的识别场景中。
     > 在[这里](./test.pdf)有更多的测试图片以及各家识别模型的横向对比。
 
 ## 🔑 前置条件
 
 python=3.10
 
-pytorch
+[pytorch](https://pytorch.org/get-started/locally/)
 
 > [!WARNING]
 > 只有CUDA版本>= 12.0被完全测试过，所以最好使用>= 12.0的CUDA版本
@@ -99,19 +101,21 @@ pytorch
 
 ## 🌐 网页演示
 
-要想启动web demo，你需要先进入 `TexTeller/src` 目录，然后运行以下命令
+首先**确保[poppler](https://poppler.freedesktop.org/)被正确安装，并添加到`PATH`路径中**（终端可以直接使用`pdftoppm`命令）。
+
+然后进入 `TexTeller/src` 目录，运行以下命令
 
 ```bash
 ./start_web.sh
 ```
 
-然后在浏览器里输入`http://localhost:8501`就可以看到web demo
+在浏览器里输入`http://localhost:8501`就可以看到web demo
 
 > [!TIP]
 > 你可以改变`start_web.sh`的默认配置， 例如使用GPU进行推理(e.g. `USE_CUDA=True`) 或者增加beams的数量(e.g. `NUM_BEAM=3`)来获得更高的精确度
 
 > [!IMPORTANT]
-> 如果你想直接把预测结果在网页上渲染成图片（比如为了检查预测结果是否正确）你需要确保[xelatex被正确安装](https://github.com/OleehyO/TexTeller?tab=readme-ov-file#Rendering-Predicted-Results)
+> 如果你想直接把预测结果在网页上渲染成图片（比如为了检查预测结果是否正确）你需要确保[xelatex被正确安装](https://github.com/OleehyO/TexTeller?tab=readme-ov-file#-关于把latex渲染成图片)
 
 ## 📡 API调用
 
@@ -150,8 +154,7 @@ python server.py  # default settings
 如果你使用了不一样的数据集，你可能需要重新训练tokenizer来得到一个不一样的字典。配置好数据集后，可以通过以下命令来训练自己的tokenizer：
 
 1. 在`TexTeller/src/models/tokenizer/train.py`中，修改`new_tokenizer.save_pretrained('./your_dir_name')`为你自定义的输出目录
-    > [!IMPORTANT]
-    > 如果要用一个不一样大小的字典(默认1W个token)，你需要在 `TexTeller/src/models/globals.py`中修改`VOCAB_SIZE`变量
+    > 注意：如果要用一个不一样大小的字典(默认1W个token)，你需要在 `TexTeller/src/models/globals.py`中修改`VOCAB_SIZE`变量
 
 2. **在 `TexTeller/src` 目录下**运行以下命令:
 

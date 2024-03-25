@@ -65,7 +65,6 @@ tex = r'''
 def get_model():
     return TexTeller.from_pretrained(os.environ['CHECKPOINT_DIR'])
 
-
 @st.cache_resource
 def get_tokenizer():
     return TexTeller.get_tokenizer(os.environ['TOKENIZER_DIR'])

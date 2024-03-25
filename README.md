@@ -1,3 +1,5 @@
+📄 English | <a href="./assets/README_zh.md">中文</a>
+
 <div align="center">
     <h1>
         <img src="./assets/fire.svg" width=30, height=30> 
@@ -5,7 +7,7 @@
         <img src="./assets/fire.svg" width=30, height=30>
     </h1>
     <p align="center">
-        English | <a href="./assets/README_zh.md">中文</a>
+        🤗 <a href="https://huggingface.co/OleehyO/TexTeller"> Hugging Face</a>
     </p>
     <!-- <p align="center">
         <img src="./assets/web_demo.gif" alt="TexTeller_demo" width=800>
@@ -22,14 +24,14 @@ TexTeller was trained with ~~550K~~7.5M image-formula pairs (dataset available [
 
 ## 🔄 Change Log
 
-* 📮[2024-03-24] TexTeller 2.0 released! The training data for TexTeller 2.0 has been increased to 7.5M (about **15 times more** than TexTeller 1.0 and also improved in data quality). The trained TexTeller 2.0 demonstrated **superior performance** in the test set, especially in recognizing rare symbols, complex multi-line formulas, and matrices.
+* 📮[2024-03-25] TexTeller 2.0 released! The training data for TexTeller 2.0 has been increased to 7.5M (about **15 times more** than TexTeller 1.0 and also improved in data quality). The trained TexTeller 2.0 demonstrated **superior performance** in the test set, especially in recognizing rare symbols, complex multi-line formulas, and matrices.
     > [There](./assets/test.pdf) are more test images here and a horizontal comparison of recognition models from different companies.
 
 ## 🔑 Prerequisites
 
 python=3.10
 
-pytorch
+[pytorch](https://pytorch.org/get-started/locally/)
 
 > [!WARNING]
 > Only CUDA versions >= 12.0 have been fully tested, so it is recommended to use CUDA version >= 12.0
@@ -71,19 +73,21 @@ pytorch
 
 ## 🌐 Web Demo
 
-To start the web demo, you need to first enter the `TexTeller/src` directory, then run the following command
+First, **ensure that [poppler](https://poppler.freedesktop.org/) is correctly installed and added to the `PATH`** (so that the `pdftoppm` command can be directly used in the terminal).
+
+Then, go to the `TexTeller/src` directory and run the following command:
 
 ```bash
 ./start_web.sh
 ```
 
-Then, enter `http://localhost:8501` in your browser to see the web demo
+Enter `http://localhost:8501` in a browser to view the web demo.
 
 > [!TIP]
 > You can change the default configuration of `start_web.sh`, for example, to use GPU for inference (e.g. `USE_CUDA=True`) or to increase the number of beams (e.g. `NUM_BEAM=3`) to achieve higher accuracy
 
 > [!IMPORTANT]
-> If you want to directly render the prediction results as images on the web (for example, to check if the prediction is correct), you need to ensure [xelatex is correctly installed](https://github.com/OleehyO/TexTeller?tab=readme-ov-file#Rendering-Predicted-Results)
+> If you want to directly render the prediction results as images on the web (for example, to check if the prediction is correct), you need to ensure [xelatex is correctly installed](https://github.com/OleehyO/TexTeller?tab=readme-ov-file#-about-rendering-latex-as-images)
 
 ## 📡 API Usage
 
