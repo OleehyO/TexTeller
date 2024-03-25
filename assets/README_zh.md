@@ -7,9 +7,12 @@
     <p align="center">
         <a href="../README.md">English</a> | 中文
     </p>
-    <p align="center">
+    <!-- <p align="center">
         <img src="./web_demo.gif" alt="TexTeller_demo" width=800>
-    </p>
+    </p> -->
+    <video width="800" controls>
+        <source src="./test.mp4" type="video/mp4">
+    </video>
 </div>
 
 TexTeller是一个基于ViT的端到端公式识别模型，可以把图片转换为对应的latex公式
@@ -21,6 +24,8 @@ TexTeller用了~~550K~~7.5M的图片-公式对进行训练(数据集可以在[�
 ## 🔄 变更信息
 
 * 📮[2024-03-24] TexTeller2.0发布！TexTeller2.0的训练数据增大到了7.5M(相较于TexTeller1.0**增加了~15倍**并且数据质量也有所改善)。训练后的TexTeller2.0在测试集中展现出了**更加优越的性能**，尤其在生僻符号、复杂多行、矩阵的识别场景中。
+    > [!INFO]
+    > 在[这里](./test.pdf)有更多的测试图片以及各家识别模型的横向对比。
 
 ## 🔑 前置条件
 
@@ -28,7 +33,8 @@ python=3.10
 
 pytorch
 
-> 注意: 只有CUDA版本>= 12.0被完全测试过，所以最好使用>= 12.0的CUDA版本
+> [!WARNING]
+> 只有CUDA版本>= 12.0被完全测试过，所以最好使用>= 12.0的CUDA版本
 
 ## 🖼 关于把latex渲染成图片
 
@@ -62,6 +68,7 @@ pytorch
     #+e.g. python inference.py -img "./img.jpg" -cuda
     ```
 
+    > [!NOTE]
     > 第一次运行时会在hugging face上下载所需要的checkpoints
 
 ## ❓ 常见问题：无法连接到Hugging Face
@@ -102,9 +109,11 @@ pytorch
 
 然后在浏览器里输入`http://localhost:8501`就可以看到web demo
 
+> [!TIP]
 > 你可以改变`start_web.sh`的默认配置， 例如使用GPU进行推理(e.g. `USE_CUDA=True`) 或者增加beams的数量(e.g. `NUM_BEAM=3`)来获得更高的精确度
 
-**NOTE:** 如果你想直接把预测结果在网页上渲染成图片（比如为了检查预测结果是否正确）你需要确保[xelatex被正确安装](https://github.com/OleehyO/TexTeller?tab=readme-ov-file#Rendering-Predicted-Results)
+> [!IMPORTANT]
+> 如果你想直接把预测结果在网页上渲染成图片（比如为了检查预测结果是否正确）你需要确保[xelatex被正确安装](https://github.com/OleehyO/TexTeller?tab=readme-ov-file#Rendering-Predicted-Results)
 
 ## 📡 API调用
 
@@ -127,6 +136,7 @@ python server.py  # default settings
 | `--ncpu_per_replica` | 每个服务副本所用的CPU核心数，*默认为1*。 |
 | `--ngpu_per_replica` | 每个服务副本所用的GPU数量，*默认为1*。你可以把这个值设置成 0~1之间的数，这样会在一个GPU上运行多个服务副本来共享GPU，从而提高GPU的利用率。(注意，如果 --num_replicas 2, --ngpu_per_replica 0.7, 那么就必须要有2个GPU可用) |
 
+> [!NOTE]
 > 一个客户端demo可以在`TexTeller/client/demo.py`找到，你可以参考`demo.py`来给server发送请求
 
 ## 🏋️‍♂️ 训练
@@ -142,6 +152,7 @@ python server.py  # default settings
 如果你使用了不一样的数据集，你可能需要重新训练tokenizer来得到一个不一样的字典。配置好数据集后，可以通过以下命令来训练自己的tokenizer：
 
 1. 在`TexTeller/src/models/tokenizer/train.py`中，修改`new_tokenizer.save_pretrained('./your_dir_name')`为你自定义的输出目录
+    > [!IMPORTANT]
     > 如果要用一个不一样大小的字典(默认1W个token)，你需要在 `TexTeller/src/models/globals.py`中修改`VOCAB_SIZE`变量
 
 2. **在 `TexTeller/src` 目录下**运行以下命令:
@@ -162,19 +173,10 @@ python -m models.ocr_model.train.train
 
 在`TexTeller/src/globals.py`和`TexTeller/src/models/ocr_model/train/train_args.py`中，你可以改变模型的架构以及训练的超参数。
 
+> [!NOTE]
 > 我们的训练脚本使用了[Hugging Face Transformers](https://github.com/huggingface/transformers)库, 所以你可以参考他们提供的[文档](https://huggingface.co/docs/transformers/v4.32.1/main_classes/trainer#transformers.TrainingArguments)来获取更多训练参数的细节以及配置。
 
 ## 🚧 不足
-
-* 部分细节很多的公式无法做到100%的准确率
-
-    <img src="" width=30, height=30> 
-
-* 部分复杂的大型多行公式识别效果不佳(例如长公式与矩阵混合)
-
-    <img src="" width=30, height=30> 
-
-    > 如果遇到这种情况，你可以尝试把大型的多行公式分成多个小的子公式来识别。
 
 * 不支持扫描图片以及PDF文档识别
 

@@ -7,9 +7,12 @@
     <p align="center">
         English | <a href="./assets/README_zh.md">中文</a>
     </p>
-    <p align="center">
+    <!-- <p align="center">
         <img src="./assets/web_demo.gif" alt="TexTeller_demo" width=800>
-    </p>
+    </p> -->
+    <video width="800" controls>
+        <source src="./assets/test.mp4" type="video/mp4">
+    </video>
 </div>
 
 TexTeller is an end-to-end formula recognition model based on ViT, capable of converting images into corresponding LaTeX formulas.
@@ -21,6 +24,8 @@ TexTeller was trained with ~~550K~~7.5M image-formula pairs (dataset available [
 ## 🔄 Change Log
 
 * 📮[2024-03-24] TexTeller 2.0 released! The training data for TexTeller 2.0 has been increased to 7.5M (about **15 times more** than TexTeller 1.0 and also improved in data quality). The trained TexTeller 2.0 demonstrated **superior performance** in the test set, especially in recognizing rare symbols, complex multi-line formulas, and matrices.
+    > [!INFO]
+    > [There](./assets/test.pdf) are more test images here and a horizontal comparison of recognition models from different companies.
 
 ## 🔑 Prerequisites
 
@@ -137,8 +142,6 @@ In `TexTeller/src/globals.py` and `TexTeller/src/models/ocr_model/train/train_ar
 > Our training scripts use the [Hugging Face Transformers](https://github.com/huggingface/transformers) library, so you can refer to their [documentation](https://huggingface.co/docs/transformers/v4.32.1/main_classes/trainer#transformers.TrainingArguments) for more details and configurations on training parameters.
 
 ## 🚧 Limitations
-
-* Some complex multi-line scenarios are not well handled (e.g., long formulas mixed with matrices)
 
 * Does not support scanned images and PDF document recognition
 

@@ -95,7 +95,7 @@ def rendering(formula: str, out_img_path: Path) -> bool:
     return p.returncode == 0
 
 def pdf_to_pngbytes(pdf_path):
-    images = convert_from_path(pdf_path, first_page=1, last_page=1)
+    images = convert_from_path(pdf_path, dpi=400,first_page=1, last_page=1)
     trimmed_images = trim(images[0])
     png_image_bytes = io.BytesIO()
     trimmed_images.save(png_image_bytes, format='PNG')

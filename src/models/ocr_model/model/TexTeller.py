@@ -17,7 +17,7 @@ from transformers import (
 
 
 class TexTeller(VisionEncoderDecoderModel):
-    REPO_NAME = '/home/lhy/code/TexTeller/src/models/ocr_model/train/train_result/TexTellerv2/checkpoint-356000'
+    REPO_NAME = '/home/lhy/code/TexTeller/src/models/ocr_model/train/train_result/TexTellerv2/checkpoint-588000'
     def __init__(self, decoder_path=None, tokenizer_path=None):
         encoder = ViTModel(ViTConfig(
             image_size=FIXED_IMG_SIZE,
