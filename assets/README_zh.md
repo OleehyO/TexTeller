@@ -11,7 +11,7 @@
         <img src="./web_demo.gif" alt="TexTeller_demo" width=800>
     </p> -->
     <video width="800" controls>
-        <source src="./test.mp4" type="video/mp4">
+        <source src="./test_720p.mp4" type="video/mp4">
     </video>
 </div>
 
@@ -24,7 +24,6 @@ TexTeller用了~~550K~~7.5M的图片-公式对进行训练(数据集可以在[�
 ## 🔄 变更信息
 
 * 📮[2024-03-24] TexTeller2.0发布！TexTeller2.0的训练数据增大到了7.5M(相较于TexTeller1.0**增加了~15倍**并且数据质量也有所改善)。训练后的TexTeller2.0在测试集中展现出了**更加优越的性能**，尤其在生僻符号、复杂多行、矩阵的识别场景中。
-    > [!INFO]
     > 在[这里](./test.pdf)有更多的测试图片以及各家识别模型的横向对比。
 
 ## 🔑 前置条件
@@ -68,8 +67,8 @@ pytorch
     #+e.g. python inference.py -img "./img.jpg" -cuda
     ```
 
-    > [!NOTE]
-    > 第一次运行时会在hugging face上下载所需要的checkpoints
+> [!NOTE]
+> 第一次运行时会在hugging face上下载所需要的checkpoints
 
 ## ❓ 常见问题：无法连接到Hugging Face
 
