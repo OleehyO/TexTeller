@@ -1,0 +1,12 @@
+transformers
+datasets
+evaluate
+streamlit
+opencv-python
+ray[serve]
+accelerate
+tensorboardX
+nltk
+python-multipart
+
+pdf2image
