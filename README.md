@@ -10,9 +10,6 @@
     <!-- <p align="center">
         <img src="./assets/web_demo.gif" alt="TexTeller_demo" width=800>
     </p> -->
-    <video width="800" controls>
-        <source src="./assets/test.mp4" type="video/mp4">
-    </video>
 </div>
 
 TexTeller is an end-to-end formula recognition model based on ViT, capable of converting images into corresponding LaTeX formulas.
@@ -24,7 +21,6 @@ TexTeller was trained with ~~550K~~7.5M image-formula pairs (dataset available [
 ## 🔄 Change Log
 
 * 📮[2024-03-24] TexTeller 2.0 released! The training data for TexTeller 2.0 has been increased to 7.5M (about **15 times more** than TexTeller 1.0 and also improved in data quality). The trained TexTeller 2.0 demonstrated **superior performance** in the test set, especially in recognizing rare symbols, complex multi-line formulas, and matrices.
-    > [!INFO]
     > [There](./assets/test.pdf) are more test images here and a horizontal comparison of recognition models from different companies.
 
 ## 🔑 Prerequisites
@@ -33,7 +29,8 @@ python=3.10
 
 pytorch
 
-> Note: Only CUDA versions >= 12.0 have been fully tested, so it is recommended to use CUDA version >= 12.0
+> [!WARNING]
+> Only CUDA versions >= 12.0 have been fully tested, so it is recommended to use CUDA version >= 12.0
 
 ## 🖼 About Rendering LaTeX as Images
 
@@ -67,7 +64,8 @@ pytorch
     #+e.g. python inference.py -img "./img.jpg" -cuda
     ```
 
-    > The first time you run it, the required checkpoints will be downloaded from Hugging Face
+> [!NOTE]
+> The first time you run it, the required checkpoints will be downloaded from Hugging Face
 
 ## 🌐 Web Demo
 
@@ -79,9 +77,11 @@ To start the web demo, you need to first enter the `TexTeller/src` directory, th
 
 Then, enter `http://localhost:8501` in your browser to see the web demo
 
+> [!TIP]
 > You can change the default configuration of `start_web.sh`, for example, to use GPU for inference (e.g. `USE_CUDA=True`) or to increase the number of beams (e.g. `NUM_BEAM=3`) to achieve higher accuracy
 
-**NOTE:** If you want to directly render the prediction results as images on the web (for example, to check if the prediction is correct), you need to ensure [xelatex is correctly installed](https://github.com/OleehyO/TexTeller?tab=readme-ov-file#Rendering-Predicted-Results)
+> [!IMPORTANT]
+> If you want to directly render the prediction results as images on the web (for example, to check if the prediction is correct), you need to ensure [xelatex is correctly installed](https://github.com/OleehyO/TexTeller?tab=readme-ov-file#Rendering-Predicted-Results)
 
 ## 📡 API Usage
 
@@ -104,6 +104,7 @@ You can pass the following arguments to `server.py` to change the server's infer
 | `--ncpu_per_replica` | The number of CPU cores used per service replica, *default is 1*. |
 | `--ngpu_per_replica` | The number of GPUs used per service replica, *default is 1*. You can set this value between 0 and 1 to run multiple service replicas on one GPU to share the GPU, thereby improving GPU utilization. (Note, if --num_replicas is 2, --ngpu_per_replica is 0.7, then 2 GPUs must be available) |
 
+> [!NOTE]
 > A client demo can be found at `TexTeller/client/demo.py`, you can refer to `demo.py` to send requests to the server
 
 ## 🏋️‍♂️ Training
@@ -139,6 +140,7 @@ You can set your own tokenizer and checkpoint paths in `TexTeller/src/models/ocr
 
 In `TexTeller/src/globals.py` and `TexTeller/src/models/ocr_model/train/train_args.py`, you can change the model's architecture and training hyperparameters.
 
+> [!NOTE]
 > Our training scripts use the [Hugging Face Transformers](https://github.com/huggingface/transformers) library, so you can refer to their [documentation](https://huggingface.co/docs/transformers/v4.32.1/main_classes/trainer#transformers.TrainingArguments) for more details and configurations on training parameters.
 
 ## 🚧 Limitations

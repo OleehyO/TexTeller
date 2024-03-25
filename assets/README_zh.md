@@ -10,9 +10,6 @@
     <!-- <p align="center">
         <img src="./web_demo.gif" alt="TexTeller_demo" width=800>
     </p> -->
-    <video width="800" controls>
-        <source src="https://github.com/OleehyO/TexTeller/blob/dev/assets/test.mp4" type="video/mp4">
-    </video>
 </div>
 
 TexTeller是一个基于ViT的端到端公式识别模型，可以把图片转换为对应的latex公式
