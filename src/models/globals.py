@@ -16,7 +16,7 @@ MAX_WIDTH  = 1280
 TEXIFY_INPUT_DENSITY = 100
 
 # ocr模型的tokenizer中的词典数量
-VOCAB_SIZE = 10000
+VOCAB_SIZE = 15000
 
 # ocr模型是否固定输入图片的大小
 OCR_FIX_SIZE = True
@@ -30,7 +30,8 @@ OCR_IMG_MAX_WIDTH  = 768
 OCR_IMG_CHANNELS = 1  # 灰度图
 
 # ocr模型训练数据集的最长token数
-MAX_TOKEN_SIZE = 2048     # 模型最长的embedding长度(默认512)
+MAX_TOKEN_SIZE = 1024     # 模型最长的embedding长度(默认512)
+# MAX_TOKEN_SIZE = 2048     # 模型最长的embedding长度(默认512)
 # MAX_TOKEN_SIZE = 600
 
 # ocr模型训练时随机缩放的比例

@@ -1,4 +1,3 @@
-from PIL import Image
 from pathlib import Path
 
 from models.globals import (
@@ -43,22 +42,23 @@ class TexTeller(VisionEncoderDecoderModel):
 
 if __name__ == "__main__":
     # texteller = TexTeller()
-    from ..utils.inference import inference
-    model = TexTeller.from_pretrained('/home/lhy/code/TeXify/src/models/ocr_model/train/train_result/checkpoint-57500')
-    tokenizer = TexTeller.get_tokenizer('/home/lhy/code/TeXify/src/models/tokenizer/roberta-tokenizer-550Kformulas')
+    # from ..utils.inference import inference
+    # model = TexTeller.from_pretrained('/home/lhy/code/TexTeller/src/models/ocr_model/model/ckpt')
+    # model.save_pretrained('/home/lhy/code/TexTeller/src/models/ocr_model/model/ckpt2', safe_serialization=False)
+    # tokenizer = TexTeller.get_tokenizer('/home/lhy/code/TeXify/src/models/tokenizer/roberta-tokenizer-550Kformulas')
 
-    base = '/home/lhy/code/TeXify/src/models/ocr_model/model'
-    imgs_path = [
-        # base + '/1.jpg',
-        # base + '/2.jpg',
-        # base + '/3.jpg',
-        # base + '/4.jpg',
-        # base + '/5.jpg',
-        # base + '/6.jpg',
-        base + '/foo.jpg'
-    ]
+    # base = '/home/lhy/code/TeXify/src/models/ocr_model/model'
+    # imgs_path = [
+    #     # base + '/1.jpg',
+    #     # base + '/2.jpg',
+    #     # base + '/3.jpg',
+    #     # base + '/4.jpg',
+    #     # base + '/5.jpg',
+    #     # base + '/6.jpg',
+    #     base + '/foo.jpg'
+    # ]
 
-    # res = inference(model, [img1, img2, img3, img4, img5, img6, img7], tokenizer)
-    res = inference(model, imgs_path, tokenizer)
-    pause = 1
+    # # res = inference(model, [img1, img2, img3, img4, img5, img6, img7], tokenizer)
+    # res = inference(model, imgs_path, tokenizer)
+    # pause = 1
 

@@ -4,7 +4,7 @@ from transformers import EvalPrediction, RobertaTokenizer
 from typing import Dict
 
 def bleu_metric(eval_preds:EvalPrediction, tokenizer:RobertaTokenizer) -> Dict:
-    metric = evaluate.load('/home/lhy/code/TeXify/src/models/ocr_model/train/google_bleu/google_bleu.py')  # 这里需要联网，所以会卡住
+    metric = evaluate.load('/home/lhy/code/TexTeller/src/models/ocr_model/train/google_bleu')  # 这里需要联网，所以会卡住
     
     logits, labels = eval_preds.predictions, eval_preds.label_ids
     preds = logits
