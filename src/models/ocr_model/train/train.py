@@ -15,7 +15,7 @@ from ...globals import MAX_TOKEN_SIZE, MIN_WIDTH, MIN_HEIGHT
 
 def train(model, tokenizer, train_dataset, eval_dataset, collate_fn_with_tokenizer):
     training_args = TrainingArguments(**CONFIG)
-    debug_mode = False
+    debug_mode = True
     if debug_mode:
         training_args.auto_find_batch_size = False
         training_args.num_train_epochs = 2
@@ -95,6 +95,10 @@ if __name__ == '__main__':
     collate_fn_with_tokenizer = partial(collate_fn, tokenizer=tokenizer)
     # model = TexTeller()
     model = TexTeller.from_pretrained('/home/lhy/code/TexTeller/src/models/ocr_model/model/ckpt')
+
+    # =================  debug  =======================
+    foo = train_dataset[:3]
+    # =================  debug  =======================
 
     enable_train    = True
     enable_evaluate = True

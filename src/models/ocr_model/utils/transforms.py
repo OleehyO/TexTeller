@@ -5,7 +5,6 @@ import cv2
 
 from torchvision.transforms import v2
 from typing import List, Union
-from augraphy import *
 from PIL import Image
 
 from ...globals import (
@@ -15,8 +14,10 @@ from ...globals import (
     IMAGE_MEAN, IMAGE_STD,
     MAX_RESIZE_RATIO, MIN_RESIZE_RATIO
 )
+from .ocr_aug import ocr_augmentation_pipeline
 
-train_pipeline = default_augraphy_pipeline(scan_only=True)
+# train_pipeline = default_augraphy_pipeline(scan_only=True)
+train_pipeline = ocr_augmentation_pipeline()
 
 general_transform_pipeline = v2.Compose([
     v2.ToImage(),    # Convert to tensor, only needed if you had a PIL image
@@ -76,11 +77,24 @@ def trim_white_border(image: np.ndarray):
     return trimmed_image
 
 
+# BUGY CODE
 def add_white_border(image: np.ndarray, max_size: int) -> np.ndarray:
     randi = [random.randint(0, max_size) for _ in range(4)]
+    pad_height_size = randi[1] + randi[3]
+    pad_width_size  = randi[0] + randi[2]
+    if (pad_height_size + image.shape[0] < 30):
+        compensate_height = int((30 - (pad_height_size + image.shape[0])) * 0.5) + 1
+        randi[1] += compensate_height
+        randi[3] += compensate_height
+    if (pad_width_size + image.shape[1] < 30):
+        compensate_width = int((30 - (pad_width_size + image.shape[1])) * 0.5) + 1
+        randi[0] += compensate_width
+        randi[2] += compensate_width
     return v2.functional.pad(
-        image,
-        padding=randi
+        torch.from_numpy(image).permute(2, 0, 1),
+        padding=randi,
+        padding_mode='constant',
+        fill=(255, 255, 255)
     )
 
 
@@ -127,11 +141,12 @@ def train_transform(images: List[Image.Image]) -> List[torch.Tensor]:
     # 裁剪掉白边
     images = [trim_white_border(image) for image in images]
     # 增加白边
-    images = [add_white_border(image, max_size=35) for image in images]
+    # images = [add_white_border(image, max_size=35) for image in images]
     # 数据增强
-    images = [train_pipeline(image) for image in images]
+    # images = [train_pipeline(image.permute(1, 2, 0).numpy()) for image in images]
     # general transform pipeline
-    images = general_transform_pipeline(images)  # imgs: List[PIL.Image.Image]
+    images = general_transform_pipeline(images)
+    # images = [general_transform_pipeline(image) for image in  images]
     # padding to fixed size
     images = padding(images, OCR_IMG_SIZE)
     return images

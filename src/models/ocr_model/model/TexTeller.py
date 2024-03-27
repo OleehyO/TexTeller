@@ -41,6 +41,7 @@ class TexTeller(VisionEncoderDecoderModel):
 
 
 if __name__ == "__main__":
+    pause = 1
     # texteller = TexTeller()
     # from ..utils.inference import inference
     # model = TexTeller.from_pretrained('/home/lhy/code/TexTeller/src/models/ocr_model/model/ckpt')
