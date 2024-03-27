@@ -131,6 +131,14 @@ def random_resize(
     ]
 
 
+def ocr_aug(image: np.ndarray) -> np.ndarray:
+    # 增加白边
+    image = add_white_border(image, max_size=35).permute(1, 2, 0).numpy()
+    # 数据增强
+    image = train_pipeline(image)
+    return image
+
+
 def train_transform(images: List[Image.Image]) -> List[torch.Tensor]:
     assert OCR_IMG_CHANNELS == 1 , "Only support grayscale images for now"
     assert OCR_FIX_SIZE == True, "Only support fixed size images for now"
@@ -140,13 +148,15 @@ def train_transform(images: List[Image.Image]) -> List[torch.Tensor]:
     images = random_resize(images, MIN_RESIZE_RATIO, MAX_RESIZE_RATIO)
     # 裁剪掉白边
     images = [trim_white_border(image) for image in images]
+
     # 增加白边
     # images = [add_white_border(image, max_size=35) for image in images]
     # 数据增强
     # images = [train_pipeline(image.permute(1, 2, 0).numpy()) for image in images]
+    images = [ocr_aug(image) for image in images]
+
     # general transform pipeline
-    images = general_transform_pipeline(images)
-    # images = [general_transform_pipeline(image) for image in  images]
+    images = [general_transform_pipeline(image) for image in  images]
     # padding to fixed size
     images = padding(images, OCR_IMG_SIZE)
     return images
