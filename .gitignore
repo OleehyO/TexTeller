@@ -5,3 +5,6 @@
 **/logs
 **/.cache
 **/tmp*
+**/data
+**/*cache
+**/ckpt
