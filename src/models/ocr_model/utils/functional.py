@@ -1,12 +1,8 @@
 import torch
 
-from functools import partial
-from datasets import load_dataset
-
 from transformers import DataCollatorForLanguageModeling
 from typing import List, Dict, Any
-from .transforms import train_transform
-from ..model.TexTeller import TexTeller
+from .transforms import train_transform, inference_transform
 from ...globals import MIN_HEIGHT, MIN_WIDTH, MAX_TOKEN_SIZE
 
 
@@ -44,8 +40,14 @@ def collate_fn(samples: List[Dict[str, Any]], tokenizer=None) -> Dict[str, List[
     return batch
 
 
-def img_transform_fn(samples: Dict[str, List[Any]]) -> Dict[str, List[Any]]:
+def img_train_transform(samples: Dict[str, List[Any]]) -> Dict[str, List[Any]]:
     processed_img = train_transform(samples['pixel_values'])
+    samples['pixel_values'] = processed_img
+    return samples
+
+
+def img_inf_transform(samples: Dict[str, List[Any]]) -> Dict[str, List[Any]]:
+    processed_img = inference_transform(samples['pixel_values'])
     samples['pixel_values'] = processed_img
     return samples
 
@@ -55,30 +57,3 @@ def filter_fn(sample, tokenizer=None) -> bool:
         sample['image'].height > MIN_HEIGHT and sample['image'].width > MIN_WIDTH
         and len(tokenizer(sample['latex_formula'])['input_ids']) < MAX_TOKEN_SIZE - 10
     )
-
-
-if __name__ == '__main__':
-    dataset = load_dataset(
-        '/home/lhy/code/TeXify/src/models/ocr_model/train/dataset/latex-formulas/latex-formulas.py',
-        'cleaned_formulas'
-    )['train'].select(range(20))
-    tokenizer = TexTeller.get_tokenizer('/home/lhy/code/TeXify/src/models/tokenizer/roberta-tokenizer-550Kformulas')
-
-    map_fn = partial(tokenize_fn, tokenizer=tokenizer)
-    collate_fn_with_tokenizer = partial(collate_fn, tokenizer=tokenizer)
-
-    tokenized_formula = dataset.map(map_fn, batched=True, remove_columns=dataset.column_names)
-    tokenized_formula = tokenized_formula.to_dict()
-    # tokenized_formula['pixel_values'] = dataset['image']
-    # tokenized_formula = dataset.from_dict(tokenized_formula)
-    tokenized_dataset = tokenized_formula.with_transform(img_transform_fn)
-
-    dataset_dict = tokenized_dataset[:]
-    dataset_list = [dict(zip(dataset_dict.keys(), x)) for x in zip(*dataset_dict.values())]
-    batch = collate_fn_with_tokenizer(dataset_list)
-
-    from ..model.TexTeller import TexTeller
-    model = TexTeller()
-    out = model(**batch)
-
-    pause = 1

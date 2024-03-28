@@ -16,7 +16,7 @@ CONFIG = {
                                            #+通常与eval_steps一致
     "logging_nan_inf_filter": False,       # 对loss=nan或inf进行记录
 
-    "num_train_epochs": 3,                # 总的训练轮数
+    "num_train_epochs": 4,                # 总的训练轮数
     # "max_steps": 3,                      # 训练的最大步骤数。如果设置了这个参数，
                                            #+那么num_train_epochs将被忽略（通常用于调试）
 
@@ -25,7 +25,7 @@ CONFIG = {
     "per_device_train_batch_size": 3,    # 每个GPU的batch size
     "per_device_eval_batch_size": 6,      # 每个GPU的evaluation batch size
     # "auto_find_batch_size": True,          # 自动搜索合适的batch size（指数decay）
-    "auto_find_batch_size": True,          # 自动搜索合适的batch size（指数decay）
+    "auto_find_batch_size": False,          # 自动搜索合适的batch size（指数decay）
 
     "optim": "adamw_torch",                # 还提供了很多AdamW的变体（相较于经典的AdamW更加高效）
                                            #+当设置了optim后，就不需要在Trainer中传入optimizer
@@ -41,8 +41,8 @@ CONFIG = {
     "gradient_checkpointing": False,       # 当为True时，会在forward时适当丢弃一些中间量（用于backward），从而减轻显存压力（但会增加forward的时间）
     "label_smoothing_factor": 0.0,         # softlabel，等于0时表示未开启
     # "debug": "underflow_overflow",       # 训练时检查溢出，如果发生，则会发出警告。（该模式通常用于debug）
-    "jit_mode_eval": True,                 # 是否在eval的时候使用PyTorch jit trace（可以加速模型，但模型必须是静态的，否则会报错）
-    "torch_compile": True,                 # 是否使用torch.compile来编译模型（从而获得更好的训练和推理性能）
+    "jit_mode_eval": False,                 # 是否在eval的时候使用PyTorch jit trace（可以加速模型，但模型必须是静态的，否则会报错）
+    "torch_compile": False,                 # 是否使用torch.compile来编译模型（从而获得更好的训练和推理性能）
                                            #+ 要求torch > 2.0，这个功能很好使，当模型跑通的时候可以开起来
     # "deepspeed": "your_json_path",       #  使用deepspeed来训练，需要指定ds_config.json的路径
                                            #+ 在Trainer中使用Deepspeed时一定要注意ds_config.json中的配置是否与Trainer的一致（如学习率，batch size，梯度累积步数等）
