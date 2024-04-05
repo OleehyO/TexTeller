@@ -115,7 +115,7 @@ python=3.10
 > 你可以改变`start_web.sh`的默认配置， 例如使用GPU进行推理(e.g. `USE_CUDA=True`) 或者增加beams的数量(e.g. `NUM_BEAM=3`)来获得更高的精确度
 
 > [!IMPORTANT]
-> 如果你想直接把预测结果在网页上渲染成图片（比如为了检查预测结果是否正确）你需要确保[xelatex被正确安装](https://github.com/OleehyO/TexTeller?tab=readme-ov-file#-关于把latex渲染成图片)
+> 如果你想直接把预测结果在网页上渲染成图片（比如为了检查预测结果是否正确）你需要确保[xelatex被正确安装](https://github.com/OleehyO/TexTeller/blob/main/assets/README_zh.md#-%E5%85%B3%E4%BA%8E%E6%8A%8Alatex%E6%B8%B2%E6%9F%93%E6%88%90%E5%9B%BE%E7%89%87)
 
 ## 📡 API调用
 

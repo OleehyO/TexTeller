@@ -87,7 +87,7 @@ Enter `http://localhost:8501` in a browser to view the web demo.
 > You can change the default configuration of `start_web.sh`, for example, to use GPU for inference (e.g. `USE_CUDA=True`) or to increase the number of beams (e.g. `NUM_BEAM=3`) to achieve higher accuracy
 
 > [!IMPORTANT]
-> If you want to directly render the prediction results as images on the web (for example, to check if the prediction is correct), you need to ensure [xelatex is correctly installed](https://github.com/OleehyO/TexTeller?tab=readme-ov-file#-about-rendering-latex-as-images)
+> If you want to directly render the prediction results as images on the web (for example, to check if the prediction is correct), you need to ensure [xelatex is correctly installed](https://github.com/OleehyO/TexTeller/blob/main/README.md#-about-rendering-latex-as-images)
 
 ## 📡 API Usage
 
