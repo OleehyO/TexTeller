@@ -1,0 +1,31 @@
+\begin{aligned}
+&\begin{aligned}(\tau\lambda)\psi(a)(\lambda^{-1}\tau)(X,Y,\xi,\eta)=(\tau\lambda)\psi(a)(-\tau Y,\tau X,-\tau\eta,\tau\xi)\end{aligned} \\
+&=(\tau\lambda)\bigg(\begin{pmatrix}-a\tau\eta_1&-\tau y_3&-\tau\overline{y}_2\\-\tau\overline{y}_3&-a^{-1}\tau\eta_2&-a^{-1}\tau y_1\\-\tau y_2&-a^{-1}\tau\overline{y}_1&-a^{-1}\tau\eta_3\end{pmatrix},\begin{pmatrix}a^{-1}\tau\xi_1&\tau x_3&\tau\overline{x}_2\\\tau\overline{x}_3&a\tau\xi_2&a\tau x_1\\\tau x_2&a\tau\overline{x}_1&a\tau\xi_3\end{pmatrix},-a\tau\eta,a^{-1}\tau\xi\bigg) \\
+&\left.=\left(\begin{pmatrix}\tau a^{-1}\xi_1&x_3&\overline{x}_2\\\overline{x}_3&\tau a\xi_2&\tau ax_1\\x_2&\tau a\overline{x}_1&\tau a\xi_3\end{pmatrix}\right.,\begin{pmatrix}\tau a\eta_1&y_3&\overline{y}_2\\\overline{y}_3&\tau a^{-1}\eta_2&\tau a^{-1}y_1\\y_2&\tau a^{-1}\overline{y}_1&\tau a^{-1}\eta_3\end{pmatrix},\tau a^{-1}\xi,\tau a\eta\right) \\
+&=\psi(\tau a^{-1}).
+\end{aligned}
+
+\begin{aligned}
+&\begin{aligned}-L_{X_{13}}&=\left(\frac{1}{2}\sin\alpha\cos\beta\sin2\gamma+\cos\alpha\tan\beta\sin^2\gamma-\frac{1}{2}\sin\alpha\sin\beta\tan\beta\sin2\gamma\right)\frac{\partial}{\partial\alpha}\end{aligned} \\
+&\begin{aligned}+\left(\frac12\cos\alpha\sin\beta\sin2\gamma-\sin\alpha\sin^2\beta\cos^2\gamma-\sin\alpha\cos^2\beta\sin^2\gamma\right)\frac\partial{\partial\beta}\end{aligned} \\
+&\begin{aligned}+\left(\frac14\sin\alpha\sin2\beta\sin2\gamma-\frac12\sin\alpha\tan\beta\sin2\gamma+\cos\alpha\sec\beta\sin^2\gamma\right)\frac{\partial}{\partial\gamma}\end{aligned} \\
+&+\left(\left(\frac12\sin\alpha\sin2\beta\cos^2\gamma+\frac12\sin\alpha\sin2\beta-\frac12\cos\alpha\cos\beta\sin2\gamma\right)z_{12}\right.  \\
+&+(\sin\alpha\cos2\beta\cos\gamma+\cos\alpha\sin\beta\sin\gamma)\biggr)\frac{\partial}{\partial z_{12}} \\
+&+\left(\left(\frac12\sin\alpha\sin2\beta\cos2\gamma-\cos\alpha\cos\beta\sin2\gamma\right)z_{13}+(\sin\alpha\cos2\beta\cos\gamma\right.  \\
+&\left.\left.+\cos\alpha\sin\beta\sin\gamma\right)z_{23}+\left(\frac12\sin\alpha\sin2\beta\sin2\gamma+\cos\alpha\cos\beta\cos2\gamma\right)\right)\frac{\partial}{\partial z_{13}} \\
+&+\left(\left(-\frac12\sin\alpha\sin2\beta-\frac12\sin\alpha\sin2\beta\sin^2\gamma-\frac12\cos\alpha\cos\beta\sin2\gamma\right)z_{23}\right. \\
+&+(\sin\alpha\cos2\beta\sin\gamma-\cos\alpha\sin\beta\cos\gamma)\Bigg)\frac{\partial}{\partial z_{23}}.
+\end{aligned}
+
+\begin{aligned}
+&\sum_S(-1)^{|S|}\frac{1-\prod_{i\notin S}\left(\frac{X_i(1+X_i)}{Q+X_i}\right)^{m+1}}{1-\prod_{i\notin S}\frac{X_i(1+X_i)}{Q+X_i}}\prod_iX_i \\
+&\times\prod_{i\in S}X_{i}^{m+n-1}(1+X_{i})^{m+1}(Q+X_{i})^{-m}(X_{i}+r+Q)^{n-1} \\
+&\times\prod_{i\notin S}(1+X_i)(Q+rX_i+QX_i)^{n-1} \\
+&&\times\prod_{1\leq i<j\leq n,\{i,j\}\cap S\neq\emptyset}\left(\frac{Y_j(1+Y_j)}{Q+rY_j+QY_j}-\frac{Y_i(1+Y_i)}{Q+rY_i+QY_i}\right) \\
+&&&\times\sum_{k\notin S}(Q-X_{k}^{2})X_{k}^{-1}(1+X_{k})^{-1} \\
+&&&\times\prod_{\overset{1\leq i\leq k-1}{i\notin S}}\frac{(Q+(Q+r)X_k+X_i+X_iX_k)(X_iX_k-Q)}{(Q+rX_k+QX_k)(Q+rX_i+QX_i)} \\
+&&&\times\prod_{\overset{k+1\leq i\leq n}{i\notin S}}\frac{(Q+(Q+r)X_k+X_i+X_iX_k)(Q-X_iX_k)}{(Q+rX_k+QX_k)(Q+rX_i+QX_i)} \\
+&&&&\times\prod_{1\leq i<j\leq n,i,j\notin S\cup\{k\}}\left(\frac{X_j(1+X_j)}{Q+rX_j+QX_j}-\frac{X_i(1+X_i)}{Q+rX_i+QX_i}\right).
+\end{aligned}
+
+\[w_{\mathbb{A}}\left(\begin{bmatrix}T_{1}&T_{2}&T_{3}\\ T_{2}&T_{3}&iT_{1}\\ T_{3}&iT_{1}&iT_{2}\end{bmatrix}\right)=w_{\mathbb{A}}\left(\mathbb{V}^{\#_{ \mathbb{A}}}\begin{bmatrix}T_{1}&T_{2}&T_{3}\\ T_{2}&T_{3}&iT_{1}\\ T_{3}&iT_{1}&iT_{2}\end{bmatrix}\mathbb{V}\right)\] \[=\frac{1}{2}w_{\mathbb{A}}\left(\begin{bmatrix}T_{1}^{\#_{A}}- iT_{2}^{\#_{A}}&-i\sqrt{2}(T_{1}^{\#_{A}}+T_{2}^{\#_{A}})&2T_{3}^{\#_{A}}- iT_{1}^{\#_{A}}+T_{2}^{\#_{A}}\\ i\sqrt{2}(T_{2}^{\#_{A}}-T_{1}^{\#_{A}})&2T_{3}^{\#_{A}}&\sqrt{2}(T_{1}^{\#_{A} }+T_{2}^{\#_{A}})\\ 2T_{3}^{\#_{A}}-(-iT_{1}^{\#_{A}}+T_{2}^{\#_{A}})&\sqrt{2}(T_{2}^{\#_{A}}-T_{ 1}^{\#_{A}})&T_{1}^{\#_{A}}-iT_{2}^{\#_{A}}\end{bmatrix}\right)\] \[\leq w_{\mathbb{A}}\left(\begin{bmatrix}O&O&T_{3}\\ O&T_{3}&O\\ T_{3}&O&O\end{bmatrix}^{\#_{\mathbb{A}}}\right)+\frac{1}{2}w_{\mathbb{A}}\left( \begin{bmatrix}T_{1}+iT_{2}&O&-(iT_{1}+T_{2})\\ O&O&O\\ iT_{1}+T_{2}&O&T_{1}+iT_{2}\end{bmatrix}^{\#_{\mathbb{A}}}\right)\] \[+\frac{1}{\sqrt{2}}w_{\mathbb{A}}\left(\begin{bmatrix}O&-i(T_{2} -T_{1})&O\\ i(T_{1}+T_{2})&O&O\\ O&O&O\end{bmatrix}^{\#_{\mathbb{A}}}\right)+\frac{1}{\sqrt{2}}w_{\mathbb{A}} \left(\begin{bmatrix}O&O&O\\ O&O&(T_{2}-T_{1})\\ O&T_{1}+T_{2}&O\end{bmatrix}^{\#_{\mathbb{A}}}\right)\] \[=w_{\mathbb{A}}\left(\begin{bmatrix}O&O&T_{3}\\ O&T_{3}&O\\ T_{3}&O&O\end{bmatrix}\right)+\frac{1}{2}w_{\mathbb{A}}\left(\begin{bmatrix}T_{ 1}+iT_{2}&O&-(iT_{1}+T_{2})\\ O&O&O\\ iT_{1}+T_{2}&O&T_{1}+iT_{2}\end{bmatrix}\right)\] \[+\frac{1}{\sqrt{2}}w_{\mathbb{A}}\left(\begin{bmatrix}O&-i(T_{2} -T_{1})&O\\ i(T_{1}+T_{2})&O&O\\ O&O&O\end{bmatrix}\right)+\frac{1}{\sqrt{2}}w_{\mathbb{A}}\left(\begin{bmatrix} O&O&O\\ O&O&(T_{2}-T_{1})\\ O&T_{1}+T_{2}&O\end{bmatrix}\right)\] \[\leq w_{A}(T_{3})+\max\{w_{A}(T_{1}),w_{A}(T_{2})\}+\frac{1}{ \sqrt{2}}w_{\mathbb{A}}\left(\begin{bmatrix}O&-i(T_{2}-T_{1})&O\\ O&O&O\\ O&O&O\end{bmatrix}\right)+\frac{1}{\sqrt{2}}w_{\mathbb{A}}\left(\begin{bmatrix} O&O&O\\ i(T_{1}+T_{2})&O&O\\ O&O&O\end{bmatrix}\right)\] \[+\frac{1}{\sqrt{2}}w_{\mathbb{A}}\left(\begin{bmatrix}O&O&O\\ O&O&(T_{2}-T_{1})\\ O&O&O\end{bmatrix}\right)+\frac{1}{\sqrt{2}}w_{\mathbb{A}}\left(\begin{bmatrix} O&O&O\\ O&O&O\\ O&T_{1}+T_{2}&O\end{bmatrix}\right)\] \[=w_{A}(T_{3})+\max\{w_{A}(T_{1}),w_{A}(T_{2})\}+\frac{1}{\sqrt{2 }}\left(\|T_{1}-T_{2}\|_{A}+\|T_{1}+T_{2}\|_{A}\right),\]

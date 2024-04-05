@@ -1,9 +1,9 @@
 import torch
-import numpy as np 
 
 from transformers import DataCollatorForLanguageModeling
 from typing import List, Dict, Any
-from .transforms import train_transform
+from .transforms import train_transform, inference_transform
+from ...globals import MIN_HEIGHT, MIN_WIDTH, MAX_TOKEN_SIZE
 
 
 def left_move(x: torch.Tensor, pad_val):
@@ -32,15 +32,28 @@ def collate_fn(samples: List[Dict[str, Any]], tokenizer=None) -> Dict[str, List[
     batch['decoder_input_ids'] = batch.pop('input_ids')
     batch['decoder_attention_mask'] = batch.pop('attention_mask')
 
-    # left shift labels and decoder_attention_mask, padding with -100
+    # 左移labels和decoder_attention_mask
     batch['labels'] = left_move(batch['labels'], -100)
 
-    # convert list of Image to tensor with (B, C, H, W)
+    # 把list of Image转成一个tensor with (B, C, H, W)
     batch['pixel_values'] = torch.stack(batch['pixel_values'], dim=0)
     return batch
 
 
-def img_transform_fn(samples: Dict[str, List[Any]]) -> Dict[str, List[Any]]:
+def img_train_transform(samples: Dict[str, List[Any]]) -> Dict[str, List[Any]]:
     processed_img = train_transform(samples['pixel_values'])
     samples['pixel_values'] = processed_img
     return samples
+
+
+def img_inf_transform(samples: Dict[str, List[Any]]) -> Dict[str, List[Any]]:
+    processed_img = inference_transform(samples['pixel_values'])
+    samples['pixel_values'] = processed_img
+    return samples
+
+
+def filter_fn(sample, tokenizer=None) -> bool:
+    return (
+        sample['image'].height > MIN_HEIGHT and sample['image'].width > MIN_WIDTH
+        and len(tokenizer(sample['latex_formula'])['input_ids']) < MAX_TOKEN_SIZE - 10
+    )

@@ -10,4 +10,4 @@ nltk
 python-multipart
 
 pdf2image
-# augraphy
+augraphy
