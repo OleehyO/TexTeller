@@ -36,16 +36,6 @@ python=3.10
 > [!WARNING]
 > 只有CUDA版本>= 12.0被完全测试过，所以最好使用>= 12.0的CUDA版本
 
-## 🖼 关于把latex渲染成图片
-
-* **安装XeLaTex** 并确保`xelatex`可以直接被命令行调用。
-
-* 为了确保正确渲染预测出的公式, 需要在`.tex`文件中**引入以下宏包**:
-
-    ```tex
-    \usepackage{multirow,multicol,amsmath,amsfonts,amssymb,mathtools,bm,mathrsfs,wasysym,amsbsy,upgreek,mathalfa,stmaryrd,mathrsfs,dsfont,amsthm,amsmath,multirow}
-    ```
-
 ## 🚀 开搞
 
 1. 克隆本仓库:
@@ -101,9 +91,7 @@ python=3.10
 
 ## 🌐 网页演示
 
-首先**确保[poppler](https://poppler.freedesktop.org/)被正确安装，并添加到`PATH`路径中**（终端可以直接使用`pdftoppm`命令）。
-
-然后进入 `TexTeller/src` 目录，运行以下命令
+进入 `TexTeller/src` 目录，运行以下命令
 
 ```bash
 ./start_web.sh
@@ -113,9 +101,6 @@ python=3.10
 
 > [!TIP]
 > 你可以改变`start_web.sh`的默认配置， 例如使用GPU进行推理(e.g. `USE_CUDA=True`) 或者增加beams的数量(e.g. `NUM_BEAM=3`)来获得更高的精确度
-
-> [!IMPORTANT]
-> 如果你想直接把预测结果在网页上渲染成图片（比如为了检查预测结果是否正确）你需要确保[xelatex被正确安装](https://github.com/OleehyO/TexTeller/blob/main/assets/README_zh.md#-%E5%85%B3%E4%BA%8E%E6%8A%8Alatex%E6%B8%B2%E6%9F%93%E6%88%90%E5%9B%BE%E7%89%87)
 
 ## 📡 API调用
 

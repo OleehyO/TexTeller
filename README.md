@@ -36,16 +36,6 @@ python=3.10
 > [!WARNING]
 > Only CUDA versions >= 12.0 have been fully tested, so it is recommended to use CUDA version >= 12.0
 
-## 🖼 About Rendering LaTeX as Images
-
-* **Install XeLaTex** and ensure `xelatex` can be called directly from the command line.
-
-* To ensure correct rendering of the predicted formulas, **include the following packages** in your `.tex` file:
-
-    ```tex
-    \usepackage{multirow,multicol,amsmath,amsfonts,amssymb,mathtools,bm,mathrsfs,wasysym,amsbsy,upgreek,mathalfa,stmaryrd,mathrsfs,dsfont,amsthm,amsmath,multirow}
-    ```
-
 ## 🚀 Getting Started
 
 1. Clone the repository:
@@ -73,9 +63,7 @@ python=3.10
 
 ## 🌐 Web Demo
 
-First, **ensure that [poppler](https://poppler.freedesktop.org/) is correctly installed and added to the `PATH`** (so that the `pdftoppm` command can be directly used in the terminal).
-
-Then, go to the `TexTeller/src` directory and run the following command:
+Go to the `TexTeller/src` directory and run the following command:
 
 ```bash
 ./start_web.sh
@@ -85,9 +73,6 @@ Enter `http://localhost:8501` in a browser to view the web demo.
 
 > [!TIP]
 > You can change the default configuration of `start_web.sh`, for example, to use GPU for inference (e.g. `USE_CUDA=True`) or to increase the number of beams (e.g. `NUM_BEAM=3`) to achieve higher accuracy
-
-> [!IMPORTANT]
-> If you want to directly render the prediction results as images on the web (for example, to check if the prediction is correct), you need to ensure [xelatex is correctly installed](https://github.com/OleehyO/TexTeller/blob/main/README.md#-about-rendering-latex-as-images)
 
 ## 📡 API Usage
 
