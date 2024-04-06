@@ -9,5 +9,4 @@ tensorboardX
 nltk
 python-multipart
 
-pdf2image
 augraphy
