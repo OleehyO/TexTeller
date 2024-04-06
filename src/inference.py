@@ -1,8 +1,10 @@
 import os
 import argparse
+import cv2 as cv
 
 from pathlib import Path
-from models.ocr_model.utils.inference import inference
+from utils import to_katex
+from models.ocr_model.utils.inference import inference as latex_inference
 from models.ocr_model.model.TexTeller import TexTeller
 
 
@@ -21,16 +23,16 @@ if __name__ == '__main__':
         action='store_true',
         help='use cuda or not'
     )
-
     args = parser.parse_args()
 
     # You can use your own checkpoint and tokenizer path.
     print('Loading model and tokenizer...')
-    model = TexTeller.from_pretrained()
+    latex_rec_model = TexTeller.from_pretrained()
     tokenizer = TexTeller.get_tokenizer()
     print('Model and tokenizer loaded.')
 
-    img_path = [args.img]
+    img = cv.imread(args.img)
     print('Inference...')
-    res = inference(model, tokenizer, img_path, args.cuda)
-    print(res[0])
+    res = latex_inference(latex_rec_model, tokenizer, [img], args.cuda)
+    res = to_katex(res[0])
+    print(res)
