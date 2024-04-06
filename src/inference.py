@@ -3,6 +3,7 @@ import argparse
 import cv2 as cv
 
 from pathlib import Path
+from utils import to_katex
 from models.ocr_model.utils.inference import inference as latex_inference
 from models.ocr_model.model.TexTeller import TexTeller
 from utils import load_det_tex_model, load_lang_models
@@ -44,7 +45,8 @@ if __name__ == '__main__':
     print('Inference...')
     if not args.mix:
         res = latex_inference(latex_rec_model, tokenizer, [img], args.cuda)
-        print(res[0])
+        res = to_katex(res[0])
+        print(res)
     else:
         # latex_det_model = load_det_tex_model()
         # lang_model      = load_lang_models()...
