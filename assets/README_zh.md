@@ -44,13 +44,15 @@ python=3.10
     git clone https://github.com/OleehyO/TexTeller
     ```
 
-2. [安装pytorch](https://pytorch.org/get-started/locally/#start-locally)后，再安装本项目的依赖包:
+2. [安装pytorch](https://pytorch.org/get-started/locally/#start-locally)
+
+3. 安装本项目的依赖包:
 
     ```bash
     pip install -r requirements.txt
     ```
 
-3. 进入`TexTeller/src`目录，在终端运行以下命令进行推理:
+4. 进入`TexTeller/src`目录，在终端运行以下命令进行推理:
 
     ```bash
     python inference.py -img "/path/to/image.{jpg,png}" 
@@ -101,6 +103,9 @@ python=3.10
 
 > [!TIP]
 > 你可以改变`start_web.sh`的默认配置， 例如使用GPU进行推理(e.g. `USE_CUDA=True`) 或者增加beams的数量(e.g. `NUM_BEAM=3`)来获得更高的精确度
+
+> [!NOTE]
+> 对于Windows用户, 请运行 `start_web.bat`文件.
 
 ## 📡 API调用
 

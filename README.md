@@ -44,13 +44,15 @@ python=3.10
     git clone https://github.com/OleehyO/TexTeller
     ```
 
-2. After [installing pytorch](https://pytorch.org/get-started/locally/#start-locally), install the project's dependencies:
+2. [Installing pytorch](https://pytorch.org/get-started/locally/#start-locally) 
+
+3. Install the project's dependencies:
 
     ```bash
     pip install -r requirements.txt
     ```
 
-3. Enter the `TexTeller/src` directory and run the following command in the terminal to start inference:
+4. Enter the `TexTeller/src` directory and run the following command in the terminal to start inference:
 
     ```bash
     python inference.py -img "/path/to/image.{jpg,png}" 
@@ -72,7 +74,10 @@ Go to the `TexTeller/src` directory and run the following command:
 Enter `http://localhost:8501` in a browser to view the web demo.
 
 > [!TIP]
-> You can change the default configuration of `start_web.sh`, for example, to use GPU for inference (e.g. `USE_CUDA=True`) or to increase the number of beams (e.g. `NUM_BEAM=3`) to achieve higher accuracy
+> You can change the default configuration of `start_web.sh`, for example, to use GPU for inference (e.g. `USE_CUDA=True`) or to increase the number of beams (e.g. `NUM_BEAM=3`) to achieve higher accuracy.
+
+> [!NOTE]
+> If you are Windows user, please run the `start_web.bat` file instead.
 
 ## 📡 API Usage
 
