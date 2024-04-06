@@ -187,7 +187,6 @@ def train_transform(images: List[Image.Image]) -> List[torch.Tensor]:
 
 def inference_transform(images: List[np.ndarray]) -> List[torch.Tensor]:
     assert IMG_CHANNELS == 1 , "Only support grayscale images for now"
-    images = [np.array(img.convert('RGB')) for img in images]
     # 裁剪掉白边
     images = [trim_white_border(image) for image in images]
     # general transform pipeline
