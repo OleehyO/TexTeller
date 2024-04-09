@@ -16,7 +16,8 @@ def ocr_augmentation_pipeline():
             ink_swap_max_height_range=(100, 120),
             ink_swap_min_area_range=(10, 20),
             ink_swap_max_area_range=(400, 500),
-            p=0.2
+            # p=0.2
+            p=0.4
         ),
         LinesDegradation(
             line_roi=(0.0, 0.0, 1.0, 1.0),
@@ -28,7 +29,8 @@ def ocr_augmentation_pipeline():
             line_long_to_short_ratio=(5, 7),
             line_replacement_probability=(0.4, 0.5),
             line_replacement_thickness=(1, 3),
-            p=0.2
+            # p=0.2
+            p=0.4
         ),
 
         #  ============================
@@ -44,7 +46,8 @@ def ocr_augmentation_pipeline():
                     severity=(0.4, 0.6),
                 ),
             ],
-            p=0.2
+            # p=0.2
+            p=0.4
         ),
         #  ============================
 
@@ -56,7 +59,8 @@ def ocr_augmentation_pipeline():
             blur_kernel_size=(5, 5),
             blur_sigma=0,
             noise_type="perlin",
-            p=0.2
+            # p=0.2
+            p=0.4
         ),
         #  ============================
 
@@ -68,12 +72,14 @@ def ocr_augmentation_pipeline():
             turbulence_range=(2, 5),
             texture_width_range=(300, 500),
             texture_height_range=(300, 500),
-            p=0.2
+            # p=0.2
+            p=0.4
         ),
         BrightnessTexturize(  # tested
             texturize_range=(0.9, 0.99),
             deviation=0.03,
-            p=0.2
+            # p=0.2
+            p=0.4
         )
     ]
 
@@ -84,7 +90,8 @@ def ocr_augmentation_pipeline():
             color_shift_iterations=(2, 3),
             color_shift_brightness_range=(0.9, 1.1),
             color_shift_gaussian_kernel_range=(3, 3),
-            p=0.2
+            # p=0.2
+            p=0.4
         ),
 
         DirtyDrum(  # tested
@@ -95,7 +102,8 @@ def ocr_augmentation_pipeline():
             noise_value=(64, 224),
             ksize=random.choice([(3, 3), (5, 5), (7, 7)]),
             sigmaX=0,
-            p=0.2
+            # p=0.2
+            p=0.4
         ),
 
         # =====================================
@@ -119,7 +127,8 @@ def ocr_augmentation_pipeline():
                     gamma_range=(0.9, 1.1),
                 ),
             ],
-            p=0.2
+            # p=0.2
+            p=0.4
         ),
         # =====================================
 
@@ -130,10 +139,11 @@ def ocr_augmentation_pipeline():
                     subtle_range=random.randint(5, 10),
                 ),
                 Jpeg(
-                    quality_range=(85, 95),
+                    quality_range=(70, 95),
                 ),
             ],
-            p=0.2
+            # p=0.2
+            p=0.4
         ),
         # =====================================
     ]
