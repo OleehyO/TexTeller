@@ -37,8 +37,8 @@ def train(model, tokenizer, train_dataset, eval_dataset, collate_fn_with_tokeniz
         data_collator=collate_fn_with_tokenizer,
     )
 
-    trainer.train(resume_from_checkpoint=None)
-    # trainer.train(resume_from_checkpoint='/home/lhy/code/TexTeller/src/models/ocr_model/train/train_result/TexTellerv2/checkpoint-288000')
+    # trainer.train(resume_from_checkpoint=None)
+    trainer.train(resume_from_checkpoint='/home/lhy/code/TexTeller/src/models/ocr_model/train/train_result/TexTellerv3/checkpoint-440000')
 
 
 def evaluate(model, tokenizer, eval_dataset, collate_fn):
