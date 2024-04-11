@@ -27,6 +27,9 @@ TexTeller was trained with ~~550K~~7.5M image-formula pairs (dataset available [
 * 📮[2024-03-25] TexTeller 2.0 released! The training data for TexTeller 2.0 has been increased to 7.5M (about **15 times more** than TexTeller 1.0 and also improved in data quality). The trained TexTeller 2.0 demonstrated **superior performance** in the test set, especially in recognizing rare symbols, complex multi-line formulas, and matrices.
     > [There](./assets/test.pdf) are more test images here and a horizontal comparison of recognition models from different companies.
 
+* 📮[2024-04-11] Added whole image inference capability, just need to additionally install the onnxruntime library to get the new feature! We manually annotated formulas in 3,415 Chinese textbook images and used 8,272 formula images from the IBEM English paper detection dataset. We trained a formula object detection model based on the RT-DETR-R50 architecture and exported the trained model to the ONNX format. This allows inputting an image and recognizing all formulas in the image in one go.
+
+
 ## 🔑 Prerequisites
 
 python=3.10
@@ -78,6 +81,22 @@ Enter `http://localhost:8501` in a browser to view the web demo.
 
 > [!NOTE]
 > If you are Windows user, please run the `start_web.bat` file instead.
+
+## Inference on Whole Images
+### Download Weights
+The ONNX model trained on the 8,272 IBEM dataset (https://zenodo.org/records/4757865) of English papers:
+https://huggingface.co/TonyLee1256/texteller_det/resolve/main/rtdetr_r50vd_6x_coco_trained_on_IBEM_en_papers.onnx?download=true
+
+The ONNX model trained on 2,560 Chinese textbook images (100+ layouts):
+https://huggingface.co/TonyLee1256/texteller_det/blob/main/rtdetr_r50vd_6x_coco_trained_on_cn_textbook.onnx
+
+### Formula Detection
+Run infer_det.py in the TexTeller/src directory.
+This will detect all formulas in the input image, draw the detection results on the entire image and save it, and crop and save each detected formula as a separate image.
+
+### Batch Formula Recognition
+Run rec_infer_from_crop_imgs.py.
+Based on the formula detection results from the previous step, this script will perform batch recognition on all cropped formula images and save the recognition results as text files.
 
 ## 📡 API Usage
 
