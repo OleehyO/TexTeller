@@ -13,16 +13,16 @@ from models.globals import MAX_TOKEN_SIZE
 def inference(
     model: TexTeller, 
     tokenizer: RobertaTokenizerFast,
-    imgs_path: Union[List[str], List[np.ndarray]], 
+    imgs: Union[List[str], List[np.ndarray]], 
     use_cuda: bool,
     num_beams: int = 1,
 ) -> List[str]:
     model.eval()
-    if isinstance(imgs_path[0], str):
-        imgs = convert2rgb(imgs_path) 
+    if isinstance(imgs[0], str):
+        imgs = convert2rgb(imgs) 
     else:  # already numpy array(rgb format)
-        assert isinstance(imgs_path[0], np.ndarray)
-        imgs = imgs_path 
+        assert isinstance(imgs[0], np.ndarray)
+        imgs = imgs 
     imgs = inference_transform(imgs)
     pixel_values = torch.stack(imgs)
 

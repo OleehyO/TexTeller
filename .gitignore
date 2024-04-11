@@ -10,3 +10,6 @@
 
 **/logs
 **/tmp*
+**/data
+**/*cache
+**/ckpt

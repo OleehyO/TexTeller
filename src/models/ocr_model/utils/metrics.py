@@ -1,20 +1,14 @@
 import evaluate
 import numpy as np
-import os
-
-from pathlib import Path
-from typing import Dict
 from transformers import EvalPrediction, RobertaTokenizer
+from typing import Dict
 
-
-def bleu_metric(eval_preds: EvalPrediction, tokenizer: RobertaTokenizer) -> Dict:
-    cur_dir = Path(os.getcwd())
-    os.chdir(Path(__file__).resolve().parent)
-    metric = evaluate.load('google_bleu')  # Will download the metric from huggingface if not already downloaded
-    os.chdir(cur_dir)
+def bleu_metric(eval_preds:EvalPrediction, tokenizer:RobertaTokenizer) -> Dict:
+    metric = evaluate.load('/home/lhy/code/TexTeller/src/models/ocr_model/train/google_bleu')  # 这里需要联网，所以会卡住
     
     logits, labels = eval_preds.predictions, eval_preds.label_ids
     preds = logits
+    # preds = np.argmax(logits, axis=1)  # 把logits转成对应的预测标签
 
     labels = np.where(labels == -100, 1, labels)
 
