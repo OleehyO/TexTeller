@@ -1,0 +1,27 @@
+mode: paddle
+draw_threshold: 0.5
+metric: COCO
+use_dynamic_shape: false
+arch: DETR
+min_subgraph_size: 3
+Preprocess:
+- interp: 2
+  keep_ratio: false
+  target_size:
+  - 640
+  - 640
+  type: Resize
+- mean:
+  - 0.0
+  - 0.0
+  - 0.0
+  norm_type: none
+  std:
+  - 1.0
+  - 1.0
+  - 1.0
+  type: NormalizeImage
+- type: Permute
+label_list:
+- isolated
+- embedding
