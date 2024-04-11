@@ -8,5 +8,6 @@ accelerate
 tensorboardX
 nltk
 python-multipart
-
 augraphy
+
+onnxruntime

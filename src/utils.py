@@ -2,6 +2,8 @@ import numpy as np
 import re
 
 from models.ocr_model.utils.inference import inference as latex_inference
+from models.ocr_model.model.TexTeller import TexTeller
+from typing import Dict
 
 
 def to_katex(formula: str) -> str:
