@@ -96,7 +96,7 @@ if __name__ == '__main__':
 
     collate_fn_with_tokenizer = partial(collate_fn, tokenizer=tokenizer)
     # model = TexTeller()
-    model = TexTeller.from_pretrained('/home/lhy/code/TexTeller/src/models/ocr_model/model/ckpt')
+    model = TexTeller.from_pretrained('/home/lhy/code/TexTeller/src/models/ocr_model/train/train_result/TexTellerv3/checkpoint-440000')
 
     # =================  debug  =======================
     # foo = train_dataset[:50]
