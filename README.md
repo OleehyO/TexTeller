@@ -194,10 +194,18 @@ In `TexTeller/src/globals.py` and `TexTeller/src/models/ocr_model/train/train_ar
 
 - [ ] ...
 
+## ⭐️ Stargazers over time
+
+[![Stargazers over time](https://starchart.cc/OleehyO/TexTeller.svg?variant=adaptive)](https://starchart.cc/OleehyO/TexTeller)
+
 ## 💖 Acknowledgments
 
 Thanks to [LaTeX-OCR](https://github.com/lukas-blecher/LaTeX-OCR) which has brought me a lot of inspiration, and [im2latex-100K](https://zenodo.org/records/56198#.V2px0jXT6eA) which enriches our dataset.
 
-## ⭐️ Stargazers over time
+## 👥 Contributors
 
-[![Stargazers over time](https://starchart.cc/OleehyO/TexTeller.svg?variant=adaptive)](https://starchart.cc/OleehyO/TexTeller)
+<a href="https://github.com/OleehyO/TexTeller/graphs/contributors">
+   <a href="https://github.com/OleehyO/TexTeller/graphs/contributors">
+      <img src="https://contrib.rocks/image?repo=OleehyO/TexTeller" />
+   </a>
+</a>

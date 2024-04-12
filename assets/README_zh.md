@@ -207,15 +207,27 @@ python -m models.ocr_model.train.train
 ## 📅 计划
 
 - [X] ~~使用更大的数据集来训练模型(7.5M样本，即将发布)~~
+
 - [ ] 扫描图片识别
+
 - [ ] PDF文档识别 + 中英文场景支持
+
 - [ ] 推理加速
+
 - [ ] ...
+
+## ⭐️ 观星曲线
+
+[![Stargazers over time](https://starchart.cc/OleehyO/TexTeller.svg?variant=adaptive)](https://starchart.cc/OleehyO/TexTeller)
 
 ## 💖 感谢
 
 Thanks to [LaTeX-OCR](https://github.com/lukas-blecher/LaTeX-OCR) which has brought me a lot of inspiration, and [im2latex-100K](https://zenodo.org/records/56198#.V2px0jXT6eA) which enriches our dataset.
 
-## ⭐️ 观星曲线
+## 👥 贡献者
 
-[![Stargazers over time](https://starchart.cc/OleehyO/TexTeller.svg?variant=adaptive)](https://starchart.cc/OleehyO/TexTeller)
+<a href="https://github.com/OleehyO/TexTeller/graphs/contributors">
+   <a href="https://github.com/OleehyO/TexTeller/graphs/contributors">
+      <img src="https://contrib.rocks/image?repo=OleehyO/TexTeller" />
+   </a>
+</a>
