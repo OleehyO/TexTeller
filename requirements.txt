@@ -2,6 +2,9 @@ transformers
 datasets
 evaluate
 streamlit
+
+gradio
+
 opencv-python
 ray[serve]
 accelerate

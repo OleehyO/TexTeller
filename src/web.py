@@ -35,27 +35,6 @@ fail_gif_html = '''
     </h1>
 '''
 
-tex = r'''
-\documentclass{{article}}
-\usepackage[
-  left=1in,  % 左边距
-  right=1in, % 右边距
-  top=1in,   % 上边距
-  bottom=1in,% 下边距
-  paperwidth=40cm,  % 页面宽度
-  paperheight=40cm % 页面高度，这里以A4纸为例
-]{{geometry}}
-
-\usepackage[utf8]{{inputenc}}
-\usepackage{{multirow,multicol,amsmath,amsfonts,amssymb,mathtools,bm,mathrsfs,wasysym,amsbsy,upgreek,mathalfa,stmaryrd,mathrsfs,dsfont,amsthm,amsmath,multirow}}
-
-\begin{{document}}
-
-{formula}
-
-\pagenumbering{{gobble}}
-\end{{document}}
-'''
 
 
 @st.cache_resource

@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from models.globals import (
+from ...globals import (
     VOCAB_SIZE,
     FIXED_IMG_SIZE,
     IMG_CHANNELS,
