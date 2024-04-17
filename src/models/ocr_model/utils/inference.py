@@ -13,7 +13,7 @@ from models.globals import MAX_TOKEN_SIZE
 def inference(
     model: TexTeller, 
     tokenizer: RobertaTokenizerFast,
-    imgs_path: Union[List[str], List[np.ndarray]], 
+    imgs: Union[List[str], List[np.ndarray]], 
     inf_mode: str = 'cpu',
     num_beams: int = 1,
 ) -> List[str]:
