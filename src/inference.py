@@ -18,10 +18,16 @@ if __name__ == '__main__':
         help='path to the input image'
     )
     parser.add_argument(
-        '-cuda', 
-        default=False,
-        action='store_true',
-        help='use cuda or not'
+        '--inference-mode', 
+        type=str,
+        default='cpu',
+        help='Inference mode, select one of cpu, cuda, or mps'
+    )
+    parser.add_argument(
+        '--num-beam', 
+        type=int,
+        default=1,
+        help='number of beam search for decoding'
     )
     args = parser.parse_args()
 
@@ -33,6 +39,6 @@ if __name__ == '__main__':
 
     img = cv.imread(args.img)
     print('Inference...')
-    res = latex_inference(latex_rec_model, tokenizer, [img], args.cuda)
+    res = latex_inference(latex_rec_model, tokenizer, [img], inf_mode=args.inference_mode, num_beams=args.num_beam)
     res = to_katex(res[0])
     print(res)

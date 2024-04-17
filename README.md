@@ -59,8 +59,8 @@ python=3.10
 
     ```bash
     python inference.py -img "/path/to/image.{jpg,png}" 
-    # use -cuda option to enable GPU inference
-    #+e.g. python inference.py -img "./img.jpg" -cuda
+    # use --inference-mode option to enable GPU(cuda or mps) inference
+    #+e.g. python inference.py -img "./img.jpg" --inference-mode cuda
     ```
 
 > [!NOTE]
@@ -75,9 +75,6 @@ Go to the `TexTeller/src` directory and run the following command:
 ```
 
 Enter `http://localhost:8501` in a browser to view the web demo.
-
-> [!TIP]
-> You can change the default configuration of `start_web.sh`, for example, to use GPU for inference (e.g. `USE_CUDA=True`) or to increase the number of beams (e.g. `NUM_BEAM=3`) to achieve higher accuracy.
 
 > [!NOTE]
 > If you are Windows user, please run the `start_web.bat` file instead.
@@ -124,14 +121,12 @@ We use [ray serve](https://github.com/ray-project/ray) to provide an API interfa
 python server.py  # default settings
 ```
 
-You can pass the following arguments to `server.py` to change the server's inference settings (e.g. `python server.py --use_gpu` to enable GPU inference):
-
 | Parameter | Description |
 | --- | --- |
 | `-ckpt` | The path to the weights file, *default is TexTeller's pretrained weights*.|
 | `-tknz` | The path to the tokenizer, *default is TexTeller's tokenizer*.|
 | `-port` | The server's service port, *default is 8000*. |
-| `--use_gpu` | Whether to use GPU for inference, *default is CPU*. |
+| `--inference-mode` | Whether to use GPU(cuda or mps) for inference, *default is CPU*. |
 | `--num_beams` | The number of beams for beam search, *default is 1*. |
 | `--num_replicas` | The number of service replicas to run on the server, *default is 1 replica*. You can use more replicas to achieve greater throughput.|
 | `--ncpu_per_replica` | The number of CPU cores used per service replica, *default is 1*. |

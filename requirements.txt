@@ -1,13 +1,15 @@
 transformers
 datasets
 evaluate
-streamlit
 opencv-python
 ray[serve]
 accelerate
 tensorboardX
 nltk
 python-multipart
-augraphy
 
+augraphy
 onnxruntime
+
+streamlit==1.30
+streamlit-paste-button

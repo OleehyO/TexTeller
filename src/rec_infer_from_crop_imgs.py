@@ -11,22 +11,22 @@ if __name__ == '__main__':
     os.chdir(Path(__file__).resolve().parent)
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '-img_dir',
-        type=str,
-        default="./subimages",
-        help='path to the directory containing input images'
+        '-img', 
+        type=str, 
+        required=True,
+        help='path to the input image'
     )
     parser.add_argument(
-        '-output_dir',
+        '--inference-mode', 
         type=str,
-        default="./results",
-        help='path to the output directory for storing recognition results'
+        default='cpu',
+        help='Inference mode, select one of cpu, cuda, or mps'
     )
     parser.add_argument(
-        '-cuda',
-        default=False,
-        action='store_true',
-        help='use cuda or not'
+        '--num-beam', 
+        type=int,
+        default=1,
+        help='number of beam search for decoding'
     )
 
     args = parser.parse_args()
@@ -46,7 +46,7 @@ if __name__ == '__main__':
 
         if img is not None:
             print(f'Inference for {filename}...')
-            res = latex_inference(latex_rec_model, tokenizer, [img], args.cuda)
+            res = latex_inference(latex_rec_model, tokenizer, [img], inf_mode=args.inference_mode, num_beams=args.num_beam)
             res = to_katex(res[0])
 
             # Save the recognition result to a text file

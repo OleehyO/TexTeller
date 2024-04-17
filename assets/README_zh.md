@@ -46,18 +46,20 @@ python=3.10
    ```bash
    git clone https://github.com/OleehyO/TexTeller
    ```
+
 2. [安装pytorch](https://pytorch.org/get-started/locally/#start-locally)
 3. 安装本项目的依赖包:
 
    ```bash
    pip install -r requirements.txt
    ```
+
 4. 进入 `TexTeller/src`目录，在终端运行以下命令进行推理:
 
    ```bash
    python inference.py -img "/path/to/image.{jpg,png}" 
-   # use -cuda option to enable GPU inference
-   #+e.g. python inference.py -img "./img.jpg" -cuda
+   # use --inference-mode option to enable GPU(cuda or mps) inference
+   #+e.g. python inference.py -img "./img.jpg" --inference-mode cuda
    ```
 
 > [!NOTE]
@@ -72,11 +74,13 @@ python=3.10
    ```bash
    pip install -U "huggingface_hub[cli]"
    ```
+
 2. 在能连接Hugging Face的机器上下载模型权重:
 
    ```bash
    huggingface-cli download OleehyO/TexTeller --include "*.json" "*.bin" "*.txt" --repo-type model --local-dir "your/dir/path"
    ```
+
 3. 把包含权重的目录上传远端服务器，然后把 `TexTeller/src/models/ocr_model/model/TexTeller.py`中的 `REPO_NAME = 'OleehyO/TexTeller'`修改为 `REPO_NAME = 'your/dir/path'`
 
 如果你还想在训练模型时开启evaluate，你需要提前下载metric脚本并上传远端服务器：
@@ -86,6 +90,7 @@ python=3.10
    ```bash
    huggingface-cli download evaluate-metric/google_bleu --repo-type space --local-dir "your/dir/path"
    ```
+
 2. 把这个目录上传远端服务器，并在 `TexTeller/src/models/ocr_model/utils/metrics.py`中把 `evaluate.load('google_bleu')`改为 `evaluate.load('your/dir/path/google_bleu.py')`
 
 ## 🌐 网页演示
@@ -97,9 +102,6 @@ python=3.10
 ```
 
 在浏览器里输入 `http://localhost:8501`就可以看到web demo
-
-> [!TIP]
-> 你可以改变 `start_web.sh`的默认配置， 例如使用GPU进行推理(e.g. `USE_CUDA=True`) 或者增加beams的数量(e.g. `NUM_BEAM=3`)来获得更高的精确度
 
 > [!NOTE]
 > 对于Windows用户, 请运行 `start_web.bat`文件.
@@ -133,7 +135,7 @@ python infer_det.py
 在进行**公式检测后**， `TexTeller/src`目录下运行以下命令
 
 ```shell
-rec_infer_from_crop_imgs.py
+python rec_infer_from_crop_imgs.py
 ```
 
 会基于上一步公式检测的结果，对裁剪出的所有公式进行批量识别，将识别结果在 `TexTeller/src/results`中保存为txt文件。
@@ -143,20 +145,18 @@ rec_infer_from_crop_imgs.py
 我们使用[ray serve](https://github.com/ray-project/ray)来对外提供一个TexTeller的API接口，通过使用这个接口，你可以把TexTeller整合到自己的项目里。要想启动server，你需要先进入 `TexTeller/src`目录然后运行以下命令:
 
 ```bash
-python server.py  # default settings
+python server.py 
 ```
 
-你可以给 `server.py`传递以下参数来改变server的推理设置(e.g. `python server.py --use_gpu` 来启动GPU推理):
-
-| 参数                   | 描述                                                                                                                                                                                                                       |
-| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `-ckpt`              | 权重文件的路径，*默认为TexTeller的预训练权重*。                                                                                                                                                                          |
-| `-tknz`              | 分词器的路径，*默认为TexTeller的分词器*。                                                                                                                                                                                |
-| `-port`              | 服务器的服务端口，*默认是8000*。                                                                                                                                                                                         |
-| `--use_gpu`          | 是否使用GPU推理，*默认为CPU*。                                                                                                                                                                                           |
-| `--num_beams`        | beam search的beam数量，*默认是1*。                                                                                                                                                                                       |
-| `--num_replicas`     | 在服务器上运行的服务副本数量，*默认1个副本*。你可以使用更多的副本来获取更大的吞吐量。                                                                                                                                    |
-| `--ncpu_per_replica` | 每个服务副本所用的CPU核心数，*默认为1*。                                                                                                                                                                                 |
+| 参数 | 描述 |
+| - | - |
+| `-ckpt` | 权重文件的路径，*默认为TexTeller的预训练权重*。 |
+| `-tknz` | 分词器的路径，*默认为TexTeller的分词器*。 |
+| `-port` | 服务器的服务端口，*默认是8000*。 |
+| `--inference-mode`| 是否使用GPU(cuda或mps)推理，*默认为CPU*。 |
+| `--num_beams` | beam search的beam数量，*默认是1*。 |
+| `--num_replicas`| 在服务器上运行的服务副本数量，*默认1个副本*。你可以使用更多的副本来获取更大的吞吐量。 |
+| `--ncpu_per_replica` | 每个服务副本所用的CPU核心数，*默认为1*。 |
 | `--ngpu_per_replica` | 每个服务副本所用的GPU数量，*默认为1*。你可以把这个值设置成 0~1之间的数，这样会在一个GPU上运行多个服务副本来共享GPU，从而提高GPU的利用率。(注意，如果 --num_replicas 2, --ngpu_per_replica 0.7, 那么就必须要有2个GPU可用) |
 
 > [!NOTE]
