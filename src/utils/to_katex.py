@@ -1,9 +1,6 @@
 import numpy as np
 import re
 
-from models.ocr_model.utils.inference import inference as latex_inference
-
-
 def to_katex(formula: str) -> str:
     res = formula
     res = re.sub(r'\\mbox\{([^}]*)\}', r'\1', res)
@@ -16,19 +13,3 @@ def to_katex(formula: str) -> str:
     if res.endswith(r'\newline'):
         res = res[:-8]
     return res
-
-
-def load_lang_models(language: str):
-    ...
-    # language: 'ch' or 'en'
-    # return det_model, rec_model (or model)
-
-
-def load_det_tex_model():
-    ...
-    # return the loaded latex detection model
-
-
-def mix_inference(latex_det_model, latex_rec_model, lang_model, img: np.ndarray, use_cuda: bool) -> str:
-    ...
-    # latex_inference(...)

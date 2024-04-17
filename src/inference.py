@@ -6,7 +6,6 @@ from pathlib import Path
 from utils import to_katex
 from models.ocr_model.utils.inference import inference as latex_inference
 from models.ocr_model.model.TexTeller import TexTeller
-from utils import load_det_tex_model, load_lang_models
 
 
 if __name__ == '__main__':
