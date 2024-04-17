@@ -23,8 +23,8 @@ parser.add_argument('--num_replicas', type=int, default=1)
 parser.add_argument('--ncpu_per_replica', type=float, default=1.0)
 parser.add_argument('--ngpu_per_replica', type=float, default=0.0)
 
-parser.add_argument('--use_cuda', action='store_true', default=False)
-parser.add_argument('--num_beam', type=int, default=1)
+parser.add_argument('--inference-mode', type=str, default='cpu')
+parser.add_argument('--num_beams', type=int, default=1)
 
 args = parser.parse_args()
 if args.ngpu_per_replica > 0 and not args.use_cuda:
@@ -43,18 +43,21 @@ class TexTellerServer:
         self, 
         checkpoint_path: str, 
         tokenizer_path: str, 
-        use_cuda: bool = False,
-        num_beam: int = 1
+        inf_mode: str = 'cpu',
+        num_beams: int = 1
     ) -> None:
         self.model = TexTeller.from_pretrained(checkpoint_path)
         self.tokenizer = TexTeller.get_tokenizer(tokenizer_path)
-        self.use_cuda = use_cuda
-        self.num_beam = num_beam
+        self.inf_mode = inf_mode
+        self.num_beams = num_beams
 
-        self.model = self.model.to('cuda') if use_cuda else self.model
+        self.model = self.model.to(inf_mode) if inf_mode != 'cpu' else self.model
     
     def predict(self, image_nparray) -> str:
-        return inference(self.model, self.tokenizer, [image_nparray], self.use_cuda, self.num_beam)[0]
+        return inference(
+            self.model, self.tokenizer, [image_nparray],
+            inf_mode=self.inf_mode, num_beams=self.num_beams
+        )[0]
 
 
 @serve.deployment()
@@ -78,7 +81,11 @@ if __name__ == '__main__':
     tknz_dir = args.tokenizer_dir
 
     serve.start(http_options={"port": args.server_port})
-    texteller_server = TexTellerServer.bind(ckpt_dir, tknz_dir, use_cuda=args.use_cuda, num_beam=args.num_beam)
+    texteller_server = TexTellerServer.bind(
+        ckpt_dir, tknz_dir, 
+        inf_mode=args.inference_mode,
+        num_beams=args.num_beams
+    )
     ingress = Ingress.bind(texteller_server)
 
     ingress_handle = serve.run(ingress, route_prefix="/predict")  

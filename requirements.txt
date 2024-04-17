@@ -1,10 +1,6 @@
 transformers
 datasets
 evaluate
-streamlit
-
-gradio
-
 opencv-python
 ray[serve]
 accelerate
@@ -13,3 +9,7 @@ nltk
 python-multipart
 
 augraphy
+onnxruntime
+
+streamlit==1.30
+streamlit-paste-button

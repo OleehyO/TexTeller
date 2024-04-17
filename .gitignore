@@ -1,9 +1,14 @@
+**/.DS_Store
 **/__pycache__
 **/.vscode
+
 **/train_result
+**/ckpt
+**/*cache
+**/.cache
+**/data
 
 **/logs
-**/.cache
 **/tmp*
 **/data
 **/*cache

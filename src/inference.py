@@ -19,10 +19,16 @@ if __name__ == '__main__':
         help='path to the input image'
     )
     parser.add_argument(
-        '-cuda', 
-        default=False,
-        action='store_true',
-        help='use cuda or not'
+        '--inference-mode', 
+        type=str,
+        default='cpu',
+        help='Inference mode, select one of cpu, cuda, or mps'
+    )
+    parser.add_argument(
+        '--num-beam', 
+        type=int,
+        default=1,
+        help='number of beam search for decoding'
     )
     # =================  new feature  ==================
     parser.add_argument(
@@ -37,6 +43,7 @@ if __name__ == '__main__':
     # You can use your own checkpoint and tokenizer path.
     print('Loading model and tokenizer...')
     latex_rec_model = TexTeller.from_pretrained()
+    latex_rec_model = TexTeller.from_pretrained()
     tokenizer = TexTeller.get_tokenizer()
     print('Model and tokenizer loaded.')
 
@@ -44,7 +51,7 @@ if __name__ == '__main__':
     img = cv.imread(args.img)
     print('Inference...')
     if not args.mix:
-        res = latex_inference(latex_rec_model, tokenizer, [img], args.cuda)
+        res = latex_inference(latex_rec_model, tokenizer, [img], args.inference_mode, args.num_beam)
         res = to_katex(res[0])
         print(res)
     else:
