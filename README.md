@@ -108,7 +108,7 @@ Detects all formulas in the full image, and the results are saved in `TexTeller/
 After **formula detection**, run the following command in the `TexTeller/src` directory:
 
 ```shell
-rec_infer_from_crop_imgs.py
+python rec_infer_from_crop_imgs.py
 ```
 
 This will use the results of the previous formula detection to perform batch recognition on all cropped formulas, saving the recognition results as txt files in `TexTeller/src/results`.
