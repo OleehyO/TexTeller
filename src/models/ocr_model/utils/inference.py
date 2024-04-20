@@ -4,19 +4,22 @@ import numpy as np
 from transformers import RobertaTokenizerFast, GenerationConfig
 from typing import List, Union
 
-from models.ocr_model.model.TexTeller import TexTeller
-from models.ocr_model.utils.transforms import inference_transform
-from models.ocr_model.utils.helpers import convert2rgb
-from models.globals import MAX_TOKEN_SIZE
+from .transforms import inference_transform
+from .helpers import convert2rgb
+from ..model.TexTeller import TexTeller
+from ...globals import MAX_TOKEN_SIZE
 
 
 def inference(
     model: TexTeller, 
     tokenizer: RobertaTokenizerFast,
     imgs: Union[List[str], List[np.ndarray]], 
-    inf_mode: str = 'cpu',
+    accelerator: str = 'cpu',
     num_beams: int = 1,
+    max_tokens = None
 ) -> List[str]:
+    if imgs == []:
+        return []
     model.eval()
     if isinstance(imgs[0], str):
         imgs = convert2rgb(imgs) 
@@ -26,11 +29,11 @@ def inference(
     imgs = inference_transform(imgs)
     pixel_values = torch.stack(imgs)
 
-    model = model.to(inf_mode)
-    pixel_values = pixel_values.to(inf_mode)
+    model = model.to(accelerator)
+    pixel_values = pixel_values.to(accelerator)
 
     generate_config = GenerationConfig(
-        max_new_tokens=MAX_TOKEN_SIZE,
+        max_new_tokens=MAX_TOKEN_SIZE if max_tokens is None else max_tokens,
         num_beams=num_beams,
         do_sample=False,
         pad_token_id=tokenizer.pad_token_id,

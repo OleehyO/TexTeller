@@ -2,7 +2,7 @@ import os
 import argparse
 import cv2 as cv
 from pathlib import Path
-from utils import to_katex
+from models.ocr_model.utils.to_katex import to_katex
 from models.ocr_model.utils.inference import inference as latex_inference
 from models.ocr_model.model.TexTeller import TexTeller
 
@@ -46,7 +46,7 @@ if __name__ == '__main__':
 
         if img is not None:
             print(f'Inference for {filename}...')
-            res = latex_inference(latex_rec_model, tokenizer, [img], inf_mode=args.inference_mode, num_beams=args.num_beam)
+            res = latex_inference(latex_rec_model, tokenizer, [img], accelerator=args.inference_mode, num_beams=args.num_beam)
             res = to_katex(res[0])
 
             # Save the recognition result to a text file

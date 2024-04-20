@@ -56,7 +56,7 @@ class TexTellerServer:
     def predict(self, image_nparray) -> str:
         return inference(
             self.model, self.tokenizer, [image_nparray],
-            inf_mode=self.inf_mode, num_beams=self.num_beams
+            accelerator=self.inf_mode, num_beams=self.num_beams
         )[0]
 
 

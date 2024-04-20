@@ -14,4 +14,4 @@ onnxruntime
 streamlit==1.30
 streamlit-paste-button
 
-easyocr
+surya-ocr

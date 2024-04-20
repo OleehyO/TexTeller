@@ -4,9 +4,14 @@ import copy
 
 
 def decode_image(img_path):
-    with open(img_path, 'rb') as f:
-        im_read = f.read()
-    data = np.frombuffer(im_read, dtype='uint8')
+    if isinstance(img_path, str):
+        with open(img_path, 'rb') as f:
+            im_read = f.read()
+        data = np.frombuffer(im_read, dtype='uint8')
+    else:
+        assert isinstance(img_path, np.ndarray)
+        data = img_path
+
     im = cv2.imdecode(data, 1)  # BGR mode, but need RGB mode
     im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
     img_info = {

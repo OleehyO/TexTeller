@@ -6,6 +6,8 @@
 **/ckpt
 **/*cache
 **/.cache
+**/tmp
+**/log
 **/data
 
 **/logs
@@ -13,3 +15,7 @@
 **/data
 **/*cache
 **/ckpt
+
+**/*.bin
+**/*.safetensor
+**/*.onnx
