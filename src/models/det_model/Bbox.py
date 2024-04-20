@@ -1,3 +1,5 @@
+import os
+from pathlib import Path
 from PIL import Image, ImageDraw
 from typing import List
 
@@ -63,6 +65,10 @@ class Bbox:
 
 
 def draw_bboxes(img: Image.Image, bboxes: List[Bbox], name="annotated_image.png"):
+    curr_work_dir = Path(os.getcwd())
+    log_dir = curr_work_dir / "logs"
+    log_dir.mkdir(exist_ok=True)
+
     drawer = ImageDraw.Draw(img)
     for bbox in bboxes:
         # Calculate the coordinates for the rectangle to be drawn

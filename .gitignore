@@ -7,9 +7,9 @@
 **/*cache
 **/.cache
 **/tmp
-**/log
 **/data
 
+**/log
 **/logs
 **/tmp*
 **/data
