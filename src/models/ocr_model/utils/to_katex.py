@@ -51,6 +51,7 @@ def change(input_str, old_inst, new_inst, old_surr_l, old_surr_r, new_surr_l, ne
                 i = start + 1
                 continue
         else:
+            result += input_str[i:start]
             i = start
     
     if old_inst != new_inst and old_inst in result:

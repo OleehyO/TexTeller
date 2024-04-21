@@ -29,7 +29,6 @@ TexTeller was trained with ~~550K~~7.5M image-formula pairs (dataset available [
 
 * 📮[2024-04-12] Trained a **formula detection model**, thereby enhancing the capability to detect and recognize formulas in entire documents (whole-image inference)!
 
-
 ## 🔑 Prerequisites
 
 python=3.10
@@ -85,9 +84,7 @@ TexTeller also supports **formula detection and recognition** on full images, al
 
 ### Download Weights
 
-English documentation formula detection [[link](https://huggingface.co/TonyLee1256/texteller_det/resolve/main/rtdetr_r50vd_6x_coco_trained_on_IBEM_en_papers.onnx?download=true)]: Trained on 8272 images from the [IBEM dataset](https://zenodo.org/records/4757865).
-
-Chinese documentation formula detection [[link](https://huggingface.co/TonyLee1256/texteller_det/blob/main/rtdetr_r50vd_6x_coco_trained_on_cn_textbook.onnx)]: Trained on 2560 Chinese textbook images (100+ layouts).
+Chinese-English documentation formula detection [[link](https://huggingface.co/TonyLee1256/texteller_det/resolve/main/rtdetr_r50vd_6x_coco.onnx?download=true)]: Trained on 3415 Chinese textbook images (130+ layouts).
 
 ### Formula Detection
 
