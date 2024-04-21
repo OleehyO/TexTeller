@@ -58,9 +58,11 @@ python=3.10
 4. 进入 `TexTeller/src`目录，在终端运行以下命令进行推理:
 
    ```bash
-   python inference.py -img "/path/to/image.{jpg,png}" 
-   # use --inference-mode option to enable GPU(cuda or mps) inference
-   #+e.g. python inference.py -img "./img.jpg" --inference-mode cuda
+    python inference.py -img "/path/to/image.{jpg,png}" 
+    # use --inference-mode option to enable GPU(cuda or mps) inference
+    #+e.g. python inference.py -img "./img.jpg" --inference-mode cuda
+    # use -mix option to enable mixed text and formula recognition
+    #+e.g. python inferene.py -img "./img.jpg" --mix
    ```
 
 > [!NOTE]
