@@ -115,7 +115,7 @@ TexTeller还支持对整张图片进行**公式检测+公式识别**，从而对
 
 ### 下载权重
 
-中文英文文档公式检测 [[link](https://huggingface.co/TonyLee1256/texteller_det/resolve/main/rtdetr_r50vd_6x_coco.onnx?download=true)]：在3415张中文教材数据(130+版式)上训练得到
+中文英文文档公式检测 [[link](https://huggingface.co/TonyLee1256/texteller_det/resolve/main/rtdetr_r50vd_6x_coco.onnx?download=true)]：在3415张中文教材数据(130+版式)和8272张[IBEM数据集](https://zenodo.org/records/4757865)上，共11867张图片上训练得到
 
 ### 公式检测
 

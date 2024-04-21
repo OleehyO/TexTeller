@@ -86,7 +86,7 @@ TexTeller also supports **formula detection and recognition** on full images, al
 
 ### Download Weights
 
-Chinese-English documentation formula detection [[link](https://huggingface.co/TonyLee1256/texteller_det/resolve/main/rtdetr_r50vd_6x_coco.onnx?download=true)]: Trained on 3415 Chinese textbook images (130+ layouts).
+Chinese and English document formula detection [[link](https://huggingface.co/TonyLee1256/texteller_det/resolve/main/rtdetr_r50vd_6x_coco.onnx?download=true)]: Trained on a total of 11,867 images, consisting of 3,415 images from Chinese textbooks (130+ layouts) and 8,272 images from the [IBEM dataset](https://zenodo.org/records/4757865).
 
 ### Formula Detection
 
