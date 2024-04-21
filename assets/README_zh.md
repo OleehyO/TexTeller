@@ -1,4 +1,4 @@
-📄 <a href="../README.md">English</a> | 中文
+📄 `<a href="../README.md">`English`</a>` | 中文
 
 <div align="center">
     <h1>
@@ -48,6 +48,7 @@ python=3.10
    ```
 
 2. [安装pytorch](https://pytorch.org/get-started/locally/#start-locally)
+
 3. 安装本项目的依赖包:
 
    ```bash
@@ -112,9 +113,7 @@ TexTeller还支持对整张图片进行**公式检测+公式识别**，从而对
 
 ### 下载权重
 
-英文文档公式检测 [[link](https://huggingface.co/TonyLee1256/texteller_det/resolve/main/rtdetr_r50vd_6x_coco_trained_on_IBEM_en_papers.onnx?download=true)]：在8272张[IBEM数据集](https://zenodo.org/records/4757865)上训练得到
-
-中文文档公式检测 [[link](https://huggingface.co/TonyLee1256/texteller_det/blob/main/rtdetr_r50vd_6x_coco_trained_on_cn_textbook.onnx)]：在2560张中文教材数据(100+版式)上训练得到
+中文英文文档公式检测 [[link](https://huggingface.co/TonyLee1256/texteller_det/resolve/main/rtdetr_r50vd_6x_coco.onnx?download=true)]：在3415张中文教材数据(130+版式)上训练得到
 
 ### 公式检测
 
@@ -149,14 +148,14 @@ python server.py
 ```
 
 | 参数 | 描述 |
-| - | - |
-| `-ckpt` | 权重文件的路径，*默认为TexTeller的预训练权重*。 |
-| `-tknz` | 分词器的路径，*默认为TexTeller的分词器*。 |
-| `-port` | 服务器的服务端口，*默认是8000*。 |
-| `--inference-mode`| 是否使用GPU(cuda或mps)推理，*默认为CPU*。 |
-| `--num_beams` | beam search的beam数量，*默认是1*。 |
-| `--num_replicas`| 在服务器上运行的服务副本数量，*默认1个副本*。你可以使用更多的副本来获取更大的吞吐量。 |
-| `--ncpu_per_replica` | 每个服务副本所用的CPU核心数，*默认为1*。 |
+| --- | --- |
+| `-ckpt` | 权重文件的路径，*默认为TexTeller的预训练权重*。|
+| `-tknz` | 分词器的路径，*默认为TexTeller的分词器*。|
+| `-port` | 服务器的服务端口，*默认是8000*。|
+| `--inference-mode` | 是否使用GPU(cuda或mps)推理，*默认为CPU*。|
+| `--num_beams` | beam search的beam数量，*默认是1*。|
+| `--num_replicas` | 在服务器上运行的服务副本数量，*默认1个副本*。你可以使用更多的副本来获取更大的吞吐量。|
+| `--ncpu_per_replica` | 每个服务副本所用的CPU核心数，*默认为1*。|
 | `--ngpu_per_replica` | 每个服务副本所用的GPU数量，*默认为1*。你可以把这个值设置成 0~1之间的数，这样会在一个GPU上运行多个服务副本来共享GPU，从而提高GPU的利用率。(注意，如果 --num_replicas 2, --ngpu_per_replica 0.7, 那么就必须要有2个GPU可用) |
 
 > [!NOTE]
@@ -207,13 +206,9 @@ python -m models.ocr_model.train.train
 ## 📅 计划
 
 - [X] ~~使用更大的数据集来训练模型(7.5M样本，即将发布)~~
-
 - [ ] 扫描图片识别
-
 - [ ] PDF文档识别 + 中英文场景支持
-
 - [ ] 推理加速
-
 - [ ] ...
 
 ## ⭐️ 观星曲线
