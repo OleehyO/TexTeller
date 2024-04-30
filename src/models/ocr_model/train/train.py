@@ -37,8 +37,8 @@ def train(model, tokenizer, train_dataset, eval_dataset, collate_fn_with_tokeniz
         data_collator=collate_fn_with_tokenizer,
     )
 
-    # trainer.train(resume_from_checkpoint=None)
-    trainer.train(resume_from_checkpoint='/home/lhy/code/TexTeller/src/models/ocr_model/train/train_result/TexTellerv3/checkpoint-788000')
+    trainer.train(resume_from_checkpoint=None)
+    # trainer.train(resume_from_checkpoint='/home/lhy/code/TexTeller/src/models/ocr_model/train/train_result/TexTellerv3/checkpoint-788000')
 
 
 def evaluate(model, tokenizer, eval_dataset, collate_fn):
@@ -95,8 +95,8 @@ if __name__ == '__main__':
     eval_dataset  = eval_dataset.with_transform(img_inf_transform)
 
     collate_fn_with_tokenizer = partial(collate_fn, tokenizer=tokenizer)
-    # model = TexTeller()
-    model = TexTeller.from_pretrained('/home/lhy/code/TexTeller/src/models/ocr_model/train/train_result/TexTellerv3/checkpoint-788000')
+    model = TexTeller()
+    # model = TexTeller.from_pretrained('/home/lhy/code/TexTeller/src/models/ocr_model/train/train_result/TexTellerv3/checkpoint-788000')
 
     # =================  debug  =======================
     # foo = train_dataset[:50]

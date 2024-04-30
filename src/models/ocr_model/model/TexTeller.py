@@ -19,13 +19,14 @@ from transformers import (
 class TexTeller(VisionEncoderDecoderModel):
     REPO_NAME = 'OleehyO/TexTeller'
     def __init__(self, decoder_path=None, tokenizer_path=None):
-        encoder = ViTModel(ViTConfig(
-            image_size=FIXED_IMG_SIZE,
-            num_channels=IMG_CHANNELS
-        ))
-        decoder = TrOCRForCausalLM(TrOCRConfig(
-            vocab_size=VOCAB_SIZE,
-        ))
+        model = VisionEncoderDecoderModel.from_pretrained('/home/lhy/code/TexTeller/src/models/ocr_model/model/trocr-large')
+        encoder = model.encoder
+        decoder = model.decoder
+
+        encoder.config.image_size = FIXED_IMG_SIZE
+        encoder.config.num_channels = IMG_CHANNELS
+
+        decoder.config.vocab_size=VOCAB_SIZE
         super().__init__(encoder=encoder, decoder=decoder)
     
     @classmethod
