@@ -19,5 +19,5 @@ MAX_RESIZE_RATIO = 1.15
 MIN_RESIZE_RATIO = 0.75
 
 # Minimum height and width for input image for TexTeller
-MIN_HEIGHT = 12
-MIN_WIDTH  = 30
+MIN_HEIGHT = 3
+MIN_WIDTH  = 3
