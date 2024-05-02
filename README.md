@@ -18,9 +18,7 @@ https://github.com/OleehyO/TexTeller/assets/56267907/b23b2b2e-a663-4abb-b013-bd4
 
 TexTeller is an end-to-end formula recognition model based on ViT, capable of converting images into corresponding LaTeX formulas.
 
-TexTeller was trained with ~~550K~~7.5M image-formula pairs (dataset available [here](https://huggingface.co/datasets/OleehyO/latex-formulas)), compared to [LaTeX-OCR](https://github.com/lukas-blecher/LaTeX-OCR) which used a 100K dataset, TexTeller has **stronger generalization abilities** and **higher accuracy**, covering most use cases (**except for scanned images and handwritten formulas**).
-
-> ~~We will soon release a TexTeller checkpoint trained on a 7.5M dataset~~
+TexTeller was trained with 7.5M image-formula pairs (dataset available [here](https://huggingface.co/datasets/OleehyO/latex-formulas)), compared to [LaTeX-OCR](https://github.com/lukas-blecher/LaTeX-OCR) which used a 100K dataset, TexTeller has **stronger generalization abilities** and **higher accuracy**, covering most use cases (**except for scanned images and handwritten formulas**).
 
 ## 🔄 Change Log
 
@@ -29,13 +27,14 @@ TexTeller was trained with ~~550K~~7.5M image-formula pairs (dataset available [
 
 * 📮[2024-04-12] Trained a **formula detection model**, thereby enhancing the capability to detect and recognize formulas in entire documents (whole-image inference)!
 
+* 📮[2024-05-02] Support **mixed Chinese English formula recognition**.
+
 ## 🔑 Prerequisites
 
 python=3.10
 
 [pytorch](https://pytorch.org/get-started/locally/)
 
-> [!WARNING]
 > Only CUDA versions >= 12.0 have been fully tested, so it is recommended to use CUDA version >= 12.0
 
 ## 🚀 Getting Started
@@ -64,8 +63,10 @@ python=3.10
     #+e.g. python inferene.py -img "./img.jpg" --mix
     ```
 
-> [!NOTE]
-> The first time you run it, the required checkpoints will be downloaded from Hugging Face
+    > The first time you run it, the required checkpoints will be downloaded from Hugging Face
+
+>[!IMPORTANT]
+>If using mixed text and formula recognition, it is necessary to [download formula detection model weights](https://github.com/OleehyO/TexTeller?tab=readme-ov-file#download-weights)
 
 ## 🌐 Web Demo
 
@@ -86,7 +87,9 @@ TexTeller also supports **formula detection and recognition** on full images, al
 
 ### Download Weights
 
-Chinese and English document formula detection [[link](https://huggingface.co/TonyLee1256/texteller_det/resolve/main/rtdetr_r50vd_6x_coco.onnx?download=true)]: Trained on a total of 11,867 images, consisting of 3,415 images from Chinese textbooks (130+ layouts) and 8,272 images from the [IBEM dataset](https://zenodo.org/records/4757865).
+Download the model weights from [this link](https://huggingface.co/TonyLee1256/texteller_det/resolve/main/rtdetr_r50vd_6x_coco.onnx?download=true) and place them in `src/models/det_model/model`.
+
+> TexTeller's formula detection model was trained on a total of 11,867 images, consisting of 3,415 images from Chinese textbooks (over 130 layouts) and 8,272 images from the [IBEM dataset](https://zenodo.org/records/4757865).
 
 ### Formula Detection
 

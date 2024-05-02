@@ -18,9 +18,7 @@ https://github.com/OleehyO/TexTeller/assets/56267907/fb17af43-f2a5-47ce-ad1d-101
 
 TexTeller是一个基于ViT的端到端公式识别模型，可以把图片转换为对应的latex公式
 
-TexTeller用了~~550K~~7.5M的图片-公式对进行训练(数据集可以在[这里](https://huggingface.co/datasets/OleehyO/latex-formulas)获取)，相比于[LaTeX-OCR](https://github.com/lukas-blecher/LaTeX-OCR)(使用了一个100K的数据集)，TexTeller具有**更强的泛化能力**以及**更高的准确率**，可以覆盖大部分的使用场景(**扫描图片，手写公式除外**)。
-
-> ~~我们马上就会发布一个使用7.5M数据集进行训练的TexTeller checkpoint~~
+TexTeller用了7.5M的图片-公式对进行训练(数据集可以在[这里](https://huggingface.co/datasets/OleehyO/latex-formulas)获取)，相比于[LaTeX-OCR](https://github.com/lukas-blecher/LaTeX-OCR)(使用了一个100K的数据集)，TexTeller具有**更强的泛化能力**以及**更高的准确率**，可以覆盖大部分的使用场景(**扫描图片，手写公式除外**)。
 
 ## 🔄 变更信息
 
@@ -30,13 +28,14 @@ TexTeller用了~~550K~~7.5M的图片-公式对进行训练(数据集可以在[�
   >
 * 📮[2024-04-12] 训练了**公式检测模型**，从而增加了对整个文档进行公式检测+公式识别（整图推理）的功能！
 
+* 📮[2024-05-02] 支持**中英文-公式混合识别**。
+
 ## 🔑 前置条件
 
 python=3.10
 
 [pytorch](https://pytorch.org/get-started/locally/)
 
-> [!WARNING]
 > 只有CUDA版本>= 12.0被完全测试过，所以最好使用>= 12.0的CUDA版本
 
 ## 🚀 开搞
@@ -65,8 +64,10 @@ python=3.10
     #+e.g. python inferene.py -img "./img.jpg" --mix
    ```
 
-> [!NOTE]
-> 第一次运行时会在hugging face上下载所需要的checkpoints
+   > 第一次运行时会在Hugging Face上下载所需要的权重
+
+> [!IMPORTANT]
+> 如果使用文字-公式混合识别，需要[下载公式检测模型的权重](https://github.com/OleehyO/TexTeller/blob/main/assets/README_zh.md#%E4%B8%8B%E8%BD%BD%E6%9D%83%E9%87%8D)
 
 ## ❓ 常见问题：无法连接到Hugging Face
 
@@ -81,7 +82,11 @@ python=3.10
 2. 在能连接Hugging Face的机器上下载模型权重:
 
    ```bash
-   huggingface-cli download OleehyO/TexTeller --include "*.json" "*.bin" "*.txt" --repo-type model --local-dir "your/dir/path"
+   huggingface-cli download \
+       OleehyO/TexTeller \
+       --repo-type model \
+       --local-dir "your/dir/path" \
+       --local-dir-use-symlinks False
    ```
 
 3. 把包含权重的目录上传远端服务器，然后把 `TexTeller/src/models/ocr_model/model/TexTeller.py`中的 `REPO_NAME = 'OleehyO/TexTeller'`修改为 `REPO_NAME = 'your/dir/path'`
@@ -91,7 +96,11 @@ python=3.10
 1. 在能连接Hugging Face的机器上下载metric脚本
 
    ```bash
-   huggingface-cli download evaluate-metric/google_bleu --repo-type space --local-dir "your/dir/path"
+   huggingface-cli download \
+       evaluate-metric/google_bleu \
+       --repo-type space \
+       --local-dir "your/dir/path" \
+       --local-dir-use-symlinks False
    ```
 
 2. 把这个目录上传远端服务器，并在 `TexTeller/src/models/ocr_model/utils/metrics.py`中把 `evaluate.load('google_bleu')`改为 `evaluate.load('your/dir/path/google_bleu.py')`
@@ -115,7 +124,9 @@ TexTeller还支持对整张图片进行**公式检测+公式识别**，从而对
 
 ### 下载权重
 
-中文英文文档公式检测 [[link](https://huggingface.co/TonyLee1256/texteller_det/resolve/main/rtdetr_r50vd_6x_coco.onnx?download=true)]：在3415张中文教材数据(130+版式)和8272张[IBEM数据集](https://zenodo.org/records/4757865)上，共11867张图片上训练得到
+根据[这里的链接](https://huggingface.co/TonyLee1256/texteller_det/resolve/main/rtdetr_r50vd_6x_coco.onnx?download=true)把模型权重下载到`src/models/det_model/model`即可
+
+> TexTeller的公式检测模型在3415张中文教材数据(130+版式)和8272张[IBEM数据集](https://zenodo.org/records/4757865)上，共11867张图片上训练得到.
 
 ### 公式检测
 
@@ -207,7 +218,7 @@ python -m models.ocr_model.train.train
 
 ## 📅 计划
 
-- [X] ~~使用更大的数据集来训练模型(7.5M样本，即将发布)~~
+- [X] ~~使用更大的数据集来训练模型~~
 - [ ] 扫描图片识别
 - [ ] PDF文档识别 + 中英文场景支持
 - [ ] 推理加速

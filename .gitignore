@@ -14,7 +14,7 @@
 **/tmp*
 **/data
 **/*cache
-**/ckpt
+**/ckpts*
 
 **/*.bin
 **/*.safetensor
