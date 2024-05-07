@@ -62,6 +62,7 @@ def change(input_str, old_inst, new_inst, old_surr_l, old_surr_r, new_surr_l, ne
 
 def to_katex(formula: str) -> str:
     res = formula
+    res = change(res, r'\mbox ', r'', r'{', r'}', r'', r'')
     res = change(res, r'\mbox', r'', r'{', r'}', r'', r'')
 
     origin_instructions = [
