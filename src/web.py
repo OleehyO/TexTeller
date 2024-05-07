@@ -111,6 +111,16 @@ with st.sidebar:
         on_change=change_side_bar
     )
 
+    if inf_mode == "Text formula mixed":
+        lang = st.selectbox(
+            "Language",
+            ("English", "Chinese")
+        )
+        if lang == "English":
+            lang = "en"
+        elif lang == "Chinese":
+            lang = "zh"
+
     num_beams = st.number_input(
         'Number of beams',
         min_value=1,
@@ -124,7 +134,8 @@ with st.sidebar:
         ("cpu", "cuda", "mps"),
         on_change=change_side_bar
     )
-        
+
+
 #  ============================     end sidebar      =============================== #
 
 
@@ -214,7 +225,7 @@ elif uploaded_file or paste_result.image_data is not None:
             )[0]
             katex_res = to_katex(TexTeller_result)
         else:
-            katex_res = mix_inference(png_file_path, "en", infer_config, latex_det_model, lang_ocr_models, latex_rec_models, accelerator, num_beams)
+            katex_res = mix_inference(png_file_path, lang, infer_config, latex_det_model, lang_ocr_models, latex_rec_models, accelerator, num_beams)
 
         st.success('Completed!', icon="✅")
         st.markdown(suc_gif_html, unsafe_allow_html=True)
