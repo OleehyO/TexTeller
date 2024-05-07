@@ -61,7 +61,7 @@ python=3.10
     # use --inference-mode option to enable GPU(cuda or mps) inference
     #+e.g. python inference.py -img "./img.jpg" --inference-mode cuda
     # use -mix option to enable mixed text and formula recognition
-    #+e.g. python inferene.py -img "./img.jpg" --mix
+    #+e.g. python inferene.py -img "./img.jpg" -mix -lang "en"
    ```
 
    > 第一次运行时会在Hugging Face上下载所需要的权重
