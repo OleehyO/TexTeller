@@ -55,6 +55,9 @@ if __name__ == '__main__':
     if args.mix and args.lang == "None":
         print("When -mix is set, -lang must be set (support: ['zh', 'en'])")
         sys.exit(-1)
+    elif args.mix and args.lang not in ['zh', 'en']:
+        print(f"language support: ['zh', 'en'] (invalid: {args.lang})")
+        sys.exit(-1)
     
     # You can use your own checkpoint and tokenizer path.
     print('Loading model and tokenizer...')
