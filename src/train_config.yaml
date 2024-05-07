@@ -1,0 +1,14 @@
+compute_environment: LOCAL_MACHINE
+debug: false
+distributed_type: MULTI_GPU
+gpu_ids: all
+num_processes: 1
+machine_rank: 0
+main_training_function: main
+num_machines: 1
+rdzv_backend: static
+same_network: true
+tpu_env: []
+tpu_use_cluster: false
+tpu_use_sudo: false
+use_cpu: false
