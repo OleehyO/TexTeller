@@ -160,11 +160,13 @@ If you are using a different dataset, you might need to retrain the tokenizer to
 
 ### Training the Model
 
-To train the model, you need to run the following command in the `TexTeller/src` directory:
+1. Modify `num_processes` in `src/train_config.yaml` to match the number of GPUs available for training (default is 1).
 
-```bash
-python -m models.ocr_model.train.train
-```
+2. In the `TexTeller/src` directory, run the following command:
+
+   ```bash
+   accelerate launch --config_file ./train_config.yaml -m models.ocr_model.train.train
+   ```
 
 You can set your own tokenizer and checkpoint paths in `TexTeller/src/models/ocr_model/train/train.py` (refer to `train.py` for more information). If you are using the same architecture and dictionary as TexTeller, you can also fine-tune TexTeller's default weights with your own dataset.
 

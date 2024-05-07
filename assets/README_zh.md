@@ -198,11 +198,13 @@ python server.py
 
 ### 训练模型
 
-要想训练模型, 你需要在 `TexTeller/src`目录下运行以下命令：
+1. 修改`src/train_config.yaml`中的`num_processes`为训练用的显卡数(默认为1)
 
-```bash
-python -m models.ocr_model.train.train
-```
+2. 在`TexTeller/src`目录下运行以下命令：
+
+   ```bash
+   accelerate launch --config_file ./train_config.yaml -m models.ocr_model.train.train
+   ```
 
 你可以在 `TexTeller/src/models/ocr_model/train/train.py`中设置自己的tokenizer和checkpoint路径（请参考 `train.py`）。如果你使用了与TexTeller一样的架构和相同的字典，你还可以用自己的数据集来微调TexTeller的默认权重。
 
