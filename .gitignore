@@ -7,14 +7,14 @@
 **/*cache
 **/.cache
 **/tmp
+**/log
 **/data
 
-**/log
 **/logs
 **/tmp*
 **/data
 **/*cache
-**/ckpts*
+**/ckpts
 
 **/*.bin
 **/*.safetensor
