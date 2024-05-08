@@ -9,9 +9,9 @@ nltk
 python-multipart
 
 augraphy
-onnxruntime
+onnxruntime-gpu
 
 streamlit==1.30
 streamlit-paste-button
 
-surya-ocr
+paddleocr
