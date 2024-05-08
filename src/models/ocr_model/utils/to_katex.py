@@ -44,7 +44,7 @@ def change(input_str, old_inst, new_inst, old_surr_l, old_surr_r, new_surr_l, ne
                 i = j + 1
                 continue
             else:
-                assert count > 1
+                assert count >= 1
                 assert j == n
                 print("Warning: unbalanced surrogate pair in input string")
                 result += new_inst + new_surr_l
@@ -74,12 +74,13 @@ def to_katex(formula: str) -> str:
         r'\normalsize',
         r'\small',
         r'\footnotesize',
-        r'\scriptsize',
         r'\tiny'
     ]
     for (old_ins, new_ins) in zip(origin_instructions, origin_instructions):
         res = change(res, old_ins, new_ins, r'$', r'$', '{', '}')
+    res = change(res, r'\boldmath ', r'\bm', r'$', r'$', r'{', r'}')
     res = change(res, r'\boldmath', r'\bm', r'$', r'$', r'{', r'}')
+    res = change(res, r'\scriptsize', r'\scriptsize', r'$', r'$', r'{', r'}')
     
     origin_instructions = [
         r'\left',
