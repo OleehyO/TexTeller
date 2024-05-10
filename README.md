@@ -27,7 +27,7 @@ TexTeller was trained with 7.5M image-formula pairs (dataset available [here](ht
 
 * 📮[2024-04-12] Trained a **formula detection model**, thereby enhancing the capability to detect and recognize formulas in entire documents (whole-image inference)!
 
-* 📮[2024-05-02] Support **mixed Chinese English formula recognition**.
+* 📮[2024-05-02] Support mixed Chinese English formula recognition(Beta).
 
 ## 🔑 Prerequisites
 
@@ -45,7 +45,7 @@ python=3.10
     git clone https://github.com/OleehyO/TexTeller
     ```
 
-2. [Installing pytorch](https://pytorch.org/get-started/locally/#start-locally) 
+2. [Install pytorch](https://pytorch.org/get-started/locally/#start-locally) 
 
 3. Install the project's dependencies:
 
@@ -60,7 +60,7 @@ python=3.10
     # use --inference-mode option to enable GPU(cuda or mps) inference
     #+e.g. python inference.py -img "./img.jpg" --inference-mode cuda
     # use -mix option to enable mixed text and formula recognition
-    #+e.g. python inferene.py -img "./img.jpg" -mix -lang "en"
+    #+e.g. python inference.py -img "./img.jpg" -mix -lang "en"
     ```
 
     > The first time you run it, the required checkpoints will be downloaded from Hugging Face

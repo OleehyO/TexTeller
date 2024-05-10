@@ -28,7 +28,7 @@ TexTeller用了7.5M的图片-公式对进行训练(数据集可以在[这里](ht
   >
 * 📮[2024-04-12] 训练了**公式检测模型**，从而增加了对整个文档进行公式检测+公式识别（整图推理）的功能！
 
-* 📮[2024-05-02] 支持**中英文-公式混合识别**。
+* 📮[2024-05-02] 支持中英文-公式混合识别(Beta)。
 
 ## 🔑 前置条件
 
@@ -61,7 +61,7 @@ python=3.10
     # use --inference-mode option to enable GPU(cuda or mps) inference
     #+e.g. python inference.py -img "./img.jpg" --inference-mode cuda
     # use -mix option to enable mixed text and formula recognition
-    #+e.g. python inferene.py -img "./img.jpg" -mix -lang "en"
+    #+e.g. python inference.py -img "./img.jpg" -mix -lang "en"
    ```
 
    > 第一次运行时会在Hugging Face上下载所需要的权重
