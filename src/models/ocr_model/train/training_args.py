@@ -1,4 +1,43 @@
 CONFIG = {
+<<<<<<< Updated upstream
+    "seed": 42,                            # Random seed for reproducibility
+    "use_cpu": False,                      # Whether to use CPU (it's easier to debug with CPU when starting to test the code)
+    "learning_rate": 5e-5,                 # Learning rate
+    "num_train_epochs": 10,                # Total number of training epochs
+    "per_device_train_batch_size": 4,      # Batch size per GPU for training
+    "per_device_eval_batch_size": 8,       # Batch size per GPU for evaluation
+
+    "output_dir": "train_result",          # Output directory
+    "overwrite_output_dir": False,         # If the output directory exists, do not delete its content
+    "report_to": ["tensorboard"],          # Report logs to TensorBoard
+
+    "save_strategy": "steps",              # Strategy to save checkpoints
+    "save_steps": 500,                     # Interval of steps to save checkpoints, can be int or a float (0~1), when float it represents the ratio of total training steps (e.g., can set to 1.0 / 2000)
+    "save_total_limit": 5,                 # Maximum number of models to save. The oldest models will be deleted if this number is exceeded
+
+    "logging_strategy": "steps",           # Log every certain number of steps
+    "logging_steps": 500,                  # Number of steps between each log
+    "logging_nan_inf_filter": False,       # Record logs for loss=nan or inf
+
+    "optim": "adamw_torch",                # Optimizer
+    "lr_scheduler_type": "cosine",         # Learning rate scheduler
+    "warmup_ratio": 0.1,                   # Ratio of warmup steps in total training steps (e.g., for 1000 steps, the first 100 steps gradually increase lr from 0 to the set lr)
+    "max_grad_norm": 1.0,                  # For gradient clipping, ensure the norm of the gradients does not exceed 1.0 (default 1.0)
+    "fp16": False,                         # Whether to use 16-bit floating point for training (generally not recommended, as loss can easily explode)
+    "bf16": False,                         # Whether to use Brain Floating Point (bfloat16) for training (recommended if architecture supports it)
+    "gradient_accumulation_steps": 1,      # Gradient accumulation steps, consider this parameter to achieve large batch size effects when batch size cannot be large
+    "jit_mode_eval": False,                # Whether to use PyTorch jit trace during eval (can speed up the model, but the model must be static, otherwise will throw errors)
+    "torch_compile": False,                # Whether to use torch.compile to compile the model (for better training and inference performance)
+
+    "dataloader_pin_memory": True,         # Can speed up data transfer between CPU and GPU
+    "dataloader_num_workers": 1,           # Default is not to use multiprocessing for data loading, usually set to 4*number of GPUs used
+
+    "evaluation_strategy": "steps",        # Evaluation strategy, can be "steps" or "epoch"
+    "eval_steps": 500,                     # If evaluation_strategy="step"
+
+    "remove_unused_columns": False,        # Don't change this unless you really know what you are doing.
+}
+=======
     "seed": 42,                            # 随机种子，用于确保实验的可重复性
     "use_cpu": False,                      # 是否使用cpu（刚开始测试代码的时候先用cpu跑会更容易debug）
     # "data_seed": 42,                     # data sampler的采样也固定
@@ -41,15 +80,15 @@ CONFIG = {
     "gradient_checkpointing": False,       # 当为True时，会在forward时适当丢弃一些中间量（用于backward），从而减轻显存压力（但会增加forward的时间）
     "label_smoothing_factor": 0.0,         # softlabel，等于0时表示未开启
     # "debug": "underflow_overflow",       # 训练时检查溢出，如果发生，则会发出警告。（该模式通常用于debug）
-    "jit_mode_eval": True,                 # 是否在eval的时候使用PyTorch jit trace（可以加速模型，但模型必须是静态的，否则会报错）
-    "torch_compile": True,                 # 是否使用torch.compile来编译模型（从而获得更好的训练和推理性能）
+    "jit_mode_eval": False,                 # 是否在eval的时候使用PyTorch jit trace（可以加速模型，但模型必须是静态的，否则会报错）
+    "torch_compile": False,                 # 是否使用torch.compile来编译模型（从而获得更好的训练和推理性能）
                                            #+ 要求torch > 2.0，这个功能很好使，当模型跑通的时候可以开起来
     # "deepspeed": "your_json_path",       #  使用deepspeed来训练，需要指定ds_config.json的路径
                                            #+ 在Trainer中使用Deepspeed时一定要注意ds_config.json中的配置是否与Trainer的一致（如学习率，batch size，梯度累积步数等）
                                            #+ 如果不一致，会出现很奇怪的bug（而且一般还很难发现）													
 
     "dataloader_pin_memory": True,         # 可以加快数据在cpu和gpu之间转移的速度
-    "dataloader_num_workers": 16,          # 默认不会使用多进程来加载数据，通常设成4*所用的显卡数
+    "dataloader_num_workers": 64,          # 默认不会使用多进程来加载数据，通常设成4*所用的显卡数
     "dataloader_drop_last": True,          # 丢掉最后一个minibatch，保证训练的梯度稳定
 
     "evaluation_strategy": "steps",        # 评估策略，可以是"steps"或"epoch"
@@ -82,3 +121,4 @@ CONFIG = {
 
     "push_to_hub": False,                  # 是否训练完后上传hub，需要先在命令行：huggingface-cli login进行登录认证的配置，配置完后，认证信息会存到cache文件夹里
 }
+>>>>>>> Stashed changes

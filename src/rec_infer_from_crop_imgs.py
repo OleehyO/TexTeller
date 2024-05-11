@@ -11,10 +11,16 @@ if __name__ == '__main__':
     os.chdir(Path(__file__).resolve().parent)
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '-img', 
+        '-img_dir', 
         type=str, 
-        required=True,
-        help='path to the input image'
+        help='path to the input image',
+        default='./detect_results/subimages'
+    )
+    parser.add_argument(
+        '-output_dir', 
+        type=str, 
+        help='path to the output dir',
+        default='./rec_results'
     )
     parser.add_argument(
         '--inference-mode', 
