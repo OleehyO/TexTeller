@@ -4,6 +4,7 @@
 
 **/train_result
 **/ckpt
+**/trocr-small
 **/*cache
 **/.cache
 **/tmp
@@ -19,3 +20,5 @@
 **/*.bin
 **/*.safetensor
 **/*.onnx
+
+**/pyrightconfig.json
