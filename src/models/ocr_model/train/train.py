@@ -1,9 +1,11 @@
 import os
+import datasets
 
 from functools import partial
 from pathlib import Path
 
 from datasets import load_dataset
+from datasets.arrow_dataset import Dataset
 from transformers import Trainer, TrainingArguments, Seq2SeqTrainer, Seq2SeqTrainingArguments, GenerationConfig
 
 from .training_args import CONFIG
@@ -14,37 +16,6 @@ from ...globals import MAX_TOKEN_SIZE
 
 
 def train(model, tokenizer, train_dataset, eval_dataset, collate_fn_with_tokenizer):
-    if MODEL_SIZE == 'small':
-        # 4card
-        CONFIG['output_dir'] = 'train_result/trocr-70M-en-zh-handwritten-small'
-        CONFIG['num_train_epochs'] = 8
-        CONFIG['per_device_train_batch_size'] = 32
-        CONFIG['per_device_eval_batch_size'] = 64
-        CONFIG['dataloader_num_workers'] = 8
-    elif MODEL_SIZE == 'base':
-        # 4card
-        CONFIG['output_dir'] = 'train_result/trocr-70M-en-zh-handwritten-base'
-        CONFIG['num_train_epochs'] = 4
-        CONFIG['per_device_train_batch_size'] = 16
-        CONFIG['per_device_eval_batch_size'] = 32
-        CONFIG['dataloader_num_workers'] = 5
-
-        # 8card
-        # CONFIG['output_dir'] = 'train_result/trocr-70M-en-zh-handwritten-base'
-        # CONFIG['num_train_epochs'] = 6
-        # CONFIG['per_device_train_batch_size'] = 16
-        # CONFIG['per_device_eval_batch_size'] = 32
-        # CONFIG['dataloader_num_workers'] = 5
-    elif MODEL_SIZE == 'large':
-        # 8card
-        CONFIG['output_dir'] = 'train_result/trocr-70M-en-zh-handwritten-large'
-        CONFIG['num_train_epochs'] = 4
-        CONFIG['per_device_train_batch_size'] = 11
-        CONFIG['per_device_eval_batch_size'] = 22
-        CONFIG['dataloader_num_workers'] = 3
-    else:
-        assert False
-
     training_args = TrainingArguments(**CONFIG)
     trainer = Trainer(
         model,
@@ -56,9 +27,9 @@ def train(model, tokenizer, train_dataset, eval_dataset, collate_fn_with_tokeniz
         tokenizer=tokenizer, 
         data_collator=collate_fn_with_tokenizer,
     )
-    trainer.train(resume_from_checkpoint=max_checkpoint_dir)
+    # trainer.train(resume_from_checkpoint=max_checkpoint_dir)
     # from scratch
-    # trainer.train(resume_from_checkpoint=None)
+    trainer.train(resume_from_checkpoint=None)
 
 
 def evaluate(model, tokenizer, eval_dataset, collate_fn):
@@ -95,91 +66,97 @@ if __name__ == '__main__':
     script_dirpath = Path(__file__).resolve().parent
     os.chdir(script_dirpath)
     print(script_dirpath)
-
-    # MODEL_SIZE: Optional['small', 'base', 'large']
-    MODEL_SIZE = os.getenv("MODEL_SIZE")
-
-    # CACHE_DIR = '/groups/docintelli/home/u2023140841/huggigngface_cache_3years'
-    EN_CACHE_DIR = '/groups/docintelli/home/u2023140841/huggigngface_cache_7years_en'
-    ZH_CACHE_DIR = '/groups/docintelli/home/u2023140841/huggigngface_cache_7years_zh'
-    HANDWRITTEN_ONLINE_CACHE_DIR = '/groups/docintelli/home/u2023140841/huggigngface_cache_7years_handwritten_online'
-    HANDWRITTEN_NATURE_CACHE_DIR = '/groups/docintelli/home/u2023140841/huggigngface_cache_7years_handwritten_nature'
-    en_dataset = load_dataset(
-        '/groups/docintelli/home/u2023140841/code/TexTeller/src/models/ocr_model/train/data/loader.py',
-        "en_formulas",
-        num_proc=64,
-        cache_dir=EN_CACHE_DIR,
+    ######################  debug   ########################
+    handwritten_online_dataset = load_dataset(
+        '/data/lhy/train_data/TexTeller/loader.py',
+        "handwritten_nature",
+        # "handwritten_online",   #############  debug line 
+        num_proc=64
+    )['train']  #  samples
+    ######################  debug   ########################
+    handwritten_nature_dataset = load_dataset(
+        '/data/lhy/train_data/TexTeller/loader.py',
+        "handwritten_nature",
+        num_proc=64
     )['train']
-    # zh_dataset = load_dataset(
-    #     '/groups/docintelli/home/u2023140841/code/TexTeller/src/models/ocr_model/train/data/loader.py',
-    #     "zh_formulas",
-    #     num_proc=64,
-    #     cache_dir=ZH_CACHE_DIR,
-    # )['train']
-    # handwritten_online_dataset = load_dataset(
-    #     '/groups/docintelli/home/u2023140841/code/texteller/src/models/ocr_model/train/data/loader.py',
-    #     "handwritten_online",
-    #     num_proc=64,
-    #     cache_dir=HANDWRITTEN_ONLINE_CACHE_DIR,
-    # )['train']
-    # handwritten_nature_dataset = load_dataset(
-    #     '/groups/docintelli/home/u2023140841/code/texteller/src/models/ocr_model/train/data/loader.py',
-    #     "handwritten_nature",
-    #     num_proc=64,
-    #     cache_dir=HANDWRITTEN_NATURE_CACHE_DIR,
-    # )['train']
-    # 扩大handwritten数据集的比例
-    # ...
-    # dataset = dataset.concatenate_datasets([en_dataset, zh_dataset, handwritten_online_dataset, handwritten_nature_dataset])
-    dataset = en_dataset
+    # handwritten_nature_dataset = datasets.load_from_disk(
+    #     "/data/lhy/train_data/TexTeller/train_data_handwritten_nature_disk"
+    # )
 
-    # tokenizer = TexTeller.get_tokenizer('/groups/docintelli/home/u2023140841/code/TexTeller/src/models/tokenizer/roberta-tokenizer-7Mformulas')
-    tokenizer = TexTeller.get_tokenizer('/groups/docintelli/home/u2023140841/code/TexTeller/src/models/tokenizer/roberta-tokenizer-70M-en-zh')
+    en_dataset = load_dataset(
+        '/data/lhy/train_data/TexTeller/loader.py',
+        "en_formulas",
+        num_proc=64
+    )['train']
+    zh_dataset = load_dataset(
+        '/data/lhy/train_data/TexTeller/loader.py',
+        "zh_formulas",
+        num_proc=64
+    )['train']
+    # serilization
+    # handwritten_nature_dataset.save_to_disk("/data/lhy/train_data/TexTeller/train_data_handwritten_nature_disk", num_proc=64)
 
+    # load tokenizer
+    tokenizer = TexTeller.get_tokenizer('/home/lhy/code/TexTeller/src/models/tokenizer/roberta-tokenizer-70M-en-zh')
+
+    NUM_PROC = 64
+    # filter
     filter_fn_with_tokenizer = partial(filter_fn, tokenizer=tokenizer)
-    dataset = dataset.filter(
+    filter_dataset = lambda dataset: dataset.filter(
         filter_fn_with_tokenizer,
-        num_proc=128,
+        num_proc=NUM_PROC,
     )
+    handwritten_online_dataset: Dataset = filter_dataset(handwritten_online_dataset)
+    handwritten_nature_dataset: Dataset = filter_dataset(handwritten_nature_dataset)
+    en_dataset: Dataset                 = filter_dataset(en_dataset)
+    zh_dataset: Dataset                 = filter_dataset(zh_dataset)
 
-    dataset = dataset.shuffle(seed=42)
-
-    dataset = dataset.flatten_indices()
-
+    # map
     map_fn = partial(tokenize_fn, tokenizer=tokenizer)
-    tokenized_dataset = dataset.map(
+    map_dataset = lambda dataset: dataset.map(
         map_fn, batched=True, remove_columns=dataset.column_names,
-        num_proc=128,
+        num_proc=NUM_PROC,
         load_from_cache_file=True
     )
+    handwritten_online_dataset: Dataset = map_dataset(handwritten_online_dataset)
+    handwritten_nature_dataset: Dataset = map_dataset(handwritten_nature_dataset)
+    en_dataset: Dataset                 = map_dataset(en_dataset)
+    zh_dataset: Dataset                 = map_dataset(zh_dataset)
 
-    split_dataset = tokenized_dataset.train_test_split(test_size=0.0005, seed=42)
-    train_dataset, eval_dataset = split_dataset['train'], split_dataset['test']
+    # enlarge the proportion of handwritten dataset in the whole dataset
+    handwritten_dataset   = datasets.interleave_datasets([handwritten_online_dataset.select(range(1000)), handwritten_nature_dataset.select(range(1000))])
+    handwritten_datasetX5 = datasets.interleave_datasets([handwritten_dataset.select(range(1000))] * 5)
+    dataset_wo_en         = datasets.interleave_datasets([en_dataset.select(range(1000)), zh_dataset.select(range(1000)), handwritten_datasetX5.select(range(1000))])
 
+    # only use en_dataset as eval dataset
+    split_en_dataset = en_dataset.train_test_split(test_size=0.0005, seed=42)
+    train_dataset, eval_dataset = split_en_dataset['train'], split_en_dataset['test']
+    # mix English train dataset with other dataset
+    train_dataset = datasets.interleave_datasets([train_dataset, dataset_wo_en])
+
+    # shuffle
+    train_dataset = train_dataset.shuffle(seed=42).flatten_indices()
+    eval_dataset  = eval_dataset.shuffle(seed=42).flatten_indices()
+
+    # transform
     train_dataset = train_dataset.with_transform(img_train_transform)
     eval_dataset  = eval_dataset.with_transform(img_inf_transform)
-
-    collate_fn_with_tokenizer = partial(collate_fn, tokenizer=tokenizer)
-    ckpt_path = Path(f'/groups/docintelli/home/u2023140841/code/TexTeller/src/models/ocr_model/train/train_result/trocr-70M-en-zh-handwritten-{MODEL_SIZE}')
-    checkpoints = [
-        int(dir.name.split('-')[1]) for dir in ckpt_path.iterdir() 
-        if dir.is_dir() and dir.name.startswith('checkpoint-')
-    ]
-    max_checkpoint = max(checkpoints, default=None)
-    max_checkpoint_dir = ckpt_path / f'checkpoint-{max_checkpoint}'
-    print(f"ckpt_dir: {str(max_checkpoint_dir)}")
-
-    model = TexTeller.from_pretrained(max_checkpoint_dir)
-    # from scratch
-    # model = TexTeller(size=MODEL_SIZE)
-
-    # =================  debug  =======================
+    #################### debug #########################
     # foo = train_dataset[:50]
-    # bar = eval_dataset[:50]
-    # =================  debug  =======================
+    # bar = eval_dataset[:5]
+    #################### debug #########################
 
+    # prepare for training
+    collate_fn_with_tokenizer = partial(collate_fn, tokenizer=tokenizer)
+    model = TexTeller()
+    # model = TexTeller.from_pretrained(max_checkpoint_dir)
+    # from scratch
+
+    # enable_train    = True
+    # enable_evaluate = True
     enable_train    = True
     enable_evaluate = True
+
     if enable_train:
         train(model, tokenizer, train_dataset, eval_dataset, collate_fn_with_tokenizer)
     if enable_evaluate:

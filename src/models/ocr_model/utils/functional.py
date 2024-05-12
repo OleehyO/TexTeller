@@ -18,6 +18,7 @@ def tokenize_fn(samples: Dict[str, List[Any]], tokenizer=None) -> Dict[str, List
     assert tokenizer is not None, 'tokenizer should not be None'
     tokenized_formula = tokenizer(samples['latex_formula'], return_special_tokens_mask=True)
     tokenized_formula['pixel_values'] = samples['image']
+    tokenized_formula['category'] = samples['category']
     return tokenized_formula
 
 
@@ -27,28 +28,34 @@ def collate_fn(samples: List[Dict[str, Any]], tokenizer=None) -> Dict[str, List[
 
     clm_collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm=False)
     
+    # in feature: 'input_ids', 'attention_mask', 'special_tokens_mask' (tokenizer output features)
     batch = clm_collator(samples)
     batch['pixel_values'] = pixel_values
     batch['decoder_input_ids'] = batch.pop('input_ids')
     batch['decoder_attention_mask'] = batch.pop('attention_mask')
 
-    # 左移labels和decoder_attention_mask
+    # left move labels(labels are the same as input_ids before this step)
     batch['labels'] = left_move(batch['labels'], -100)
 
-    # 把list of Image转成一个tensor with (B, C, H, W)
+    # change the list of Image to a tensor with (B, C, H, W)
     batch['pixel_values'] = torch.stack(batch['pixel_values'], dim=0)
     return batch
 
 
 def img_train_transform(samples: Dict[str, List[Any]]) -> Dict[str, List[Any]]:
-    processed_img = train_transform(samples['pixel_values'])
+    # processed_img = train_transform(samples['pixel_values'])
+    processed_img = train_transform(samples['pixel_values'], samples['category'])
     samples['pixel_values'] = processed_img
+    # remove unused feature otherwise it will raise error in collate_fn 
+    samples.pop('category')
     return samples
 
 
 def img_inf_transform(samples: Dict[str, List[Any]]) -> Dict[str, List[Any]]:
     processed_img = inference_transform(samples['pixel_values'])
     samples['pixel_values'] = processed_img
+    # remove unused feature otherwise it will raise error in collate_fn 
+    samples.pop('category')
     return samples
 
 
