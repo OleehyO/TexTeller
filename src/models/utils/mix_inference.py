@@ -1,6 +1,7 @@
 import re
 import heapq
 import cv2
+import time
 import numpy as np
 
 from collections import Counter
@@ -62,8 +63,6 @@ def split_conflict(ocr_bboxes: List[Bbox], latex_bboxes: List[Bbox]) -> List[Bbo
     idx = 0
     while (len(bboxes) > 0):
         idx += 1
-        if not (candidate.p.x < curr.p.x or not candidate.same_row(curr)):
-            pause = 1
         assert candidate.p.x <= curr.p.x or not candidate.same_row(curr)
 
         if candidate.ur_point.x <= curr.p.x or not candidate.same_row(curr):
@@ -154,7 +153,10 @@ def mix_inference(
                tuple(img[-1, 0]), tuple(img[-1, -1])]
     bg_color = np.array(Counter(corners).most_common(1)[0][0])
 
+    start_time = time.time()
     latex_bboxes = latex_det_predict(img_path, latex_det_model, infer_config)
+    end_time = time.time()
+    print(f"latex_det_model time: {end_time - start_time:.2f}s")
     latex_bboxes = sorted(latex_bboxes)
     # log results
     draw_bboxes(Image.fromarray(img), latex_bboxes, name="latex_bboxes(unmerged).png")
@@ -164,7 +166,10 @@ def mix_inference(
     masked_img = mask_img(img, latex_bboxes, bg_color)
 
     det_model, rec_model = lang_ocr_models
+    start_time = time.time()
     det_prediction, _ = det_model(masked_img)
+    end_time = time.time()
+    print(f"ocr_det_model time: {end_time - start_time:.2f}s")
     ocr_bboxes = [
         Bbox(
             p[0][0], p[0][1], p[3][1]-p[0][1], p[1][0]-p[0][0],
@@ -185,8 +190,10 @@ def mix_inference(
     ocr_bboxes = list(filter(lambda x: x.label == "text", ocr_bboxes))
 
     sliced_imgs: List[np.ndarray] = slice_from_image(img, ocr_bboxes)
+    start_time = time.time()
     rec_predictions, _ = rec_model(sliced_imgs)
-
+    end_time = time.time()
+    print(f"ocr_rec_model time: {end_time - start_time:.2f}s")
 
     assert len(rec_predictions) == len(ocr_bboxes)
     for content, bbox in zip(rec_predictions, ocr_bboxes):
@@ -195,7 +202,11 @@ def mix_inference(
     latex_imgs =[]
     for bbox in latex_bboxes:
         latex_imgs.append(img[bbox.p.y:bbox.p.y + bbox.h, bbox.p.x:bbox.p.x + bbox.w])
+    start_time = time.time()
     latex_rec_res = latex_rec_predict(*latex_rec_models, latex_imgs, accelerator, num_beams, max_tokens=200)
+    end_time = time.time()
+    print(f"latex_rec_model time: {end_time - start_time:.2f}s")
+
     for bbox, content in zip(latex_bboxes, latex_rec_res):
         bbox.content = to_katex(content)
         if bbox.label == "embedding":
