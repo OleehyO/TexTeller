@@ -1,7 +1,6 @@
 **/.DS_Store
 **/__pycache__
 **/.vscode
-**/pyrightconfig.json
 
 **/train_result
 **/ckpt
@@ -17,7 +16,10 @@
 **/data
 **/*cache
 **/ckpts
+**/*.onnx
 
 **/*.bin
 **/*.safetensor
 **/*.onnx
+
+**/pyrightconfig.json
