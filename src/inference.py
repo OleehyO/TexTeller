@@ -62,13 +62,21 @@ if __name__ == '__main__':
         latex_det_model = InferenceSession("./models/det_model/model/rtdetr_r50vd_6x_coco.onnx")
 
         use_gpu = args.inference_mode == 'cuda'
+        SIZE_LIMIT = 20 * 1024 * 1024
+        det_model_dir =  "./models/thrid_party/paddleocr/checkpoints/det/default_model.onnx"
+        rec_model_dir =  "./models/thrid_party/paddleocr/checkpoints/rec/default_model.onnx"
+        # The CPU inference of the detection model will be faster than the GPU inference (in onnxruntime)
+        det_use_gpu = False
+        rec_use_gpu = use_gpu and not (os.path.getsize(rec_model_dir) < SIZE_LIMIT)
 
         paddleocr_args = utility.parse_args()
-        paddleocr_args.use_gpu = use_gpu
         paddleocr_args.use_onnx = True
-        paddleocr_args.det_model_dir = "./models/thrid_party/paddleocr/checkpoints/det/default_model.onnx"
-        paddleocr_args.rec_model_dir = "./models/thrid_party/paddleocr/checkpoints/rec/default_model.onnx"
+        paddleocr_args.det_model_dir = det_model_dir
+        paddleocr_args.rec_model_dir = rec_model_dir
+
+        paddleocr_args.use_gpu = det_use_gpu
         detector = predict_det.TextDetector(paddleocr_args)
+        paddleocr_args.use_gpu = rec_use_gpu
         recognizer = predict_rec.TextRecognizer(paddleocr_args)
         
         lang_ocr_models = [detector, recognizer]

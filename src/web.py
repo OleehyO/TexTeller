@@ -1,5 +1,6 @@
 import os
 import io
+import re
 import base64
 import tempfile
 import shutil
@@ -65,12 +66,22 @@ def get_det_models():
 @st.cache_resource()
 def get_ocr_models(accelerator):
     use_gpu = accelerator == 'cuda'
+
+    SIZE_LIMIT = 20 * 1024 * 1024
+    det_model_dir = "./models/thrid_party/paddleocr/checkpoints/det/default_model.onnx"
+    rec_model_dir = "./models/thrid_party/paddleocr/checkpoints/rec/default_model.onnx"
+    # The CPU inference of the detection model will be faster than the GPU inference (in onnxruntime)
+    det_use_gpu = False
+    rec_use_gpu = use_gpu and not (os.path.getsize(rec_model_dir) < SIZE_LIMIT)
+
     paddleocr_args = utility.parse_args()
-    paddleocr_args.use_gpu = use_gpu
     paddleocr_args.use_onnx = True
-    paddleocr_args.det_model_dir = "./models/thrid_party/paddleocr/checkpoints/det/default_model.onnx"
-    paddleocr_args.rec_model_dir = "./models/thrid_party/paddleocr/checkpoints/rec/default_model.onnx"
+    paddleocr_args.det_model_dir = det_model_dir
+    paddleocr_args.rec_model_dir = rec_model_dir
+
+    paddleocr_args.use_gpu = det_use_gpu
     detector = predict_det.TextDetector(paddleocr_args)
+    paddleocr_args.use_gpu = rec_use_gpu
     recognizer = predict_rec.TextRecognizer(paddleocr_args)
     return [detector, recognizer]
 
@@ -229,7 +240,12 @@ elif uploaded_file or paste_result.image_data is not None:
         if inf_mode == "Formula only":
             st.latex(katex_res)
         elif inf_mode == "Text formula mixed":
-            st.markdown(katex_res)
+            mixed_res = re.split(r'(\n\$\$.*?\$\$\n)', katex_res)
+            for text in mixed_res:
+                if text.startswith('\n$$') and text.endswith('$$\n'):
+                    st.latex(text[3:-3])
+                else:
+                    st.markdown(text)
 
         st.write("")
         st.write("")
