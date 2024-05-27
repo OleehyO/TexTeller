@@ -8,7 +8,7 @@ def ocr_augmentation_pipeline():
 
     ink_phase = [
         InkColorSwap(
-            ink_swap_color="lhy_custom",
+            ink_swap_color="random",
             ink_swap_sequence_number_range=(5, 10),
             ink_swap_min_width_range=(2, 3),
             ink_swap_max_width_range=(100, 120),
