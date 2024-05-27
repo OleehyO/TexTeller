@@ -1,25 +1,24 @@
 **/.DS_Store
 **/__pycache__
 **/.vscode
+**/pyrightconfig.json
 
 **/train_result
 **/ckpt
+**/ckpts
+**/*.safetensor
 **/trocr-*
+**/large*.onnx
+**/rtdetr_r50vd_6x_coco.onnx
+
 **/*cache
 **/.cache
-**/tmp
-**/log
-**/data
 
-**/logs
+**/tmp
 **/tmp*
+**/log
+**/logs
+
 **/data
-**/*cache
-**/ckpts
-**/*.onnx
 
 **/*.bin
-**/*.safetensor
-**/*.onnx
-
-**/pyrightconfig.json
