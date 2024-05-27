@@ -1,11 +1,11 @@
 import os
-import sys
 import argparse
 import cv2 as cv
 
 from pathlib import Path
 from onnxruntime import InferenceSession
-from paddleocr import PaddleOCR
+from models.thrid_party.paddleocr.infer import predict_det, predict_rec
+from models.thrid_party.paddleocr.infer import utility
 
 from models.utils import mix_inference
 from models.ocr_model.utils.to_katex import to_katex
@@ -41,19 +41,8 @@ if __name__ == '__main__':
         action='store_true',
         help='use mix mode'
     )
-    parser.add_argument(
-        '-lang', 
-        type=str,
-        default='None'
-    )
     
     args = parser.parse_args()
-    if args.mix and args.lang == "None":
-        print("When -mix is set, -lang must be set (support: ['zh', 'en'])")
-        sys.exit(-1)
-    elif args.mix and args.lang not in ['zh', 'en']:
-        print(f"language support: ['zh', 'en'] (invalid: {args.lang})")
-        sys.exit(-1)
     
     # You can use your own checkpoint and tokenizer path.
     print('Loading model and tokenizer...')
@@ -73,20 +62,24 @@ if __name__ == '__main__':
         latex_det_model = InferenceSession("./models/det_model/model/rtdetr_r50vd_6x_coco.onnx")
 
         use_gpu = args.inference_mode == 'cuda'
-        text_ocr_model = PaddleOCR(
-            use_angle_cls=False, lang='ch', use_gpu=use_gpu,
-            det_model_dir="./models/text_ocr_model/infer_models/ch_PP-OCRv4_det_server_infer",
-            rec_model_dir="./models/text_ocr_model/infer_models/ch_PP-OCRv4_rec_server_infer",
-            det_limit_type='max',
-            det_limit_side_len=1280,
-            use_dilation=True,
-            det_db_score_mode="slow",
-        ) # need to run only once to load model into memory
+        SIZE_LIMIT = 20 * 1024 * 1024
+        det_model_dir =  "./models/thrid_party/paddleocr/checkpoints/det/default_model.onnx"
+        rec_model_dir =  "./models/thrid_party/paddleocr/checkpoints/rec/default_model.onnx"
+        # The CPU inference of the detection model will be faster than the GPU inference (in onnxruntime)
+        det_use_gpu = False
+        rec_use_gpu = use_gpu and not (os.path.getsize(rec_model_dir) < SIZE_LIMIT)
 
-        detector = text_ocr_model.text_detector
-        recognizer = text_ocr_model.text_recognizer
+        paddleocr_args = utility.parse_args()
+        paddleocr_args.use_onnx = True
+        paddleocr_args.det_model_dir = det_model_dir
+        paddleocr_args.rec_model_dir = rec_model_dir
+
+        paddleocr_args.use_gpu = det_use_gpu
+        detector = predict_det.TextDetector(paddleocr_args)
+        paddleocr_args.use_gpu = rec_use_gpu
+        recognizer = predict_rec.TextRecognizer(paddleocr_args)
         
         lang_ocr_models = [detector, recognizer]
         latex_rec_models = [latex_rec_model, tokenizer]
-        res = mix_inference(img_path, args.lang , infer_config, latex_det_model, lang_ocr_models, latex_rec_models, args.inference_mode, args.num_beam)
+        res = mix_inference(img_path, infer_config, latex_det_model, lang_ocr_models, latex_rec_models, args.inference_mode, args.num_beam)
         print(res)

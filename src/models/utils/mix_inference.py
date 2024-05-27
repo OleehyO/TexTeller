@@ -1,13 +1,12 @@
 import re
 import heapq
 import cv2
+import time
 import numpy as np
 
 from collections import Counter
 from typing import List
 from PIL import Image
-
-from paddleocr.ppocr.utils.utility import alpha_to_color
 
 from ..det_model.inference import predict as latex_det_predict
 from ..det_model.Bbox import Bbox, draw_bboxes
@@ -64,7 +63,7 @@ def split_conflict(ocr_bboxes: List[Bbox], latex_bboxes: List[Bbox]) -> List[Bbo
     idx = 0
     while (len(bboxes) > 0):
         idx += 1
-        assert candidate.p.x < curr.p.x or not candidate.same_row(curr)
+        assert candidate.p.x <= curr.p.x or not candidate.same_row(curr)
 
         if candidate.ur_point.x <= curr.p.x or not candidate.same_row(curr):
             res.append(candidate)
@@ -134,14 +133,8 @@ def slice_from_image(img: np.ndarray, ocr_bboxes: List[Bbox]) -> List[np.ndarray
     return sliced_imgs
 
 
-def preprocess_image(_image):
-    _image = alpha_to_color(_image, (255, 255, 255))
-    return _image
-
-
 def mix_inference(
     img_path: str,
-    language: str,
     infer_config,
     latex_det_model,
 
@@ -156,7 +149,6 @@ def mix_inference(
     '''
     global img
     img = cv2.imread(img_path)
-    img = alpha_to_color(img, (255, 255, 255))
     corners = [tuple(img[0, 0]), tuple(img[0, -1]),
                tuple(img[-1, 0]), tuple(img[-1, -1])]
     bg_color = np.array(Counter(corners).most_common(1)[0][0])
@@ -172,9 +164,6 @@ def mix_inference(
 
     det_model, rec_model = lang_ocr_models
     det_prediction, _ = det_model(masked_img)
-    # log results
-    draw_bboxes(Image.fromarray(img), latex_bboxes, name="ocr_bboxes(unmerged).png")
-
     ocr_bboxes = [
         Bbox(
             p[0][0], p[0][1], p[3][1]-p[0][1], p[1][0]-p[0][0],
@@ -184,15 +173,18 @@ def mix_inference(
         )
         for p in det_prediction
     ]
+    # log results
+    draw_bboxes(Image.fromarray(img), ocr_bboxes, name="ocr_bboxes(unmerged).png")
+
     ocr_bboxes = sorted(ocr_bboxes)
     ocr_bboxes = bbox_merge(ocr_bboxes)
+    # log results
     draw_bboxes(Image.fromarray(img), ocr_bboxes, name="ocr_bboxes(merged).png")
     ocr_bboxes = split_conflict(ocr_bboxes, latex_bboxes)
     ocr_bboxes = list(filter(lambda x: x.label == "text", ocr_bboxes))
 
     sliced_imgs: List[np.ndarray] = slice_from_image(img, ocr_bboxes)
     rec_predictions, _ = rec_model(sliced_imgs)
-
 
     assert len(rec_predictions) == len(ocr_bboxes)
     for content, bbox in zip(rec_predictions, ocr_bboxes):
@@ -202,6 +194,7 @@ def mix_inference(
     for bbox in latex_bboxes:
         latex_imgs.append(img[bbox.p.y:bbox.p.y + bbox.h, bbox.p.x:bbox.p.x + bbox.w])
     latex_rec_res = latex_rec_predict(*latex_rec_models, latex_imgs, accelerator, num_beams, max_tokens=200)
+
     for bbox, content in zip(latex_bboxes, latex_rec_res):
         bbox.content = to_katex(content)
         if bbox.label == "embedding":
