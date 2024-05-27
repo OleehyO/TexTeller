@@ -66,23 +66,17 @@ if __name__ == '__main__':
     script_dirpath = Path(__file__).resolve().parent
     os.chdir(script_dirpath)
     print(script_dirpath)
-    ######################  debug   ########################
+
     handwritten_online_dataset = load_dataset(
         '/data/lhy/train_data/TexTeller/loader.py',
-        "handwritten_nature",
-        # "handwritten_online",   #############  debug line 
+        "handwritten_online",
         num_proc=64
-    )['train']  #  samples
-    ######################  debug   ########################
+    )['train']
     handwritten_nature_dataset = load_dataset(
         '/data/lhy/train_data/TexTeller/loader.py',
         "handwritten_nature",
         num_proc=64
     )['train']
-    # handwritten_nature_dataset = datasets.load_from_disk(
-    #     "/data/lhy/train_data/TexTeller/train_data_handwritten_nature_disk"
-    # )
-
     en_dataset = load_dataset(
         '/data/lhy/train_data/TexTeller/loader.py',
         "en_formulas",
@@ -93,11 +87,10 @@ if __name__ == '__main__':
         "zh_formulas",
         num_proc=64
     )['train']
-    # serilization
-    # handwritten_nature_dataset.save_to_disk("/data/lhy/train_data/TexTeller/train_data_handwritten_nature_disk", num_proc=64)
 
     # load tokenizer
-    tokenizer = TexTeller.get_tokenizer('/home/lhy/code/TexTeller/src/models/tokenizer/roberta-tokenizer-70M-en-zh')
+    tokenizer = TexTeller.get_tokenizer('/home/lhy/code/TexTeller/src/models/tokenizer/roberta-tokenizer-7Mformulas')
+    # tokenizer = TexTeller.get_tokenizer('/home/lhy/code/TexTeller/src/models/tokenizer/roberta-tokenizer-70M-en-zh')
 
     NUM_PROC = 64
     # filter
@@ -124,19 +117,21 @@ if __name__ == '__main__':
     zh_dataset: Dataset                 = map_dataset(zh_dataset)
 
     # enlarge the proportion of handwritten dataset in the whole dataset
-    handwritten_dataset   = datasets.interleave_datasets([handwritten_online_dataset.select(range(1000)), handwritten_nature_dataset.select(range(1000))])
-    handwritten_datasetX5 = datasets.interleave_datasets([handwritten_dataset.select(range(1000))] * 5)
-    dataset_wo_en         = datasets.interleave_datasets([en_dataset.select(range(1000)), zh_dataset.select(range(1000)), handwritten_datasetX5.select(range(1000))])
+    handwritten_dataset   = datasets.concatenate_datasets([handwritten_online_dataset, handwritten_nature_dataset])
+    handwritten_datasetX5 = datasets.concatenate_datasets([handwritten_dataset] * 5)
+    dataset_wo_en         = datasets.concatenate_datasets([en_dataset, zh_dataset, handwritten_datasetX5])
 
     # only use en_dataset as eval dataset
     split_en_dataset = en_dataset.train_test_split(test_size=0.0005, seed=42)
+
+
     train_dataset, eval_dataset = split_en_dataset['train'], split_en_dataset['test']
     # mix English train dataset with other dataset
-    train_dataset = datasets.interleave_datasets([train_dataset, dataset_wo_en])
+    train_dataset = datasets.concatenate_datasets([train_dataset, dataset_wo_en])
 
     # shuffle
-    train_dataset = train_dataset.shuffle(seed=42).flatten_indices()
-    eval_dataset  = eval_dataset.shuffle(seed=42).flatten_indices()
+    train_dataset = train_dataset.shuffle(seed=42)
+    eval_dataset  = eval_dataset.shuffle(seed=42)
 
     # transform
     train_dataset = train_dataset.with_transform(img_train_transform)
@@ -148,12 +143,10 @@ if __name__ == '__main__':
 
     # prepare for training
     collate_fn_with_tokenizer = partial(collate_fn, tokenizer=tokenizer)
-    model = TexTeller()
     # model = TexTeller.from_pretrained(max_checkpoint_dir)
     # from scratch
+    model = TexTeller()
 
-    # enable_train    = True
-    # enable_evaluate = True
     enable_train    = True
     enable_evaluate = True
 
