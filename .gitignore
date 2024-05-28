@@ -3,6 +3,10 @@
 **/.vscode
 **/pyrightconfig.json
 
+**/dist
+**/build
+*.egg-info
+
 **/train_result
 **/ckpt
 **/ckpts
