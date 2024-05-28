@@ -60,10 +60,24 @@ def change(input_str, old_inst, new_inst, old_surr_l, old_surr_r, new_surr_l, ne
         return result
 
 
+def find_substring_positions(string, substring):
+    positions = [match.start() for match in re.finditer(re.escape(substring), string)]
+    return positions
+
+
+def change_all(input_str, old_inst, new_inst, old_surr_l, old_surr_r, new_surr_l, new_surr_r):
+    pos = find_substring_positions(input_str, old_inst + old_surr_l)
+    res = list(input_str)
+    for p in pos[::-1]:
+        res[p:] = list(change(''.join(res[p:]), old_inst, new_inst, old_surr_l, old_surr_r, new_surr_l, new_surr_r))
+    res = ''.join(res)
+    return res
+
+
 def to_katex(formula: str) -> str:
     res = formula
-    res = change(res, r'\mbox ', r'', r'{', r'}', r'', r'')
-    res = change(res, r'\mbox', r'', r'{', r'}', r'', r'')
+    res = change_all(res, r'\mbox ', r'', r'{', r'}', r'', r'')
+    res = change_all(res, r'\mbox', r'', r'{', r'}', r'', r'')
 
     origin_instructions = [
         r'\Huge',
@@ -77,10 +91,10 @@ def to_katex(formula: str) -> str:
         r'\tiny'
     ]
     for (old_ins, new_ins) in zip(origin_instructions, origin_instructions):
-        res = change(res, old_ins, new_ins, r'$', r'$', '{', '}')
-    res = change(res, r'\boldmath ', r'\bm', r'$', r'$', r'{', r'}')
-    res = change(res, r'\boldmath', r'\bm', r'$', r'$', r'{', r'}')
-    res = change(res, r'\scriptsize', r'\scriptsize', r'$', r'$', r'{', r'}')
+        res = change_all(res, old_ins, new_ins, r'$', r'$', '{', '}')
+    res = change_all(res, r'\boldmath ', r'\bm', r'$', r'$', r'{', r'}')
+    res = change_all(res, r'\boldmath', r'\bm', r'$', r'$', r'{', r'}')
+    res = change_all(res, r'\scriptsize', r'\scriptsize', r'$', r'$', r'{', r'}')
     
     origin_instructions = [
         r'\left',
@@ -104,10 +118,22 @@ def to_katex(formula: str) -> str:
         r'\Biggr'
     ]
     for origin_ins in origin_instructions:
-        res = change(res, origin_ins, origin_ins, r'{', r'}', r'', r'')
+        res = change_all(res, origin_ins, origin_ins, r'{', r'}', r'', r'')
 
     res = re.sub(r'\\\[(.*?)\\\]', r'\1\\newline', res)
 
     if res.endswith(r'\newline'):
         res = res[:-8]
+
+    res = res.replace(r'\,', '')
+    res = res.replace(r'\!', '')
+    res = res.replace(r'\;', '')
+    res = res.replace(r'\:', '')
     return res
+
+
+if __name__ == "__main__" :
+    test = r'''\[\mathsf{T}_{\infty}\,:=\,\big{(}\mathcal{X}\times\mathcal{W}\big{)}^{\infty}\]'''
+    # res = change_all(test, r'\boldmath', r'\bm', r'$', r'$', r'{', r'}')
+    res = to_katex(test)
+    print(res)
