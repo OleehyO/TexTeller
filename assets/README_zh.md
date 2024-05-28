@@ -20,23 +20,17 @@ TexTeller是一个基于ViT的端到端公式识别模型，可以把图片转�
 
 TexTeller用了7.5M的图片-公式对进行训练(数据集可以在[这里](https://huggingface.co/datasets/OleehyO/latex-formulas)获取)，相比于[LaTeX-OCR](https://github.com/lukas-blecher/LaTeX-OCR)(使用了一个100K的数据集)，TexTeller具有**更强的泛化能力**以及**更高的准确率**，可以覆盖大部分的使用场景(**扫描图片，手写公式除外**)。
 
+> 如果您觉得这个项目对您有帮助，请不要忘记点亮上方的Star⭐️
+
 ## 🔄 变更信息
+
+* 📮[2024-05-02] 支持中英文-公式混合识别(Beta)。
+
+* 📮[2024-04-12] 训练了**公式检测模型**，从而增加了对整个文档进行公式检测+公式识别（整图推理）的功能！
 
 * 📮[2024-03-25] TexTeller2.0发布！TexTeller2.0的训练数据增大到了7.5M(相较于TexTeller1.0**增加了~15倍**并且数据质量也有所改善)。训练后的TexTeller2.0在测试集中展现出了**更加优越的性能**，尤其在生僻符号、复杂多行、矩阵的识别场景中。
 
   > 在[这里](./test.pdf)有更多的测试图片以及各家识别模型的横向对比。
-  >
-* 📮[2024-04-12] 训练了**公式检测模型**，从而增加了对整个文档进行公式检测+公式识别（整图推理）的功能！
-
-* 📮[2024-05-02] 支持中英文-公式混合识别(Beta)。
-
-## 🔑 前置条件
-
-python=3.10
-
-[pytorch](https://pytorch.org/get-started/locally/)
-
-> 只有CUDA版本>= 12.0被完全测试过，所以最好使用>= 12.0的CUDA版本
 
 ## 🚀 开搞
 
@@ -46,22 +40,20 @@ python=3.10
    git clone https://github.com/OleehyO/TexTeller
    ```
 
-2. [安装pytorch](https://pytorch.org/get-started/locally/#start-locally)
-
-3. 安装本项目的依赖包:
+2. 安装本项目的依赖包:
 
    ```bash
-   pip install -r requirements.txt
+   pip install texteller
    ```
 
-4. 进入 `TexTeller/src`目录，在终端运行以下命令进行推理:
+3. 进入 `TexTeller/src`目录，在终端运行以下命令进行推理:
 
    ```bash
     python inference.py -img "/path/to/image.{jpg,png}" 
     # use --inference-mode option to enable GPU(cuda or mps) inference
-    #+e.g. python inference.py -img "./img.jpg" --inference-mode cuda
+    #+e.g. python inference.py -img "img.jpg" --inference-mode cuda
     # use -mix option to enable mixed text and formula recognition
-    #+e.g. python inference.py -img "./img.jpg" -mix -lang "en"
+    #+e.g. python inference.py -img "img.jpg" -mix
    ```
 
    > 第一次运行时会在Hugging Face上下载所需要的权重
@@ -91,7 +83,7 @@ python=3.10
 
 3. 把包含权重的目录上传远端服务器，然后把 `TexTeller/src/models/ocr_model/model/TexTeller.py`中的 `REPO_NAME = 'OleehyO/TexTeller'`修改为 `REPO_NAME = 'your/dir/path'`
 
-如果你还想在训练模型时开启evaluate，你需要提前下载metric脚本并上传远端服务器：
+<!-- 如果你还想在训练模型时开启evaluate，你需要提前下载metric脚本并上传远端服务器：
 
 1. 在能连接Hugging Face的机器上下载metric脚本
 
@@ -103,7 +95,7 @@ python=3.10
        --local-dir-use-symlinks False
    ```
 
-2. 把这个目录上传远端服务器，并在 `TexTeller/src/models/ocr_model/utils/metrics.py`中把 `evaluate.load('google_bleu')`改为 `evaluate.load('your/dir/path/google_bleu.py')`
+2. 把这个目录上传远端服务器，并在 `TexTeller/src/models/ocr_model/utils/metrics.py`中把 `evaluate.load('google_bleu')`改为 `evaluate.load('your/dir/path/google_bleu.py')` -->
 
 ## 🌐 网页演示
 
@@ -124,7 +116,7 @@ TexTeller还支持对整张图片进行**公式检测+公式识别**，从而对
 
 ### 下载权重
 
-根据[这里的链接](https://huggingface.co/TonyLee1256/texteller_det/resolve/main/rtdetr_r50vd_6x_coco.onnx?download=true)把模型权重下载到`src/models/det_model/model`即可
+根据[这里的链接](https://huggingface.co/TonyLee1256/texteller_det/resolve/main/rtdetr_r50vd_6x_coco.onnx?download=true)把模型权重下载到`src/models/det_model/model`
 
 > TexTeller的公式检测模型在3415张中文教材数据(130+版式)和8272张[IBEM数据集](https://zenodo.org/records/4757865)上，共11867张图片上训练得到.
 
@@ -180,16 +172,16 @@ python server.py
 
 我们在 `TexTeller/src/models/ocr_model/train/dataset`目录中提供了一个数据集的例子，你可以把自己的图片放在 `images`目录然后在 `formulas.jsonl`中为每张图片标注对应的公式。
 
-准备好数据集后，你需要在 `.../dataset/loader.py`中把 **`DIR_URL`变量改成你自己数据集的路径**
+准备好数据集后，你需要在 `**/train/dataset/loader.py`中把 **`DIR_URL`变量改成你自己数据集的路径**
 
 ### 重新训练分词器
 
-如果你使用了不一样的数据集，你可能需要重新训练tokenizer来得到一个不一样的字典。配置好数据集后，可以通过以下命令来训练自己的tokenizer：
+如果你使用了不一样的数据集，你可能需要重新训练tokenizer来得到一个不一样的词典。配置好数据集后，可以通过以下命令来训练自己的tokenizer：
 
 1. 在 `TexTeller/src/models/tokenizer/train.py`中，修改 `new_tokenizer.save_pretrained('./your_dir_name')`为你自定义的输出目录
 
-   > 注意：如果要用一个不一样大小的字典(默认1W个token)，你需要在 `TexTeller/src/models/globals.py`中修改 `VOCAB_SIZE`变量
-   >
+   > 注意：如果要用一个不一样大小的词典(默认1.5W个token)，你需要在 `TexTeller/src/models/globals.py`中修改 `VOCAB_SIZE`变量
+
 2. **在 `TexTeller/src` 目录下**运行以下命令:
 
    ```bash
@@ -206,7 +198,7 @@ python server.py
    accelerate launch --config_file ./train_config.yaml -m models.ocr_model.train.train
    ```
 
-你可以在 `TexTeller/src/models/ocr_model/train/train.py`中设置自己的tokenizer和checkpoint路径（请参考 `train.py`）。如果你使用了与TexTeller一样的架构和相同的字典，你还可以用自己的数据集来微调TexTeller的默认权重。
+你可以在 `TexTeller/src/models/ocr_model/train/train.py`中设置自己的tokenizer和checkpoint路径（请参考 `train.py`）。如果你使用了与TexTeller一样的架构和相同的词典，你还可以用自己的数据集来微调TexTeller的默认权重。
 
 在 `TexTeller/src/globals.py`和 `TexTeller/src/models/ocr_model/train/train_args.py`中，你可以改变模型的架构以及训练的超参数。
 
@@ -215,16 +207,17 @@ python server.py
 
 ## 🚧 不足
 
-* 不支持扫描图片以及PDF文档识别
+* 不支持扫描图片
 * 不支持手写体公式
+* 不支持PDF文档识别
 
 ## 📅 计划
 
 - [X] ~~使用更大的数据集来训练模型~~
 - [ ] 扫描图片识别
-- [ ] PDF文档识别 + 中英文场景支持
+- [ ] 中英文场景支持
+- [ ] PDF文档识别
 - [ ] 推理加速
-- [ ] ...
 
 ## ⭐️ 观星曲线
 
