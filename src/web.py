@@ -229,6 +229,9 @@ elif uploaded_file or paste_result.image_data is not None:
                 accelerator=accelerator,
                 num_beams=num_beams
             )[0]
+            #####################  log   #####################
+            print(f"before to_katex: {TexTeller_result}")
+            #####################  log   #####################
             katex_res = to_katex(TexTeller_result)
         else:
             katex_res = mix_inference(png_file_path, infer_config, latex_det_model, lang_ocr_models, latex_rec_models, accelerator, num_beams)
