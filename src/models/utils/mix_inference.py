@@ -12,7 +12,7 @@ from ..det_model.inference import predict as latex_det_predict
 from ..det_model.Bbox import Bbox, draw_bboxes
 
 from ..ocr_model.utils.inference import inference as latex_rec_predict
-from ..ocr_model.utils.to_katex import to_katex
+from ..ocr_model.utils.to_katex import to_katex, change_all
 
 MAXV = 999999999
 
@@ -161,6 +161,10 @@ def mix_inference(
     # log results
     draw_bboxes(Image.fromarray(img), latex_bboxes, name="latex_bboxes(unmerged).png")
     latex_bboxes = bbox_merge(latex_bboxes)
+    ##################   debug   ######################
+    # for idx, bbox in enumerate(latex_bboxes):
+    #     Image.fromarray(img[bbox.p.y:bbox.p.y + bbox.h, bbox.p.x:bbox.p.x + bbox.w]).save(f'{idx}.png')
+    ##################   debug   ######################
     # log results
     draw_bboxes(Image.fromarray(img), latex_bboxes, name="latex_bboxes(merged).png")
     masked_img = mask_img(img, latex_bboxes, bg_color)
@@ -203,16 +207,20 @@ def mix_inference(
     for bbox in latex_bboxes:
         latex_imgs.append(img[bbox.p.y:bbox.p.y + bbox.h, bbox.p.x:bbox.p.x + bbox.w])
     start_time = time.time()
-    latex_rec_res = latex_rec_predict(*latex_rec_models, latex_imgs, accelerator, num_beams, max_tokens=200)
+    latex_rec_res = latex_rec_predict(*latex_rec_models, latex_imgs, accelerator, num_beams, max_tokens=800)
     end_time = time.time()
     print(f"latex_rec_model time: {end_time - start_time:.2f}s")
 
     for bbox, content in zip(latex_bboxes, latex_rec_res):
+        ##############  log  ##################
+        print(f"before to_katex: {content}\n")
+        ##############  log  ##################
         bbox.content = to_katex(content)
         if bbox.label == "embedding":
             bbox.content = " $" + bbox.content + "$ "
         elif bbox.label == "isolated":
-            bbox.content = '\n' + r"$$" + bbox.content + r"$$" + '\n'
+            bbox.content = '\n\n' + r"$$" + bbox.content + r"$$" + '\n\n'
+
 
     bboxes = sorted(ocr_bboxes + latex_bboxes)
     if bboxes == []:
@@ -221,14 +229,43 @@ def mix_inference(
     md = ""
     prev = Bbox(bboxes[0].p.x, bboxes[0].p.y, -1, -1, label="guard")
     for curr in bboxes:
-        if not prev.same_row(curr):
-            md += "\n"
-        md += curr.content
+        # Add the formula number back to the isolated formula
         if (
             prev.label == "isolated"
             and curr.label == "text"
-            and bool(re.fullmatch(r"\([1-9]\d*?\)", curr.content))
+            and prev.same_row(curr)
         ):
-            md += '\n'
+            curr.content = curr.content.strip()
+            if curr.content.startswith('(') and curr.content.endswith(')'):
+                curr.content = curr.content[1:-1]
+
+            if re.search(r'\\tag\{.*\}$', md[:-4]) is not None:
+                # in case of multiple tag
+                md = md[:-5] + f', {curr.content}' + '}' + md[-4:]
+            else:
+                md = md[:-4] + f'\\tag{{{curr.content}}}' + md[-4:]
+            continue
+
+        if not prev.same_row(curr):
+            md += " "
+
+        if curr.label == "embedding":
+            # remove the bold effect from inline formulas
+            curr.content = change_all(curr.content, r'\bm', r' ', r'{', r'}', r'', r' ')
+            curr.content = change_all(curr.content, r'\boldsymbol', r' ', r'{', r'}', r'', r' ')
+            curr.content = change_all(curr.content, r'\textit', r' ', r'{', r'}', r'', r' ')
+            curr.content = change_all(curr.content, r'\textbf', r' ', r'{', r'}', r'', r' ')
+            curr.content = change_all(curr.content, r'\textbf', r' ', r'{', r'}', r'', r' ')
+            curr.content = change_all(curr.content, r'\mathbf', r' ', r'{', r'}', r'', r' ')
+
+            # change split environment into aligned
+            curr.content = curr.content.replace(r'\begin{split}', r'\begin{aligned}')
+            curr.content = curr.content.replace(r'\end{split}', r'\end{aligned}')
+
+            # remove extra spaces (keeping only one)
+            curr.content = re.sub(r' +', ' ', curr.content)
+            assert curr.content.startswith(' $') and curr.content.endswith('$ ')
+            curr.content = ' $' + curr.content[2:-2].strip() + '$ '
+        md += curr.content
         prev = curr
-    return md
+    return md.strip()
