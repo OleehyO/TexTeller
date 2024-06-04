@@ -110,10 +110,10 @@ if "CHANGE_SIDEBAR_FLAG" not in st.session_state:
     st.session_state["CHANGE_SIDEBAR_FLAG"] = False
 
 if "INF_MODE" not in st.session_state:
-    st.session_state["INF_MODE"] = "Formula only"
+    st.session_state["INF_MODE"] = "Formula recognition"
 
 
-#  ============================     begin sidebar      =============================== #
+##############################     <sidebar>    ##############################
 
 with st.sidebar:
     num_beams = 1
@@ -123,7 +123,7 @@ with st.sidebar:
 
     inf_mode = st.selectbox(
         "Inference mode",
-        ("Formula only", "Text formula mixed"),
+        ("Formula recognition", "Paragraph recognition"),
         on_change=change_side_bar
     )
 
@@ -142,16 +142,16 @@ with st.sidebar:
     )
 
 
-#  ============================     end sidebar      =============================== #
+##############################     </sidebar>    ##############################
 
 
-#  ============================     begin pages      =============================== #
+################################     <page>    ################################
 
 texteller = get_texteller()
 tokenizer = get_tokenizer()
 latex_rec_models = [texteller, tokenizer]
 
-if inf_mode == "Text formula mixed":
+if inf_mode == "Paragraph recognition":
     infer_config, latex_det_model = get_det_models()
     lang_ocr_models = get_ocr_models(accelerator)
 
@@ -221,7 +221,7 @@ elif uploaded_file or paste_result.image_data is not None:
     st.write("")
 
     with st.spinner("Predicting..."):
-        if inf_mode == "Formula only":
+        if inf_mode == "Formula recognition":
             TexTeller_result = latex_recognition(
                 texteller,
                 tokenizer,
@@ -237,13 +237,13 @@ elif uploaded_file or paste_result.image_data is not None:
         st.markdown(suc_gif_html, unsafe_allow_html=True)
         st.text_area(":blue[***  𝑃r𝑒d𝑖c𝑡e𝑑 𝑓o𝑟m𝑢l𝑎  ***]", katex_res, height=150)
 
-        if inf_mode == "Formula only":
+        if inf_mode == "Formula recognition":
             st.latex(katex_res)
-        elif inf_mode == "Text formula mixed":
-            mixed_res = re.split(r'(\n\$\$.*?\$\$\n)', katex_res)
+        elif inf_mode == "Paragraph recognition":
+            mixed_res = re.split(r'(\$\$.*?\$\$)', katex_res)
             for text in mixed_res:
-                if text.startswith('\n$$') and text.endswith('$$\n'):
-                    st.latex(text[3:-3])
+                if text.startswith('$$') and text.endswith('$$'):
+                    st.latex(text[2:-2])
                 else:
                     st.markdown(text)
 
@@ -262,4 +262,4 @@ elif uploaded_file or paste_result.image_data is not None:
 
     paste_result.image_data = None
 
-#  ============================     end pages      =============================== #
+################################     </page>    ################################
