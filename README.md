@@ -6,14 +6,14 @@
         𝚃𝚎𝚡𝚃𝚎𝚕𝚕𝚎𝚛
         <img src="./assets/fire.svg" width=30, height=30>
     </h1>
-    <p align="center">
+    <!-- <p align="center">
         🤗 <a href="https://huggingface.co/OleehyO/TexTeller"> Hugging Face </a>
-    </p>
+    </p> -->
 
-  [![](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-  [![](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/OleehyO/TexTeller/issues)
-  [![](https://img.shields.io/badge/Data-Texteller1.0-brightgreen.svg)](https://huggingface.co/datasets/OleehyO/latex-formulas)
-  [![](https://img.shields.io/badge/Weights-Texteller3.0-yellow.svg)](https://huggingface.co/OleehyO/TexTeller)
+  [![](https://img.shields.io/badge/License-Apache_2.0-blue.svg?logo=github)](https://opensource.org/licenses/Apache-2.0)
+  [![](https://img.shields.io/badge/docker-pull-green.svg?logo=docker)](https://hub.docker.com/r/oleehyo/texteller)
+  [![](https://img.shields.io/badge/Data-Texteller1.0-brightgreen.svg?logo=huggingface)](https://huggingface.co/datasets/OleehyO/latex-formulas)
+  [![](https://img.shields.io/badge/Weights-Texteller3.0-yellow.svg?logo=huggingface)](https://huggingface.co/OleehyO/TexTeller)
 
 </div>
 
