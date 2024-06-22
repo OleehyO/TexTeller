@@ -209,11 +209,12 @@ python server.py
 | `-ckpt` | The path to the weights file,*default is TexTeller's pretrained weights*. |
 | `-tknz` | The path to the tokenizer,*default is TexTeller's tokenizer*. |
 | `-port` | The server's service port,*default is 8000*. |
-| `--inference-mode` | Whether to use GPU(cuda or mps) for inference,*default is CPU*. |
+| `--inference-mode` | Whether to use "cuda" or "mps" for inference,*default is "cpu"*. |
 | `--num_beams` | The number of beams for beam search,*default is 1*. |
 | `--num_replicas` | The number of service replicas to run on the server,*default is 1 replica*. You can use more replicas to achieve greater throughput.|
 | `--ncpu_per_replica` | The number of CPU cores used per service replica,*default is 1*.|
 | `--ngpu_per_replica` | The number of GPUs used per service replica,*default is 1*. You can set this value between 0 and 1 to run multiple service replicas on one GPU to share the GPU, thereby improving GPU utilization. (Note, if --num_replicas is 2, --ngpu_per_replica is 0.7, then 2 GPUs must be available) |
+| `-onnx` | Perform inference using Onnx Runtime, *disabled by default* |
 
 > [!NOTE]
 > A client demo can be found at `src/client/demo.py`, you can refer to `demo.py` to send requests to the server
