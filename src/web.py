@@ -50,17 +50,20 @@ fail_gif_html = '''
 '''
 
 @st.cache_resource
-def get_texteller():
-    return TexTeller.from_pretrained(os.environ['CHECKPOINT_DIR'])
+def get_texteller(use_onnx, accelerator):
+    return TexTeller.from_pretrained(os.environ['CHECKPOINT_DIR'], use_onnx=use_onnx, onnx_provider=accelerator)
 
 @st.cache_resource
 def get_tokenizer():
     return TexTeller.get_tokenizer(os.environ['TOKENIZER_DIR'])
 
 @st.cache_resource
-def get_det_models():
+def get_det_models(accelerator):
     infer_config = PredictConfig("./models/det_model/model/infer_cfg.yml")
-    latex_det_model = InferenceSession("./models/det_model/model/rtdetr_r50vd_6x_coco.onnx")
+    latex_det_model = InferenceSession(
+        "./models/det_model/model/rtdetr_r50vd_6x_coco.onnx", 
+        providers=['CUDAExecutionProvider'] if accelerator == 'cuda' else ['CPUExecutionProvider']
+    )
     return infer_config, latex_det_model
 
 @st.cache_resource()
@@ -141,18 +144,22 @@ with st.sidebar:
         on_change=change_side_bar
     )
 
+    st.markdown("## Seepup Setting")
+    use_onnx = st.toggle("ONNX Runtime ")
+
+
 
 ##############################     </sidebar>    ##############################
 
 
 ################################     <page>    ################################
 
-texteller = get_texteller()
+texteller = get_texteller(use_onnx, accelerator)
 tokenizer = get_tokenizer()
 latex_rec_models = [texteller, tokenizer]
 
 if inf_mode == "Paragraph recognition":
-    infer_config, latex_det_model = get_det_models()
+    infer_config, latex_det_model = get_det_models(accelerator)
     lang_ocr_models = get_ocr_models(accelerator)
 
 st.markdown(html_string, unsafe_allow_html=True)
