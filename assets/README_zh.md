@@ -247,11 +247,12 @@ python server.py
 | `-ckpt` | 权重文件的路径，*默认为TexTeller的预训练权重*。|
 | `-tknz` | 分词器的路径，*默认为TexTeller的分词器*。|
 | `-port` | 服务器的服务端口，*默认是8000*。|
-| `--inference-mode` | 是否使用GPU(cuda或mps)推理，*默认为CPU*。|
+| `--inference-mode` | 使用"cuda"或"mps"推理，*默认为"cpu"*。|
 | `--num_beams` | beam search的beam数量，*默认是1*。|
 | `--num_replicas` | 在服务器上运行的服务副本数量，*默认1个副本*。你可以使用更多的副本来获取更大的吞吐量。|
 | `--ncpu_per_replica` | 每个服务副本所用的CPU核心数，*默认为1*。|
 | `--ngpu_per_replica` | 每个服务副本所用的GPU数量，*默认为1*。你可以把这个值设置成 0~1之间的数，这样会在一个GPU上运行多个服务副本来共享GPU，从而提高GPU的利用率。(注意，如果 --num_replicas 2, --ngpu_per_replica 0.7, 那么就必须要有2个GPU可用) |
+| `-onnx` | 使用Onnx Runtime进行推理，*默认不使用*。|
 
 > [!NOTE]
 > 一个客户端demo可以在 `TexTeller/client/demo.py`找到，你可以参考 `demo.py`来给server发送请求
