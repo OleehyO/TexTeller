@@ -1,3 +1,4 @@
+import sys
 import argparse
 import tempfile
 import time
@@ -17,6 +18,10 @@ from models.det_model.inference import PredictConfig
 from models.ocr_model.utils.to_katex import to_katex
 
 
+PYTHON_VERSION = str(sys.version_info.major) + '.' + str(sys.version_info.minor)
+LIBPATH = Path(sys.executable).parent.parent / 'lib' / ('python' + PYTHON_VERSION) / 'site-packages'
+CUDNNPATH = LIBPATH / 'nvidia' / 'cudnn' / 'lib'
+
 parser = argparse.ArgumentParser()
 parser.add_argument(
     '-ckpt', '--checkpoint_dir', type=str
@@ -31,6 +36,7 @@ parser.add_argument('--ngpu_per_replica', type=float, default=0.0)
 
 parser.add_argument('--inference-mode', type=str, default='cpu')
 parser.add_argument('--num_beams', type=int, default=1)
+parser.add_argument('-onnx', action='store_true', help='using onnx runtime')
 
 args = parser.parse_args()
 if args.ngpu_per_replica > 0 and not args.inference_mode == 'cuda':
@@ -41,7 +47,7 @@ if args.ngpu_per_replica > 0 and not args.inference_mode == 'cuda':
     num_replicas=args.num_replicas, 
     ray_actor_options={
         "num_cpus": args.ncpu_per_replica, 
-        "num_gpus": args.ngpu_per_replica
+        "num_gpus": args.ngpu_per_replica * 1.0 / 2
     }
 )
 class TexTellerRecServer:
@@ -50,14 +56,16 @@ class TexTellerRecServer:
         checkpoint_path: str, 
         tokenizer_path: str, 
         inf_mode: str = 'cpu',
+        use_onnx: bool = False,
         num_beams: int = 1
     ) -> None:
-        self.model = TexTeller.from_pretrained(checkpoint_path)
+        self.model = TexTeller.from_pretrained(checkpoint_path, use_onnx=use_onnx, onnx_provider=inf_mode)
         self.tokenizer = TexTeller.get_tokenizer(tokenizer_path)
         self.inf_mode = inf_mode
         self.num_beams = num_beams
 
-        self.model = self.model.to(inf_mode) if inf_mode != 'cpu' else self.model
+        if not use_onnx:
+            self.model = self.model.to(inf_mode) if inf_mode != 'cpu' else self.model
     
     def predict(self, image_nparray) -> str:
         return to_katex(rec_inference(
@@ -65,14 +73,28 @@ class TexTellerRecServer:
             accelerator=self.inf_mode, num_beams=self.num_beams
         )[0])
 
-
-@serve.deployment(num_replicas=args.num_replicas)
+@serve.deployment(
+    num_replicas=args.num_replicas, 
+    ray_actor_options={
+        "num_cpus": args.ncpu_per_replica, 
+        "num_gpus": args.ngpu_per_replica * 1.0 / 2,
+        "runtime_env": {
+            "env_vars": {
+                "LD_LIBRARY_PATH": f"{str(CUDNNPATH)}/:$LD_LIBRARY_PATH"
+            }
+        }
+    },
+)
 class TexTellerDetServer:
     def __init__(
-        self
+        self,
+        inf_mode='cpu'
     ):
         self.infer_config = PredictConfig("./models/det_model/model/infer_cfg.yml")
-        self.latex_det_model = InferenceSession("./models/det_model/model/rtdetr_r50vd_6x_coco.onnx")
+        self.latex_det_model = InferenceSession(
+            "./models/det_model/model/rtdetr_r50vd_6x_coco.onnx", 
+            providers=['CUDAExecutionProvider'] if inf_mode == 'cuda' else ['CPUExecutionProvider']
+        )
 
     async def predict(self, image_nparray) -> str:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -120,11 +142,12 @@ if __name__ == '__main__':
     rec_server = TexTellerRecServer.bind(
         ckpt_dir, tknz_dir, 
         inf_mode=args.inference_mode,
+        use_onnx=args.onnx,
         num_beams=args.num_beams
     )
     det_server = None
     if Path('./models/det_model/model/rtdetr_r50vd_6x_coco.onnx').exists():
-        det_server = TexTellerDetServer.bind()
+        det_server = TexTellerDetServer.bind(args.inference_mode)
     ingress = Ingress.bind(det_server, rec_server)
 
     # ingress_handle = serve.run(ingress, route_prefix="/predict")  

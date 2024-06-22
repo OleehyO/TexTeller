@@ -20,6 +20,7 @@ install_requires = [
     "streamlit-paste-button",
     "shapely",
     "pyclipper",
+    "optimum[exporters]"
 ]
 
 # Add platform-specific dependencies

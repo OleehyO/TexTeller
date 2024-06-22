@@ -1,4 +1,5 @@
 from pathlib import Path
+from optimum.onnxruntime import ORTModelForVision2Seq
 
 from ...globals import (
     VOCAB_SIZE,
@@ -10,7 +11,7 @@ from ...globals import (
 from transformers import (
     RobertaTokenizerFast,
     VisionEncoderDecoderModel,
-    VisionEncoderDecoderConfig,
+    VisionEncoderDecoderConfig
 )
 
 
@@ -26,9 +27,13 @@ class TexTeller(VisionEncoderDecoderModel):
         super().__init__(config=config)
     
     @classmethod
-    def from_pretrained(cls, model_path: str = None):
+    def from_pretrained(cls, model_path: str = None, use_onnx=False, onnx_provider=None):
         if model_path is None or model_path == 'default':
-            return VisionEncoderDecoderModel.from_pretrained(cls.REPO_NAME)
+            if not use_onnx:
+                return VisionEncoderDecoderModel.from_pretrained(cls.REPO_NAME)
+            else:
+                use_gpu = True if onnx_provider == 'cuda' else False
+                return ORTModelForVision2Seq.from_pretrained(cls.REPO_NAME, provider="CUDAExecutionProvider" if use_gpu else "CPUExecutionProvider")
         model_path = Path(model_path).resolve()
         return VisionEncoderDecoderModel.from_pretrained(str(model_path))
 
