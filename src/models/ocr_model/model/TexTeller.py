@@ -18,11 +18,11 @@ from transformers import (
 class TexTeller(VisionEncoderDecoderModel):
     REPO_NAME = 'OleehyO/TexTeller'
     def __init__(self):
-        config = VisionEncoderDecoderConfig.from_pretrained('/home/lhy/code/TexTeller/src/models/ocr_model/model/trocr-small')
-        config.encoder.image_size = FIXED_IMG_SIZE
-        config.encoder.num_channels = IMG_CHANNELS
-        config.decoder.vocab_size=VOCAB_SIZE
-        config.decoder.max_position_embeddings=MAX_TOKEN_SIZE
+        config = VisionEncoderDecoderConfig.from_pretrained(Path(__file__).resolve().parent / "config.json")
+        config.encoder.image_size              = FIXED_IMG_SIZE
+        config.encoder.num_channels            = IMG_CHANNELS
+        config.decoder.vocab_size              = VOCAB_SIZE
+        config.decoder.max_position_embeddings = MAX_TOKEN_SIZE
 
         super().__init__(config=config)
     
