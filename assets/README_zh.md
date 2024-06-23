@@ -204,7 +204,8 @@ TexTeller默认使用轻量的[PaddleOCR](https://github.com/PaddlePaddle/Paddle
 在浏览器里输入 `http://localhost:8501`就可以看到web demo
 
 > [!NOTE]
-> 对于Windows用户, 请运行 `start_web.bat`文件。
+> 1. 对于Windows用户, 请运行 `start_web.bat`文件。
+> 2. 使用onnxruntime + gpu 推理时，需要安装onnxruntime-gpu
 
 ## 🔍 公式检测
 

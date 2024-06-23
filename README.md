@@ -169,7 +169,8 @@ Go to the `src/` directory and run the following command:
 Enter `http://localhost:8501` in a browser to view the web demo.
 
 > [!NOTE]
-> If you are Windows user, please run the `start_web.bat` file instead.
+> 1. For Windows users, please run the `start_web.bat` file.
+> 2. When using onnxruntime + GPU for inference, you need to install onnxruntime-gpu.
 
 ## 🔍 Formula Detection
 
