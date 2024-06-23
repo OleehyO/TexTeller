@@ -1,11 +1,10 @@
 from setuptools import setup, find_packages
-import platform
+
 
 # Define the base dependencies
 install_requires = [
     "torch",
     "torchvision",
-    "torchaudio",
     "transformers",
     "datasets",
     "evaluate",
@@ -20,18 +19,13 @@ install_requires = [
     "streamlit-paste-button",
     "shapely",
     "pyclipper",
-    "optimum[exporters]"
-]
 
-# Add platform-specific dependencies
-if platform.system() == "Darwin":
-    install_requires.append("onnxruntime")
-else:
-    install_requires.append("onnxruntime-gpu")
+    "optimum[exporters]",
+]
 
 setup(
     name="texteller",
-    version="0.1.0",
+    version="0.1.2",
     author="OleehyO",
     author_email="1258009915@qq.com",
     description="A meta-package for installing dependencies",
