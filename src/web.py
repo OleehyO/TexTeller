@@ -144,7 +144,7 @@ with st.sidebar:
         on_change=change_side_bar
     )
 
-    st.markdown("## Seepup Setting")
+    st.markdown("## Seedup")
     use_onnx = st.toggle("ONNX Runtime ")
 
 
