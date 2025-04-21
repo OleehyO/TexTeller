@@ -40,7 +40,7 @@ Converting an image to LaTeX:
 
 Processing a mixed text/formula image:
 
-.. code-block::python
+.. code-block:: python
 
    from texteller import (
        load_model, load_tokenizer, load_latexdet_model,

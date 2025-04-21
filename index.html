@@ -421,6 +421,29 @@ document.write(`
 </pre></div>
 </div>
 <p>Processing a mixed text/formula image:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">texteller</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">load_model</span><span class="p">,</span> <span class="n">load_tokenizer</span><span class="p">,</span> <span class="n">load_latexdet_model</span><span class="p">,</span>
+    <span class="n">load_textdet_model</span><span class="p">,</span> <span class="n">load_textrec_model</span><span class="p">,</span> <span class="n">paragraph2md</span>
+<span class="p">)</span>
+
+<span class="c1"># Load all required models</span>
+<span class="n">latex_model</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">()</span>
+<span class="n">tokenizer</span> <span class="o">=</span> <span class="n">load_tokenizer</span><span class="p">()</span>
+<span class="n">latex_detector</span> <span class="o">=</span> <span class="n">load_latexdet_model</span><span class="p">()</span>
+<span class="n">text_detector</span> <span class="o">=</span> <span class="n">load_textdet_model</span><span class="p">()</span>
+<span class="n">text_recognizer</span> <span class="o">=</span> <span class="n">load_textrec_model</span><span class="p">()</span>
+
+<span class="c1"># Convert to markdown</span>
+<span class="n">markdown</span> <span class="o">=</span> <span class="n">paragraph2md</span><span class="p">(</span>
+    <span class="s2">&quot;path/to/mixed_image.png&quot;</span><span class="p">,</span>
+    <span class="n">latex_detector</span><span class="p">,</span>
+    <span class="n">text_detector</span><span class="p">,</span>
+    <span class="n">text_recognizer</span><span class="p">,</span>
+    <span class="n">latex_model</span><span class="p">,</span>
+    <span class="n">tokenizer</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="api-documentation">
 <h2>API Documentation<a class="headerlink" href="#api-documentation" title="Link to this heading">#</a></h2>
