@@ -1,0 +1,517 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>texteller.api.katex &#8212; TexTeller  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/texteller/api/katex';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/logo.svg" class="logo__image only-light" alt="TexTeller  documentation - Home"/>
+    <script>document.write(`<img src="../../../_static/logo.svg" class="logo__image only-dark" alt="TexTeller  documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API Reference</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/OleehyO/TexTeller" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/OleehyO/TexTeller/issues/new?title=Issue%20on%20page%20%2F_modules/texteller/api/katex.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for texteller.api.katex</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">..utils.latex</span><span class="w"> </span><span class="kn">import</span> <span class="n">change_all</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.format</span><span class="w"> </span><span class="kn">import</span> <span class="n">format_latex</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_rm_dollar_surr</span><span class="p">(</span><span class="n">content</span><span class="p">):</span>
+    <span class="n">pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">[a-zA-Z]+\$.*?\$|\$.*?\$&quot;</span><span class="p">)</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">[a-zA-Z]+&quot;</span><span class="p">,</span> <span class="n">match</span><span class="p">):</span>
+            <span class="n">new_match</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;$&quot;</span><span class="p">)</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">match</span><span class="p">,</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">new_match</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">content</span>
+
+
+<div class="viewcode-block" id="to_katex">
+<a class="viewcode-back" href="../../../api.html#texteller.api.to_katex">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">to_katex</span><span class="p">(</span><span class="n">formula</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert LaTeX formula to KaTeX-compatible format.</span>
+
+<span class="sd">    This function processes a LaTeX formula string and converts it to a format</span>
+<span class="sd">    that is compatible with KaTeX rendering. It removes unsupported commands</span>
+<span class="sd">    and structures, simplifies LaTeX environments, and optimizes the formula</span>
+<span class="sd">    for web display.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        formula: LaTeX formula string to convert</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        KaTeX-compatible formula string</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">formula</span>
+    <span class="c1"># remove mbox surrounding</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">change_all</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\mbox &quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;{&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;}&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">change_all</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\mbox&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;{&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;}&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="c1"># remove hbox surrounding</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">hbox to ?-? ?\d+\.\d+(pt)?\{&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">hbox{&quot;</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">change_all</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\hbox&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;{&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;}&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+    <span class="c1"># remove raise surrounding</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">raise ?-? ?\d+\.\d+(pt)?&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
+    <span class="c1"># remove makebox</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">makebox ?\[\d+\.\d+(pt)?\]\{&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">makebox{&quot;</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">change_all</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\makebox&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;{&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;}&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+    <span class="c1"># remove vbox surrounding, scalebox surrounding</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">raisebox\{-? ?\d+\.\d+(pt)?\}\{&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">raisebox{&quot;</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">scalebox\{-? ?\d+\.\d+(pt)?\}\{&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">scalebox{&quot;</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">change_all</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\scalebox&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;{&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;}&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">change_all</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\raisebox&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;{&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;}&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">change_all</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\vbox&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;{&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;}&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+
+    <span class="n">origin_instructions</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="sa">r</span><span class="s2">&quot;\Huge&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot;\huge&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot;\LARGE&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot;\Large&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot;\large&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot;\normalsize&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot;\small&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot;\footnotesize&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot;\tiny&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="k">for</span> <span class="n">old_ins</span><span class="p">,</span> <span class="n">new_ins</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">origin_instructions</span><span class="p">,</span> <span class="n">origin_instructions</span><span class="p">):</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">change_all</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">old_ins</span><span class="p">,</span> <span class="n">new_ins</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;$&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;$&quot;</span><span class="p">,</span> <span class="s2">&quot;{&quot;</span><span class="p">,</span> <span class="s2">&quot;}&quot;</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">change_all</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\mathbf&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\bm&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;{&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;}&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;{&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;}&quot;</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">change_all</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\boldmath &quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\bm&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;{&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;}&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;{&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;}&quot;</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">change_all</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\boldmath&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\bm&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;{&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;}&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;{&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;}&quot;</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">change_all</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\boldmath &quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\bm&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;$&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;$&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;{&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;}&quot;</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">change_all</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\boldmath&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\bm&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;$&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;$&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;{&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;}&quot;</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">change_all</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\scriptsize&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\scriptsize&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;$&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;$&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;{&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;}&quot;</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">change_all</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\emph&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\textit&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;{&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;}&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;{&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;}&quot;</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">change_all</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\emph &quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\textit&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;{&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;}&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;{&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;}&quot;</span><span class="p">)</span>
+
+    <span class="c1"># remove bold command</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">change_all</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\bm&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;{&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;}&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+    <span class="n">origin_instructions</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="sa">r</span><span class="s2">&quot;\left&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot;\middle&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot;\right&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot;\big&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot;\Big&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot;\bigg&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot;\Bigg&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot;\bigl&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot;\Bigl&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot;\biggl&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot;\Biggl&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot;\bigm&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot;\Bigm&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot;\biggm&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot;\Biggm&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot;\bigr&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot;\Bigr&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot;\biggr&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot;\Biggr&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="k">for</span> <span class="n">origin_ins</span> <span class="ow">in</span> <span class="n">origin_instructions</span><span class="p">:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">change_all</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">origin_ins</span><span class="p">,</span> <span class="n">origin_ins</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;{&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;}&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+    <span class="n">res</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">\[(.*?)</span><span class="se">\\</span><span class="s2">\]&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\1</span><span class="se">\\</span><span class="s2">newline&quot;</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\newline&quot;</span><span class="p">):</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">res</span><span class="p">[:</span><span class="o">-</span><span class="mi">8</span><span class="p">]</span>
+
+    <span class="c1"># remove multiple spaces</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(</span><span class="se">\\</span><span class="s2">,){1,}&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(</span><span class="se">\\</span><span class="s2">!){1,}&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(</span><span class="se">\\</span><span class="s2">;){1,}&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(</span><span class="se">\\</span><span class="s2">:){1,}&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">vspace\{.*?}&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
+
+    <span class="c1"># merge consecutive text</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">merge_texts</span><span class="p">(</span><span class="n">match</span><span class="p">):</span>
+        <span class="n">texts</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">merged_content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">text\{([^}]*)\}&quot;</span><span class="p">,</span> <span class="n">texts</span><span class="p">))</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">text</span><span class="se">{{</span><span class="si">{</span><span class="n">merged_content</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span>
+
+    <span class="n">res</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(</span><span class="se">\\</span><span class="s2">text\{[^}]*\}\s*){2,}&quot;</span><span class="p">,</span> <span class="n">merge_texts</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
+
+    <span class="n">res</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\bf &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">_rm_dollar_surr</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+
+    <span class="c1"># remove extra spaces (keeping only one)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot; +&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
+
+    <span class="c1"># format latex</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">format_latex</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">res</span></div>
+
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By TexTeller Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, TexTeller Team.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,553 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>texteller.api.load &#8212; TexTeller  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/texteller/api/load';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/logo.svg" class="logo__image only-light" alt="TexTeller  documentation - Home"/>
+    <script>document.write(`<img src="../../../_static/logo.svg" class="logo__image only-dark" alt="TexTeller  documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API Reference</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/OleehyO/TexTeller" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/OleehyO/TexTeller/issues/new?title=Issue%20on%20page%20%2F_modules/texteller/api/load.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for texteller.api.load</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">wget</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">onnxruntime</span><span class="w"> </span><span class="kn">import</span> <span class="n">InferenceSession</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">RobertaTokenizerFast</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">texteller.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">LATEX_DET_MODEL_URL</span><span class="p">,</span> <span class="n">TEXT_DET_MODEL_URL</span><span class="p">,</span> <span class="n">TEXT_REC_MODEL_URL</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">texteller.globals</span><span class="w"> </span><span class="kn">import</span> <span class="n">Globals</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">texteller.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_logger</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">texteller.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">TexTeller</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">texteller.paddleocr</span><span class="w"> </span><span class="kn">import</span> <span class="n">predict_det</span><span class="p">,</span> <span class="n">predict_rec</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">texteller.paddleocr.utility</span><span class="w"> </span><span class="kn">import</span> <span class="n">parse_args</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">texteller.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">cuda_available</span><span class="p">,</span> <span class="n">mkdir</span><span class="p">,</span> <span class="n">resolve_path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">texteller.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">TexTellerModel</span>
+
+<span class="n">_logger</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="load_model">
+<a class="viewcode-back" href="../../../api.html#texteller.api.load_model">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_model</span><span class="p">(</span><span class="n">model_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">use_onnx</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TexTellerModel</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load the TexTeller model for LaTeX recognition.</span>
+
+<span class="sd">    This function loads the main TexTeller model, which is responsible for</span>
+<span class="sd">    converting images to LaTeX. It can load either the standard PyTorch model</span>
+<span class="sd">    or the optimized ONNX version.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        model_dir: Directory containing the model files. If None, uses the default model.</span>
+<span class="sd">        use_onnx: Whether to load the ONNX version of the model for faster inference.</span>
+<span class="sd">                  Requires the &#39;optimum&#39; package and ONNX Runtime.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Loaded TexTeller model instance</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; from texteller import load_model</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; model = load_model(use_onnx=True)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">TexTeller</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">model_dir</span><span class="p">,</span> <span class="n">use_onnx</span><span class="o">=</span><span class="n">use_onnx</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="load_tokenizer">
+<a class="viewcode-back" href="../../../api.html#texteller.api.load_tokenizer">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_tokenizer</span><span class="p">(</span><span class="n">tokenizer_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RobertaTokenizerFast</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load the tokenizer for the TexTeller model.</span>
+
+<span class="sd">    This function loads the tokenizer used by the TexTeller model for</span>
+<span class="sd">    encoding and decoding LaTeX sequences.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        tokenizer_dir: Directory containing the tokenizer files. If None, uses the default tokenizer.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        RobertaTokenizerFast instance</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; from texteller import load_tokenizer</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; tokenizer = load_tokenizer()</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">TexTeller</span><span class="o">.</span><span class="n">get_tokenizer</span><span class="p">(</span><span class="n">tokenizer_dir</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="load_latexdet_model">
+<a class="viewcode-back" href="../../../api.html#texteller.api.load_latexdet_model">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_latexdet_model</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">InferenceSession</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load the LaTeX detection model.</span>
+
+<span class="sd">    This function loads the model responsible for detecting LaTeX formulas in images.</span>
+<span class="sd">    The model is implemented as an ONNX InferenceSession for optimal performance.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        ONNX InferenceSession for LaTeX detection</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; from texteller import load_latexdet_model</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; detector = load_latexdet_model()</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fpath</span> <span class="o">=</span> <span class="n">_maybe_download</span><span class="p">(</span><span class="n">LATEX_DET_MODEL_URL</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">InferenceSession</span><span class="p">(</span>
+        <span class="n">resolve_path</span><span class="p">(</span><span class="n">fpath</span><span class="p">),</span>
+        <span class="n">providers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;CUDAExecutionProvider&quot;</span> <span class="k">if</span> <span class="n">cuda_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;CPUExecutionProvider&quot;</span><span class="p">],</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="load_textrec_model">
+<a class="viewcode-back" href="../../../api.html#texteller.api.load_textrec_model">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_textrec_model</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">predict_rec</span><span class="o">.</span><span class="n">TextRecognizer</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load the text recognition model.</span>
+
+<span class="sd">    This function loads the model responsible for recognizing regular text in images.</span>
+<span class="sd">    It&#39;s based on PaddleOCR&#39;s text recognition model.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        PaddleOCR TextRecognizer instance</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; from texteller import load_textrec_model</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; text_recognizer = load_textrec_model()</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fpath</span> <span class="o">=</span> <span class="n">_maybe_download</span><span class="p">(</span><span class="n">TEXT_REC_MODEL_URL</span><span class="p">)</span>
+    <span class="n">paddleocr_args</span> <span class="o">=</span> <span class="n">parse_args</span><span class="p">()</span>
+    <span class="n">paddleocr_args</span><span class="o">.</span><span class="n">use_onnx</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">paddleocr_args</span><span class="o">.</span><span class="n">rec_model_dir</span> <span class="o">=</span> <span class="n">resolve_path</span><span class="p">(</span><span class="n">fpath</span><span class="p">)</span>
+    <span class="n">paddleocr_args</span><span class="o">.</span><span class="n">use_gpu</span> <span class="o">=</span> <span class="n">cuda_available</span><span class="p">()</span>
+    <span class="n">predictor</span> <span class="o">=</span> <span class="n">predict_rec</span><span class="o">.</span><span class="n">TextRecognizer</span><span class="p">(</span><span class="n">paddleocr_args</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">predictor</span></div>
+
+
+
+<div class="viewcode-block" id="load_textdet_model">
+<a class="viewcode-back" href="../../../api.html#texteller.api.load_textdet_model">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_textdet_model</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">predict_det</span><span class="o">.</span><span class="n">TextDetector</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load the text detection model.</span>
+
+<span class="sd">    This function loads the model responsible for detecting text regions in images.</span>
+<span class="sd">    It&#39;s based on PaddleOCR&#39;s text detection model.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        PaddleOCR TextDetector instance</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; from texteller import load_textdet_model</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; text_detector = load_textdet_model()</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fpath</span> <span class="o">=</span> <span class="n">_maybe_download</span><span class="p">(</span><span class="n">TEXT_DET_MODEL_URL</span><span class="p">)</span>
+    <span class="n">paddleocr_args</span> <span class="o">=</span> <span class="n">parse_args</span><span class="p">()</span>
+    <span class="n">paddleocr_args</span><span class="o">.</span><span class="n">use_onnx</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">paddleocr_args</span><span class="o">.</span><span class="n">det_model_dir</span> <span class="o">=</span> <span class="n">resolve_path</span><span class="p">(</span><span class="n">fpath</span><span class="p">)</span>
+    <span class="n">paddleocr_args</span><span class="o">.</span><span class="n">use_gpu</span> <span class="o">=</span> <span class="n">cuda_available</span><span class="p">()</span>
+    <span class="n">predictor</span> <span class="o">=</span> <span class="n">predict_det</span><span class="o">.</span><span class="n">TextDetector</span><span class="p">(</span><span class="n">paddleocr_args</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">predictor</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_maybe_download</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dirpath</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Download a file if it doesn&#39;t already exist.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        url: URL to download from</span>
+<span class="sd">        dirpath: Directory to save the file in. If None, uses the default cache directory.</span>
+<span class="sd">        force: Whether to force download even if the file already exists</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Path to the downloaded file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">dirpath</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">dirpath</span> <span class="o">=</span> <span class="n">Globals</span><span class="p">()</span><span class="o">.</span><span class="n">cache_dir</span>
+    <span class="n">mkdir</span><span class="p">(</span><span class="n">dirpath</span><span class="p">)</span>
+
+    <span class="n">fname</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">name</span>
+    <span class="n">fpath</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">dirpath</span><span class="p">)</span> <span class="o">/</span> <span class="n">fname</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">fpath</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span> <span class="ow">or</span> <span class="n">force</span><span class="p">:</span>
+        <span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Downloading </span><span class="si">{</span><span class="n">fname</span><span class="si">}</span><span class="s2"> from </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">fpath</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">wget</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">resolve_path</span><span class="p">(</span><span class="n">fpath</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">fpath</span>
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By TexTeller Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, TexTeller Team.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
