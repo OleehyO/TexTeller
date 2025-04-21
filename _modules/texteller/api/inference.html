@@ -1,0 +1,669 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>texteller.api.inference &#8212; TexTeller  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/texteller/api/inference';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/logo.svg" class="logo__image only-light" alt="TexTeller  documentation - Home"/>
+    <script>document.write(`<img src="../../../_static/logo.svg" class="logo__image only-dark" alt="TexTeller  documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API Reference</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/OleehyO/TexTeller" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/OleehyO/TexTeller/issues/new?title=Issue%20on%20page%20%2F_modules/texteller/api/inference.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for texteller.api.inference</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">onnxruntime</span><span class="w"> </span><span class="kn">import</span> <span class="n">InferenceSession</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">optimum.onnxruntime</span><span class="w"> </span><span class="kn">import</span> <span class="n">ORTModelForVision2Seq</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">GenerationConfig</span><span class="p">,</span> <span class="n">RobertaTokenizerFast</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">texteller.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">MAX_TOKEN_SIZE</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">texteller.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_logger</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">texteller.paddleocr</span><span class="w"> </span><span class="kn">import</span> <span class="n">predict_det</span><span class="p">,</span> <span class="n">predict_rec</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">texteller.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">Bbox</span><span class="p">,</span> <span class="n">TexTellerModel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">texteller.utils</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">bbox_merge</span><span class="p">,</span>
+    <span class="n">get_device</span><span class="p">,</span>
+    <span class="n">mask_img</span><span class="p">,</span>
+    <span class="n">readimgs</span><span class="p">,</span>
+    <span class="n">remove_style</span><span class="p">,</span>
+    <span class="n">slice_from_image</span><span class="p">,</span>
+    <span class="n">split_conflict</span><span class="p">,</span>
+    <span class="n">transform</span><span class="p">,</span>
+    <span class="n">add_newlines</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.detection</span><span class="w"> </span><span class="kn">import</span> <span class="n">latex_detect</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.format</span><span class="w"> </span><span class="kn">import</span> <span class="n">format_latex</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.katex</span><span class="w"> </span><span class="kn">import</span> <span class="n">to_katex</span>
+
+<span class="n">_logger</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="img2latex">
+<a class="viewcode-back" href="../../../api.html#texteller.api.img2latex">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">img2latex</span><span class="p">(</span>
+    <span class="n">model</span><span class="p">:</span> <span class="n">TexTellerModel</span><span class="p">,</span>
+    <span class="n">tokenizer</span><span class="p">:</span> <span class="n">RobertaTokenizerFast</span><span class="p">,</span>
+    <span class="n">images</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+    <span class="n">device</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">out_format</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;latex&quot;</span><span class="p">,</span> <span class="s2">&quot;katex&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;latex&quot;</span><span class="p">,</span>
+    <span class="n">keep_style</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">max_tokens</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">MAX_TOKEN_SIZE</span><span class="p">,</span>
+    <span class="n">num_beams</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="n">no_repeat_ngram_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert images to LaTeX or KaTeX formatted strings.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        model: The TexTeller or ORTModelForVision2Seq model instance</span>
+<span class="sd">        tokenizer: The tokenizer for the model</span>
+<span class="sd">        images: List of image paths or numpy arrays (RGB format)</span>
+<span class="sd">        device: The torch device to use (defaults to available GPU or CPU)</span>
+<span class="sd">        out_format: Output format, either &quot;latex&quot; or &quot;katex&quot;</span>
+<span class="sd">        keep_style: Whether to keep the style of the LaTeX</span>
+<span class="sd">        max_tokens: Maximum number of tokens to generate</span>
+<span class="sd">        num_beams: Number of beams for beam search</span>
+<span class="sd">        no_repeat_ngram_size: Size of n-grams to prevent repetition</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        List of LaTeX or KaTeX strings corresponding to each input image</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; import torch</span>
+<span class="sd">        &gt;&gt;&gt; from texteller import load_model, load_tokenizer, img2latex</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; model = load_model(model_path=None, use_onnx=False)</span>
+<span class="sd">        &gt;&gt;&gt; tokenizer = load_tokenizer(tokenizer_path=None)</span>
+<span class="sd">        &gt;&gt;&gt; device = torch.device(&quot;cuda&quot; if torch.cuda.is_available() else &quot;cpu&quot;)</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; res = img2latex(model, tokenizer, [&quot;path/to/image.png&quot;], device=device, out_format=&quot;katex&quot;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">images</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+
+    <span class="k">if</span> <span class="n">device</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">device</span> <span class="o">=</span> <span class="n">get_device</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">device</span><span class="o">.</span><span class="n">type</span> <span class="o">!=</span> <span class="n">model</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">type</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">ORTModelForVision2Seq</span><span class="p">):</span>
+            <span class="n">_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Onnxruntime device mismatch: detected </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">device</span><span class="p">)</span><span class="si">}</span><span class="s2"> but model is on </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">device</span><span class="p">)</span><span class="si">}</span><span class="s2">, using </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">device</span><span class="p">)</span><span class="si">}</span><span class="s2"> instead&quot;</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">model</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">images</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">images</span> <span class="o">=</span> <span class="n">readimgs</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># already numpy array(rgb format)</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">images</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span>
+        <span class="n">images</span> <span class="o">=</span> <span class="n">images</span>
+
+    <span class="n">images</span> <span class="o">=</span> <span class="n">transform</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+    <span class="n">pixel_values</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+
+    <span class="n">generate_config</span> <span class="o">=</span> <span class="n">GenerationConfig</span><span class="p">(</span>
+        <span class="n">max_new_tokens</span><span class="o">=</span><span class="n">max_tokens</span><span class="p">,</span>
+        <span class="n">num_beams</span><span class="o">=</span><span class="n">num_beams</span><span class="p">,</span>
+        <span class="n">do_sample</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">pad_token_id</span><span class="o">=</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">pad_token_id</span><span class="p">,</span>
+        <span class="n">eos_token_id</span><span class="o">=</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">eos_token_id</span><span class="p">,</span>
+        <span class="n">bos_token_id</span><span class="o">=</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">bos_token_id</span><span class="p">,</span>
+        <span class="n">no_repeat_ngram_size</span><span class="o">=</span><span class="n">no_repeat_ngram_size</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span>
+        <span class="n">pixel_values</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">device</span><span class="p">),</span>
+        <span class="n">generation_config</span><span class="o">=</span><span class="n">generate_config</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">res</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">batch_decode</span><span class="p">(</span><span class="n">pred</span><span class="p">,</span> <span class="n">skip_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">out_format</span> <span class="o">==</span> <span class="s2">&quot;katex&quot;</span><span class="p">:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="p">[</span><span class="n">to_katex</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">res</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">keep_style</span><span class="p">:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="p">[</span><span class="n">remove_style</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">res</span><span class="p">]</span>
+
+    <span class="n">res</span> <span class="o">=</span> <span class="p">[</span><span class="n">format_latex</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">res</span><span class="p">]</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="p">[</span><span class="n">add_newlines</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">res</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">res</span></div>
+
+
+
+<div class="viewcode-block" id="paragraph2md">
+<a class="viewcode-back" href="../../../api.html#texteller.api.paragraph2md">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">paragraph2md</span><span class="p">(</span>
+    <span class="n">img_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">latexdet_model</span><span class="p">:</span> <span class="n">InferenceSession</span><span class="p">,</span>
+    <span class="n">textdet_model</span><span class="p">:</span> <span class="n">predict_det</span><span class="o">.</span><span class="n">TextDetector</span><span class="p">,</span>
+    <span class="n">textrec_model</span><span class="p">:</span> <span class="n">predict_rec</span><span class="o">.</span><span class="n">TextRecognizer</span><span class="p">,</span>
+    <span class="n">latexrec_model</span><span class="p">:</span> <span class="n">TexTellerModel</span><span class="p">,</span>
+    <span class="n">tokenizer</span><span class="p">:</span> <span class="n">RobertaTokenizerFast</span><span class="p">,</span>
+    <span class="n">device</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">num_beams</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert an image containing both text and mathematical formulas to markdown format.</span>
+
+<span class="sd">    This function processes a mixed-content image by:</span>
+<span class="sd">    1. Detecting mathematical formulas using a latex detection model</span>
+<span class="sd">    2. Masking detected formula areas and detecting text regions using OCR</span>
+<span class="sd">    3. Recognizing text in the detected regions</span>
+<span class="sd">    4. Converting formula regions to LaTeX using the latex recognition model</span>
+<span class="sd">    5. Combining all detected elements into a properly formatted markdown string</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        img_path: Path to the input image containing text and formulas</span>
+<span class="sd">        latexdet_model: ONNX InferenceSession for LaTeX formula detection</span>
+<span class="sd">        textdet_model: OCR text detector model</span>
+<span class="sd">        textrec_model: OCR text recognition model</span>
+<span class="sd">        latexrec_model: TexTeller model for LaTeX formula recognition</span>
+<span class="sd">        tokenizer: Tokenizer for the LaTeX recognition model</span>
+<span class="sd">        device: The torch device to use (defaults to available GPU or CPU)</span>
+<span class="sd">        num_beams: Number of beams for beam search during LaTeX generation</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Markdown formatted string containing the recognized text and formulas</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; from texteller import load_latexdet_model, load_textdet_model, load_textrec_model, load_tokenizer, paragraph2md</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; # Load all required models</span>
+<span class="sd">        &gt;&gt;&gt; latexdet_model = load_latexdet_model()</span>
+<span class="sd">        &gt;&gt;&gt; textdet_model = load_textdet_model()</span>
+<span class="sd">        &gt;&gt;&gt; textrec_model = load_textrec_model()</span>
+<span class="sd">        &gt;&gt;&gt; latexrec_model = load_model()</span>
+<span class="sd">        &gt;&gt;&gt; tokenizer = load_tokenizer()</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; # Convert image to markdown</span>
+<span class="sd">        &gt;&gt;&gt; markdown_text = paragraph2md(</span>
+<span class="sd">        ...     img_path=&quot;path/to/mixed_content_image.jpg&quot;,</span>
+<span class="sd">        ...     latexdet_model=latexdet_model,</span>
+<span class="sd">        ...     textdet_model=textdet_model,</span>
+<span class="sd">        ...     textrec_model=textrec_model,</span>
+<span class="sd">        ...     latexrec_model=latexrec_model,</span>
+<span class="sd">        ...     tokenizer=tokenizer,</span>
+<span class="sd">        ... )</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">img_path</span><span class="p">)</span>
+    <span class="n">corners</span> <span class="o">=</span> <span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">img</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">img</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">img</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">img</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])]</span>
+    <span class="n">bg_color</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">Counter</span><span class="p">(</span><span class="n">corners</span><span class="p">)</span><span class="o">.</span><span class="n">most_common</span><span class="p">(</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">latex_bboxes</span> <span class="o">=</span> <span class="n">latex_detect</span><span class="p">(</span><span class="n">img_path</span><span class="p">,</span> <span class="n">latexdet_model</span><span class="p">)</span>
+    <span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;latex_det_model time: </span><span class="si">{</span><span class="n">end_time</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start_time</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
+    <span class="n">latex_bboxes</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">latex_bboxes</span><span class="p">)</span>
+    <span class="n">latex_bboxes</span> <span class="o">=</span> <span class="n">bbox_merge</span><span class="p">(</span><span class="n">latex_bboxes</span><span class="p">)</span>
+    <span class="n">masked_img</span> <span class="o">=</span> <span class="n">mask_img</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">latex_bboxes</span><span class="p">,</span> <span class="n">bg_color</span><span class="p">)</span>
+
+    <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">det_prediction</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">textdet_model</span><span class="p">(</span><span class="n">masked_img</span><span class="p">)</span>
+    <span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ocr_det_model time: </span><span class="si">{</span><span class="n">end_time</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start_time</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
+    <span class="n">ocr_bboxes</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">Bbox</span><span class="p">(</span>
+            <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
+            <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
+            <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">label</span><span class="o">=</span><span class="s2">&quot;text&quot;</span><span class="p">,</span>
+            <span class="n">confidence</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">content</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">det_prediction</span>
+    <span class="p">]</span>
+
+    <span class="n">ocr_bboxes</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">ocr_bboxes</span><span class="p">)</span>
+    <span class="n">ocr_bboxes</span> <span class="o">=</span> <span class="n">bbox_merge</span><span class="p">(</span><span class="n">ocr_bboxes</span><span class="p">)</span>
+    <span class="n">ocr_bboxes</span> <span class="o">=</span> <span class="n">split_conflict</span><span class="p">(</span><span class="n">ocr_bboxes</span><span class="p">,</span> <span class="n">latex_bboxes</span><span class="p">)</span>
+    <span class="n">ocr_bboxes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">label</span> <span class="o">==</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="n">ocr_bboxes</span><span class="p">))</span>
+
+    <span class="n">sliced_imgs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="n">slice_from_image</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">ocr_bboxes</span><span class="p">)</span>
+    <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">rec_predictions</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">textrec_model</span><span class="p">(</span><span class="n">sliced_imgs</span><span class="p">)</span>
+    <span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ocr_rec_model time: </span><span class="si">{</span><span class="n">end_time</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start_time</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">rec_predictions</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">ocr_bboxes</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">content</span><span class="p">,</span> <span class="n">bbox</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">rec_predictions</span><span class="p">,</span> <span class="n">ocr_bboxes</span><span class="p">):</span>
+        <span class="n">bbox</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="n">content</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">latex_imgs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">bbox</span> <span class="ow">in</span> <span class="n">latex_bboxes</span><span class="p">:</span>
+        <span class="n">latex_imgs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">img</span><span class="p">[</span><span class="n">bbox</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">y</span> <span class="p">:</span> <span class="n">bbox</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">bbox</span><span class="o">.</span><span class="n">h</span><span class="p">,</span> <span class="n">bbox</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">x</span> <span class="p">:</span> <span class="n">bbox</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">bbox</span><span class="o">.</span><span class="n">w</span><span class="p">])</span>
+    <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">latex_rec_res</span> <span class="o">=</span> <span class="n">img2latex</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">=</span><span class="n">latexrec_model</span><span class="p">,</span>
+        <span class="n">tokenizer</span><span class="o">=</span><span class="n">tokenizer</span><span class="p">,</span>
+        <span class="n">images</span><span class="o">=</span><span class="n">latex_imgs</span><span class="p">,</span>
+        <span class="n">num_beams</span><span class="o">=</span><span class="n">num_beams</span><span class="p">,</span>
+        <span class="n">out_format</span><span class="o">=</span><span class="s2">&quot;katex&quot;</span><span class="p">,</span>
+        <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span>
+        <span class="n">keep_style</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;latex_rec_model time: </span><span class="si">{</span><span class="n">end_time</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start_time</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">content</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">latex_bboxes</span><span class="p">,</span> <span class="n">latex_rec_res</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">bbox</span><span class="o">.</span><span class="n">label</span> <span class="o">==</span> <span class="s2">&quot;embedding&quot;</span><span class="p">:</span>
+            <span class="n">bbox</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="s2">&quot; $&quot;</span> <span class="o">+</span> <span class="n">content</span> <span class="o">+</span> <span class="s2">&quot;$ &quot;</span>
+        <span class="k">elif</span> <span class="n">bbox</span><span class="o">.</span><span class="n">label</span> <span class="o">==</span> <span class="s2">&quot;isolated&quot;</span><span class="p">:</span>
+            <span class="n">bbox</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;$$&quot;</span> <span class="o">+</span> <span class="n">content</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;$$&quot;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+
+    <span class="n">bboxes</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">ocr_bboxes</span> <span class="o">+</span> <span class="n">latex_bboxes</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">bboxes</span> <span class="o">==</span> <span class="p">[]:</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="n">md</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">prev</span> <span class="o">=</span> <span class="n">Bbox</span><span class="p">(</span><span class="n">bboxes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">bboxes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;guard&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">curr</span> <span class="ow">in</span> <span class="n">bboxes</span><span class="p">:</span>
+        <span class="c1"># Add the formula number back to the isolated formula</span>
+        <span class="k">if</span> <span class="n">prev</span><span class="o">.</span><span class="n">label</span> <span class="o">==</span> <span class="s2">&quot;isolated&quot;</span> <span class="ow">and</span> <span class="n">curr</span><span class="o">.</span><span class="n">label</span> <span class="o">==</span> <span class="s2">&quot;text&quot;</span> <span class="ow">and</span> <span class="n">prev</span><span class="o">.</span><span class="n">same_row</span><span class="p">(</span><span class="n">curr</span><span class="p">):</span>
+            <span class="n">curr</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="n">curr</span><span class="o">.</span><span class="n">content</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">curr</span><span class="o">.</span><span class="n">content</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;(&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">curr</span><span class="o">.</span><span class="n">content</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;)&quot;</span><span class="p">):</span>
+                <span class="n">curr</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="n">curr</span><span class="o">.</span><span class="n">content</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">tag\{.*\}$&quot;</span><span class="p">,</span> <span class="n">md</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">])</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># in case of multiple tag</span>
+                <span class="n">md</span> <span class="o">=</span> <span class="n">md</span><span class="p">[:</span><span class="o">-</span><span class="mi">5</span><span class="p">]</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;, </span><span class="si">{</span><span class="n">curr</span><span class="o">.</span><span class="n">content</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;}&quot;</span> <span class="o">+</span> <span class="n">md</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">:]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">md</span> <span class="o">=</span> <span class="n">md</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">tag</span><span class="se">{{</span><span class="si">{</span><span class="n">curr</span><span class="o">.</span><span class="n">content</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">md</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">:]</span>
+            <span class="k">continue</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">prev</span><span class="o">.</span><span class="n">same_row</span><span class="p">(</span><span class="n">curr</span><span class="p">):</span>
+            <span class="n">md</span> <span class="o">+=</span> <span class="s2">&quot; &quot;</span>
+
+        <span class="k">if</span> <span class="n">curr</span><span class="o">.</span><span class="n">label</span> <span class="o">==</span> <span class="s2">&quot;embedding&quot;</span><span class="p">:</span>
+            <span class="c1"># remove the bold effect from inline formulas</span>
+            <span class="n">curr</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="n">remove_style</span><span class="p">(</span><span class="n">curr</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+
+            <span class="c1"># change split environment into aligned</span>
+            <span class="n">curr</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="n">curr</span><span class="o">.</span><span class="n">content</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\begin</span><span class="si">{split}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\begin</span><span class="si">{aligned}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">curr</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="n">curr</span><span class="o">.</span><span class="n">content</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\end</span><span class="si">{split}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\end</span><span class="si">{aligned}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="c1"># remove extra spaces (keeping only one)</span>
+            <span class="n">curr</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot; +&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">curr</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="n">curr</span><span class="o">.</span><span class="n">content</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;$&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">curr</span><span class="o">.</span><span class="n">content</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;$&quot;</span><span class="p">)</span>
+            <span class="n">curr</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="s2">&quot; $&quot;</span> <span class="o">+</span> <span class="n">curr</span><span class="o">.</span><span class="n">content</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;$&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;$ &quot;</span>
+        <span class="n">md</span> <span class="o">+=</span> <span class="n">curr</span><span class="o">.</span><span class="n">content</span>
+        <span class="n">prev</span> <span class="o">=</span> <span class="n">curr</span>
+
+    <span class="k">return</span> <span class="n">md</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span></div>
+
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By TexTeller Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, TexTeller Team.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
