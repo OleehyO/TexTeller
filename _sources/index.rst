@@ -20,7 +20,8 @@ You can install TexTeller using pip:
 
 .. code-block:: bash
 
-   pip install texteller
+   pip install uv
+   uv pip install texteller
 
 Quick Start
 ----------
