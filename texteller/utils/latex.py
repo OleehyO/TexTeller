@@ -21,7 +21,7 @@ def _change(input_str, old_inst, new_inst, old_surr_l, old_surr_r, new_surr_l, n
             j = start + 1
             escaped = False
             while j < n and count > 0:
-                if input_str[j] == '\\' and not escaped:
+                if input_str[j] == "\\" and not escaped:
                     escaped = True
                     j += 1
                     continue
@@ -71,10 +71,10 @@ def change_all(input_str, old_inst, new_inst, old_surr_l, old_surr_r, new_surr_l
     for p in pos[::-1]:
         res[p:] = list(
             _change(
-                ''.join(res[p:]), old_inst, new_inst, old_surr_l, old_surr_r, new_surr_l, new_surr_r
+                "".join(res[p:]), old_inst, new_inst, old_surr_l, old_surr_r, new_surr_l, new_surr_r
             )
         )
-    res = ''.join(res)
+    res = "".join(res)
     return res
 
 
@@ -121,7 +121,7 @@ def add_newlines(latex_str: str) -> str:
 
     # 4. Cleanup: Collapse multiple consecutive newlines into a single newline.
     # This handles cases where the replacements above might have created \n\n.
-    processed_str = re.sub(r'\n{2,}', '\n', processed_str)
+    processed_str = re.sub(r"\n{2,}", "\n", processed_str)
 
     # Remove leading/trailing whitespace (including potential single newlines
     # at the very start/end resulting from the replacements) from the entire result.

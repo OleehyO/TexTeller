@@ -41,7 +41,7 @@ def readimgs(image_paths: list[str]) -> list[np.ndarray]:
         if image is None:
             raise ValueError(f"Image at {path} could not be read.")
         if image.dtype == np.uint16:
-            _logger.warning(f'Converting {path} to 8-bit, image may be lossy.')
+            _logger.warning(f"Converting {path} to 8-bit, image may be lossy.")
             image = cv2.convertScaleAbs(image, alpha=(255.0 / 65535.0))
 
         channels = 1 if len(image.shape) == 2 else image.shape[2]
@@ -112,7 +112,7 @@ def transform(images: List[Union[np.ndarray, Image.Image]]) -> List[torch.Tensor
 
     assert IMG_CHANNELS == 1, "Only support grayscale images for now"
     images = [
-        np.array(img.convert('RGB')) if isinstance(img, Image.Image) else img for img in images
+        np.array(img.convert("RGB")) if isinstance(img, Image.Image) else img for img in images
     ]
     images = [trim_white_border(image) for image in images]
     images = [general_transform_pipeline(image) for image in images]

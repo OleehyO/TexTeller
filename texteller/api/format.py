@@ -19,8 +19,8 @@ TEXT_LINE_START = ""
 COMMENT_LINE_START = "% "
 
 # Opening and closing delimiters
-OPENS = ['{', '(', '[']
-CLOSES = ['}', ')', ']']
+OPENS = ["{", "(", "["]
+CLOSES = ["}", ")", "]"]
 
 # Names of LaTeX verbatim environments
 VERBATIMS = ["verbatim", "Verbatim", "lstlisting", "minted", "comment"]
@@ -138,7 +138,7 @@ class Pattern:
                 contains_env_end=ENV_END in s,
                 contains_item=ITEM in s,
                 contains_splitting=True,
-                contains_comment='%' in s,
+                contains_comment="%" in s,
             )
         else:
             return cls(
@@ -146,7 +146,7 @@ class Pattern:
                 contains_env_end=False,
                 contains_item=False,
                 contains_splitting=False,
-                contains_comment='%' in s,
+                contains_comment="%" in s,
             )
 
 
@@ -169,11 +169,11 @@ def find_comment_index(line: str, pattern: Pattern) -> Optional[int]:
 
     in_command = False
     for i, c in enumerate(line):
-        if c == '\\':
+        if c == "\\":
             in_command = True
         elif in_command and not c.isalpha():
             in_command = False
-        elif c == '%' and not in_command:
+        elif c == "%" and not in_command:
             return i
 
     return None
@@ -390,10 +390,10 @@ def find_wrap_point(line: str, indent_length: int, args: Args) -> Optional[int]:
         line_width += 1
         if line_width > wrap_boundary and wrap_point is not None:
             break
-        if c == ' ' and prev_char != '\\':
+        if c == " " and prev_char != "\\":
             if after_char:
                 wrap_point = i
-        elif c != '%':
+        elif c != "%":
             after_char = True
         prev_char = c
 
@@ -483,8 +483,8 @@ def split_line(line: str, state: State, file: str, args: Args, logs: List[Log]) 
     if not match:
         return line, ""
 
-    prev = match.group('prev')
-    rest = match.group('env')
+    prev = match.group("prev")
+    rest = match.group("env")
 
     if args.verbosity >= 3:  # Trace level
         logs.append(
@@ -517,8 +517,8 @@ def clean_text(text: str, args: Args) -> str:
     text = RE_NEWLINES.sub(f"{LINE_END}{LINE_END}", text)
 
     # Remove tabs if they shouldn't be used
-    if args.tabchar != '\t':
-        text = text.replace('\t', ' ' * args.tabsize)
+    if args.tabchar != "\t":
+        text = text.replace("\t", " " * args.tabsize)
 
     # Remove trailing spaces
     text = RE_TRAIL.sub(LINE_END, text)
@@ -577,7 +577,7 @@ def _format_latex(old_text: str, file: str, args: Args) -> Tuple[str, List[Log]]
     new_text = ""
 
     # Select the character used for indentation
-    indent_char = '\t' if args.tabchar == '\t' else ' '
+    indent_char = "\t" if args.tabchar == "\t" else " "
 
     # Get any extra environments to be indented as lists
     lists_begin = [f"\\begin{{{l}}}" for l in args.lists]
